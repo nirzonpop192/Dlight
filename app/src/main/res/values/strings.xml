@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Dlight</string>
+    <string name="user_name_hint">user name</string>
+    <string name="password_hints">password</string>
+    <string name="login">Login</string>
+    <string name="clean">Clean</string>
+    <string name="unsyn_msg">Unsyc</string>
+
+    <string-array name="cameraOption_2">
+        <item>Capture</item>
+        <item>Cancel</item>
+    </string-array>
+    <string name="notification_description">New version Apk Download</string>
 </resources>
