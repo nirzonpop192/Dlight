@@ -1,4 +1,4 @@
-package com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table;
+package com.faisal.technodhaka.dlight.activity.sub;
 
 
 import android.annotation.TargetApi;

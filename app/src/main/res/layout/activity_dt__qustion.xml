@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".activity.sub_activity.dynamic_table.DTResponseRecordingActivity">
+    tools:context=".activity.sub.dynamic_table.DTResponseRecordingActivity">
 
     <include
         android:id="@+id/header"
@@ -37,12 +37,12 @@
 
 
     <LinearLayout
-        android:padding="5dp"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_DtQuestion"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_dtTimePicker"
@@ -171,33 +171,32 @@
 
     </LinearLayout>
 
-  <!--  <LinearLayout
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:layout_above="@id/ll_nextO_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ToggleButton
+    <!--  <LinearLayout
+          android:layout_marginBottom="5dp"
+          android:gravity="center"
+          android:layout_above="@id/ll_nextO_preview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <ToggleButton
 
-            android:id="@+id/toggleButton"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
+              android:id="@+id/toggleButton"
+              android:layout_width="70dp"
+              android:layout_height="35dp"
 
-            android:background="@drawable/toggole_selector"
-            android:checked="false"
+              android:background="@drawable/toggole_selector"
+              android:checked="false"
 
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-    </LinearLayout>-->
-
+              android:text=""
+              android:textOff=""
+              android:textOn="" />
+      </LinearLayout>-->
 
 
     <LinearLayout
-
         android:id="@+id/ll_nextO_preview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/footer"
 
         android:gravity="bottom">
 
@@ -211,6 +210,7 @@
             android:textColor="@color/green"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <ToggleButton
 
             android:id="@+id/toggBtn_freezNUnfeez"

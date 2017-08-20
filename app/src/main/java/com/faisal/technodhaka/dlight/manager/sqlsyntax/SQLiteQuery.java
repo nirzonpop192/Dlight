@@ -2,31 +2,29 @@ package com.faisal.technodhaka.dlight.manager.sqlsyntax;
 
 import android.util.Log;
 
-import com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity;
+import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
 
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
-import com.faisal.technodhaka.dlight.data_model.RegNAssgProgSrv;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.GraduationGridDataModel;
 import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 
 
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP_IG;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP_LG;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP_MG;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP_PG;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.COMMUNITY_GROUP_WE;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.DISTRIBUTION_POINT;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.GEO_LAYER_1;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.GEO_LAYER_2;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.GEO_LAYER_3;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.GEO_LAYER_4;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.GEO_LAYER_ADDRESS;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.LOOKUP_LIST;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.ORGANIZATION_LIST;
-import static com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity.SERVICE_SITE;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP_IG;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP_LG;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP_MG;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP_PG;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.COMMUNITY_GROUP_WE;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.DISTRIBUTION_POINT;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.GEO_LAYER_1;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.GEO_LAYER_2;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.GEO_LAYER_3;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.GEO_LAYER_4;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.GEO_LAYER_ADDRESS;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.LOOKUP_LIST;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.ORGANIZATION_LIST;
+import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.SERVICE_SITE;
 import static com.faisal.technodhaka.dlight.manager.SQLiteHandler.*;
 
 /**

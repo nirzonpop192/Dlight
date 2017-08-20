@@ -1,4 +1,4 @@
-package com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table;
+package com.faisal.technodhaka.dlight.activity.sub;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -41,6 +41,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
 
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.data_model.DTQResModeDataModel;

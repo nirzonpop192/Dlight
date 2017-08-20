@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.faisal.technodhaka.dlight">
 
-    <!--Internet Permission -->
+    <!-- Internet Permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,11 +25,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
-
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
@@ -41,11 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.DynamicTable" />
-        <activity android:name=".activity.sub_activity.dynamic_table.DTResponseActivity"/>
-        <activity android:name=".activity.sub_activity.dynamic_table.DT_ReportActivity"/>
-        <activity android:name=".activity.sub_activity.dynamic_table.DTResponseRecordingActivity"/>
+        <activity android:name=".activity.sub.DTResponseActivity" />
+        <activity android:name=".activity.sub.DT_ReportActivity" />
+        <activity android:name=".activity.sub..DTResponseRecordingActivity" />
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.PrivacyPolicyActivity"></activity>
     </application>
 
 </manifest>

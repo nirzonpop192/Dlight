@@ -195,25 +195,7 @@
     </style>
 
 
-    <style name="lb_reg_label" parent="@android:style/Widget.TextView">
-        <!--
-        android:paddingLeft="4dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_height="wrap_content"
-            android:text="Children (6 to 12 yrs)"
-            android:layout_width="match_parent"
-            android:textSize="13dp"-->
 
-
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingRight">5dp</item>
-        <item name="android:textSize">13sp</item>
-    </style>
 
 
     <style name="lb_reg_age_l_edt" parent="@android:style/Widget.EditText">
@@ -485,5 +467,16 @@
 
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="AppTheme.PopupOverlay">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 </resources>

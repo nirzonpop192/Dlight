@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.faisal.technodhaka.dlight.R;
-import com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseActivity;
-import com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DT_ReportActivity;
+import com.faisal.technodhaka.dlight.activity.sub.DTResponseActivity;
+import com.faisal.technodhaka.dlight.activity.sub.DT_ReportActivity;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.utils.KEY;
 

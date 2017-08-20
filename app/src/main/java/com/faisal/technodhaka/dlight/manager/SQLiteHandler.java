@@ -21,7 +21,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 
-import com.faisal.technodhaka.dlight.activity.sub_activity.dynamic_table.DTResponseRecordingActivity;
+import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
 import com.faisal.technodhaka.dlight.data_model.AGR_DataModel;
 import com.faisal.technodhaka.dlight.data_model.AssignDDR_FFA_DataModel;
 import com.faisal.technodhaka.dlight.data_model.CTDataModel;
@@ -37,11 +37,9 @@ import com.faisal.technodhaka.dlight.data_model.LayRCodes;
 import com.faisal.technodhaka.dlight.data_model.LupTaParticipentCategories;
 import com.faisal.technodhaka.dlight.data_model.Lup_gpsListDataModel;
 import com.faisal.technodhaka.dlight.data_model.ProgramMasterDM;
-import com.faisal.technodhaka.dlight.data_model.RegNAssgProgSrv;
 import com.faisal.technodhaka.dlight.data_model.RegN_HH_libDataModel;
 import com.faisal.technodhaka.dlight.data_model.RegN_MM_libDataModel;
 import com.faisal.technodhaka.dlight.data_model.ServiceCenterItem;
-import com.faisal.technodhaka.dlight.data_model.ServiceSpecificDataModel;
 import com.faisal.technodhaka.dlight.data_model.TAPosParticipants;
 import com.faisal.technodhaka.dlight.data_model.TA_ParticipantsListDataModel;
 import com.faisal.technodhaka.dlight.data_model.TaCategoriesDataModel;
@@ -61,7 +59,6 @@ import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLServerSyntaxGenerator;
 import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLiteQuery;
 import com.faisal.technodhaka.dlight.manager.sqlsyntax.Schema;
 import com.faisal.technodhaka.dlight.utils.FileUtils;
-import com.faisal.technodhaka.dlight.utils.KEY;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 
 import com.faisal.technodhaka.dlight.views.adapters.ListDataModel;
@@ -71,7 +68,6 @@ import com.faisal.technodhaka.dlight.views.adapters.SummaryIdListInGroupDataMode
 import com.faisal.technodhaka.dlight.views.adapters.SummaryModel;
 
 
-import com.faisal.technodhaka.dlight.views.adapters.raf_data_model.GraduationDateCode;
 import com.faisal.technodhaka.dlight.views.helper.LocationHelper;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
 
