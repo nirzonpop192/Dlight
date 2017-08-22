@@ -176,7 +176,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     public static final String REPORT_TEMPLATE_TABLE = "RptTemplateTable";
     public static final String LUP_REGN_CARD_PRINT_REASON_TABLE = "LUP_RegNCardPrintReason";
-    public static final String MEMBER_CARD_PRINT_TABLE = "RegNMemCardPrintTable";
+//    public static final String MEMBER_CARD_PRINT_TABLE = "RegNMemCardPrintTable";
 
     public static final String VOUCHER_ITEM_TABLE = "VOItmTable";
     public static final String VOUCHER_ITEM__MEAS_TABLE = "VOItmMeas";
@@ -213,7 +213,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String REG_N_FFA_TABLE = "RegN_FFA";
     public static final String REG_N_WE_TABLE = "RegN_WE";
     public static final String DTA_SKIP_TABLE = "DTASkipTable";
-    public static final String TA_MASTER_TABLE = "TAMaster";
+/*    public static final String TA_MASTER_TABLE = "TAMaster";
     public static final String TA_CATEGORY_TABLE = "TACategory";
     public static final String TA_EVENT_TOPIC_TABLE = "TAEventTopic";
     public static final String TA_GROUP_TABLE = "TAGroup";
@@ -222,7 +222,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String TA_PART_ORG_N_TABLE = "TAPartOrgN";
     public static final String TA_POS_PARTICIPANTS_TABLE = "TAPosParticipants";
     public static final String TA_TOPIC_CHILD_TABLE = "TATopicChild";
-    public static final String TA_TOPIC_MASTER_TABLE = "TATopicMaster";
+    public static final String TA_TOPIC_MASTER_TABLE = "TATopicMaster";*/
     public static final String LUP_TA_PATICIPANT_CAT_TABLE = "LUP_TAParticipantCat";
 
     public static final String DIST_N_PLAN_BASIC_TABLE = "DistNPlanBasic";
@@ -378,13 +378,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String UPZELLA_TABLE_CUSTOM_QUERY = "UpazellaTableCustomQuery";
 
     // Specific Assigne Table
-    public static final String REG_N_LM_TABLE = "RegN_LM";
+/*    public static final String REG_N_LM_TABLE = "RegN_LM";
     public static final String REG_N_PW_TABLE = "RegN_PW";
     public static final String REG_N_CU2_TABLE = "RegN_CU2";
     public static final String REG_N_CA2_TABLE = "RegN_CA2";
     public static final String REG_N_AGR_TABLE = "RegN_ARG";
     public static final String REG_N_CT_TABLE = "RegN_CT";
-    public static final String REG_N_VUL_TABLE = "RegN_VUL";
+    public static final String REG_N_VUL_TABLE = "RegN_VUL";*/
 
     public static final String LUP_SRV_OPTION_LIST_TABLE = "LUP_SrvOptionList";
     public static final String LUP_GPS_LIST_TABLE = "GPSLUPList";
@@ -759,9 +759,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String USA_END_DATE_COL = "usaEndDate";
     public static final String STATUS = "Status";
 
-    /**
-     * {@link #REG_N_LM_TABLE 's column }
-     */
+
     public static final String LM_DATE_COL = "LMDOB";
     public static final String GRDCODE_COL = "GRDCode";
     public static final String LMGRDDATE_COL = "LMGRDDate";
@@ -769,7 +767,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String CHILD_SEX_COL = "ChildSex";
 
 
-    // ADDED BY POP COLUMN FOR SERVICE CENTER  TABLE
+
 
 
     public static final String SERVICE_CENTER_CODE_COL = "SrvCenterCode";
@@ -890,7 +888,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String VILLAGE_TABLE_QUERY_FOR_RECORDS = "villageQueryForRecords";
 
 
-    public static final String DISTRIBUTION_TABLE = "DistTable";
+//    public static final String DISTRIBUTION_TABLE = "DistTable";
     public static final String DISTRIBUTION_STATUS_COL = "DistStatus";
     public static final String MEM_ID_15_D_COL = "ID";
     public static final String DIST_DATE_COL = "DistDate";
@@ -1300,23 +1298,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_IF_EXISTS + GPS_LOCATION_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + OP_MONTH_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + ADM_COUNTRY_PROGRAM_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_LM_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_PW_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CU2_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CA2_TABLE);
+
         db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_GEO_INFO_ACCESS_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + LUP_REGNH_HEAD_CATEGORY_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_LUP_GRADUATION_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + REPORT_TEMPLATE_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + LUP_REGN_CARD_PRINT_REASON_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + MEMBER_CARD_PRINT_TABLE);
+
         // db.execSQL(DROP_TABLE_IF_EXISTS + UPLOAD_SYNTAX_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + FDP_MASTER_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_FDP_ACCESS_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CT_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + DISTRIBUTION_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_AGR_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_VUL_TABLE);
+
         db.execSQL(DROP_TABLE_IF_EXISTS + SRV_CENTER_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + GEO_LAY_R_MASTER_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + VOUCHER_ITEM_TABLE);
@@ -1367,16 +1359,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_IF_EXISTS + ADM_AWARD_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + SELECTED_OPERATION_MODE_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_SRV_CENTER_ACCESS_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_MASTER_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_CATEGORY_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_EVENT_TOPIC_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_GROUP_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_PARTICIPANTS_LIST_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_PART_ORG_N_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_POS_PARTICIPANTS_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_SUB_GROUP_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_TOPIC_CHILD_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + TA_TOPIC_MASTER_TABLE);
+
         db.execSQL(DROP_TABLE_IF_EXISTS + LUP_TA_PATICIPANT_CAT_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + SELECTED_FDP_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + SELECTED_SERVICE_CENTER_TABLE);
@@ -1437,10 +1420,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         db.execSQL(Schema.sqlCreateStaffFDPAccessTable());
         db.execSQL(Schema.sqlCreateFDP_Master_Table());
-        db.execSQL(Schema.sqlCreateDistributionTable());
-        db.execSQL(Schema.sqlCreateRegN_AGR_Table());
+
+
         db.execSQL(Schema.sqlCreateLUP_SrvOptionList());
-        db.execSQL(Schema.sqlCreateRegNVUL_Table());
+
         db.execSQL(Schema.sqlCreateVoucherItem_Table());
         db.execSQL(Schema.sqlCreateVoucherItemMeas_Table());
         db.execSQL(Schema.sqlCreateVoucherCountryProgItem_Table());
@@ -1485,16 +1468,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(Schema.createTaleDT_LUP_Table());
         db.execSQL(Schema.createTableDTASkipTable());
         /**  training & activity */
-        db.execSQL(Schema.createTAMasterTable());
-        db.execSQL(Schema.createTACategoryTable());
-        db.execSQL(Schema.createTAEventTopicTable());
-        db.execSQL(Schema.createTAGroupTable());
-        db.execSQL(Schema.createTAParticipantsTable());
-        db.execSQL(Schema.createTAPartOrgNTable());
-        db.execSQL(Schema.createTAPosParticipantsTable());
-        db.execSQL(Schema.createTASubGroupTable());
-        db.execSQL(Schema.createTATopicChildTable());
-        db.execSQL(Schema.createTATopicMasterTable());
+
         db.execSQL(Schema.crateLUP_TAParticipantCat());
 
         db.execSQL(Schema.sqlCreateLUP_CommunityFundSource_Table());
@@ -1567,24 +1541,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.execSQL(DROP_TABLE_IF_EXISTS + GPS_LOCATION_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + OP_MONTH_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + ADM_COUNTRY_PROGRAM_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_LM_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_PW_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CU2_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CA2_TABLE);
+
             db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_GEO_INFO_ACCESS_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + LUP_REGNH_HEAD_CATEGORY_TABLE);
             //db.execSQL(DROP_TABLE_IF_EXISTS + LIBERIA_REGISTRATION_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_LUP_GRADUATION_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + REPORT_TEMPLATE_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + LUP_REGN_CARD_PRINT_REASON_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + MEMBER_CARD_PRINT_TABLE);
+
             db.execSQL(DROP_TABLE_IF_EXISTS + UPLOAD_SYNTAX_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + FDP_MASTER_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_FDP_ACCESS_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_CT_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + DISTRIBUTION_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_AGR_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_VUL_TABLE);
+
             db.execSQL(DROP_TABLE_IF_EXISTS + SRV_CENTER_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + GEO_LAY_R_MASTER_TABLE);
 
@@ -1633,16 +1601,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.execSQL(DROP_TABLE_IF_EXISTS + ADM_AWARD_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + SELECTED_OPERATION_MODE_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + STAFF_SRV_CENTER_ACCESS_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_MASTER_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_CATEGORY_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_EVENT_TOPIC_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_GROUP_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_PARTICIPANTS_LIST_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_PART_ORG_N_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_POS_PARTICIPANTS_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_SUB_GROUP_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_TOPIC_CHILD_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + TA_TOPIC_MASTER_TABLE);
+
             db.execSQL(DROP_TABLE_IF_EXISTS + LUP_TA_PATICIPANT_CAT_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + LUP_COMMUNITY_FUND_SOURCE_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + LUP_COMMUNITY_IRRIGATION_SYSTEM_TABLE);
@@ -1775,10 +1734,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.delete(GPS_LOCATION_TABLE, null, null);
             db.delete(OP_MONTH_TABLE, null, null);
             db.delete(ADM_COUNTRY_PROGRAM_TABLE, null, null);
-            db.delete(REG_N_LM_TABLE, null, null);
-            db.delete(REG_N_PW_TABLE, null, null);
-            db.delete(REG_N_CU2_TABLE, null, null);
-            db.delete(REG_N_CA2_TABLE, null, null);
+
             db.delete(STAFF_GEO_INFO_ACCESS_TABLE, null, null);
             db.delete(STAFF_SRV_CENTER_ACCESS_TABLE, null, null);
             db.delete(LUP_REGNH_HEAD_CATEGORY_TABLE, null, null);
@@ -1786,14 +1742,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.delete(REG_N_LUP_GRADUATION_TABLE, null, null);
             db.delete(REPORT_TEMPLATE_TABLE, null, null);
             db.delete(LUP_REGN_CARD_PRINT_REASON_TABLE, null, null);
-            db.delete(MEMBER_CARD_PRINT_TABLE, null, null);
+
             db.delete(UPLOAD_SYNTAX_TABLE, null, null);
             db.delete(FDP_MASTER_TABLE, null, null);
             db.delete(STAFF_FDP_ACCESS_TABLE, null, null);
-            db.delete(REG_N_CT_TABLE, null, null);
-            db.delete(DISTRIBUTION_TABLE, null, null);
-            db.delete(REG_N_AGR_TABLE, null, null);
-            db.delete(REG_N_VUL_TABLE, null, null);
+
             db.delete(SRV_CENTER_TABLE, null, null);
             db.delete(GEO_LAY_R_MASTER_TABLE, null, null);
             db.delete(VOUCHER_ITEM_TABLE, null, null);
@@ -1827,16 +1780,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.delete(LUP_GPS_LIST_TABLE, null, null);
             db.delete(ADM_AWARD_TABLE, null, null);
             db.delete(SELECTED_OPERATION_MODE_TABLE, null, null);
-            db.delete(TA_MASTER_TABLE, null, null);
-            db.delete(TA_CATEGORY_TABLE, null, null);
-            db.delete(TA_EVENT_TOPIC_TABLE, null, null);
-            db.delete(TA_GROUP_TABLE, null, null);
-            db.delete(TA_PARTICIPANTS_LIST_TABLE, null, null);
-            db.delete(TA_PART_ORG_N_TABLE, null, null);
-            db.delete(TA_POS_PARTICIPANTS_TABLE, null, null);
-            db.delete(TA_SUB_GROUP_TABLE, null, null);
-            db.delete(TA_TOPIC_CHILD_TABLE, null, null);
-            db.delete(TA_TOPIC_MASTER_TABLE, null, null);
+
             db.delete(LUP_TA_PATICIPANT_CAT_TABLE, null, null);
             db.delete(ADM_MACHINE_REGISTRY_TABLE, null, null);
             db.delete(ADM_MACHINE_PUBLISHER_TABLE, null, null);
@@ -1853,441 +1797,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-    public List<TaCategoriesDataModel> getTaCategories(String cCode) {
-        List<TaCategoriesDataModel> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
 
 
-        String sql = "SELECT " + ADM_COUNTRY_CODE_COL
-                + " , " + TA_CAT_CODE_COL
-                + " , " + TA_CAT_NAME_COL
-                + " , " + SRC_BEN_COL
-                + " FROM " + TA_CATEGORY_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' ";
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TaCategoriesDataModel data = new TaCategoriesDataModel();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setTaCatCode(cursor.getString(cursor.getColumnIndex(TA_CAT_CODE_COL)));
-                data.setTaCatName(cursor.getString(cursor.getColumnIndex(TA_CAT_NAME_COL)));
-                data.setSrcBen(cursor.getString(cursor.getColumnIndex(SRC_BEN_COL)));
 
 
-                list.add(data);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        db.close();
-        return list;
-    }
-
-    public void addTATopicMasterTable(String topicMasterCode, String topicTitle) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(TOPIC_MASTER_CODE_COL, topicMasterCode);
-        values.put(TOPIC_TITLE_COL, topicTitle);
-
-
-        db.insert(TA_TOPIC_MASTER_TABLE, null, values);
-        db.close();
-    }
-
-
-    public void addTATopicChildTable(String topicMasterCode, String topicChildCode, String topicSubTitle) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(TOPIC_MASTER_CODE_COL, topicMasterCode);
-        values.put(TOPIC_CHILD_CODE_COL, topicChildCode);
-        values.put(TOPIC_SUB_TITLE_COL, topicSubTitle);
-
-
-        db.insert(TA_TOPIC_CHILD_TABLE, null, values);
-        db.close();
-    }
-
-
-    public List<TA_ParticipantsListDataModel> getsingleTaParticipantsListTableRecordsAttendance(String cCode, String eventCode, String partId, String idCategory) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        List<TA_ParticipantsListDataModel> list = new ArrayList<>();
-
-        String sql = "SELECT * FROM " + TA_PARTICIPANTS_LIST_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "'" +
-                " AND " + EVENT_CODE_COL + " = '" + eventCode + "'" +
-                " AND " + PART_ID_COL + " = '" + partId + "' " +
-                " AND " + ID_CATEGORY_COL + " = '" + idCategory + "' ";
-
-
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TA_ParticipantsListDataModel data = new TA_ParticipantsListDataModel();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setEventCode(cursor.getString(cursor.getColumnIndex(EVENT_CODE_COL)));
-
-                data.setPartId(cursor.getString(cursor.getColumnIndex(PART_ID_COL)));
-                data.setIdCatCode(cursor.getString(cursor.getColumnIndex(ID_CATEGORY_COL)));
-                data.setPartName(cursor.getString(cursor.getColumnIndex(PART_NAME_COL)));
-                data.setPartOrgNCode(cursor.getString(cursor.getColumnIndex(PART_ORG_N_CODE_COL)));
-                data.setSex(cursor.getString(cursor.getColumnIndex(TA_PARTICIPANTS_LIST_TABLE_SEX_COL)));
-                data.setPartCatCode(cursor.getString(cursor.getColumnIndex(PART_CAT_CODE_COL)));
-                data.setPosCode(cursor.getString(cursor.getColumnIndex(POS_CODE_COL)));
-                data.setAmSession(cursor.getString(cursor.getColumnIndex(AM_SESSION_COL)));
-                data.setPmSession(cursor.getString(cursor.getColumnIndex(PM_SESSION_COL)));
-                data.setTaGroup(cursor.getString(cursor.getColumnIndex(TA_GROUP_COL)));
-                data.setAtdnDate(cursor.getString(cursor.getColumnIndex(ATDN_DATE_COL)));
-
-                list.add(data);
-
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-
-
-        db.close();
-        return list;
-
-    }
-
-
-    public void editTaParticipantsListTable(String cCode, String eventCode, String partId, String idCatCode,
-                                            String partName, String partOrgNCode, String sex,
-                                            String partCatCode, String posCode, String amSession,
-                                            String pmSession, String atdnDate, String taGroup, String entryBy, String entryDate) {
-
-
-        String where = SQLiteQuery.editTaParticipantsListTable_sql(cCode, eventCode, partId, atdnDate);
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-
-        values.put(ID_CATEGORY_COL, idCatCode);
-        values.put(PART_NAME_COL, partName);
-        values.put(PART_ORG_N_CODE_COL, partOrgNCode);
-        values.put(TA_PARTICIPANTS_LIST_TABLE_SEX_COL, sex);
-        values.put(PART_CAT_CODE_COL, partCatCode);
-        values.put(POS_CODE_COL, posCode);
-        values.put(AM_SESSION_COL, amSession);
-        values.put(PM_SESSION_COL, pmSession);
-        values.put(TA_GROUP_COL, taGroup);
-        values.put(ATDN_DATE_COL, atdnDate);
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-
-        db.update(TA_PARTICIPANTS_LIST_TABLE, values, where, null);
-
-        db.close();
-
-        SQLServerSyntaxGenerator syntaxGenerator = new SQLServerSyntaxGenerator();
-
-        syntaxGenerator.setAdmCountryCode(cCode);
-        syntaxGenerator.setEventCode(eventCode);
-        syntaxGenerator.setPartID(partId);
-        syntaxGenerator.setIDCategory(idCatCode);
-        syntaxGenerator.setPartName(partName);
-        syntaxGenerator.setPartOrgNCode(partOrgNCode);
-        syntaxGenerator.setSex(sex);
-        syntaxGenerator.setPartCatCode(partCatCode);
-        syntaxGenerator.setPosCode(posCode);
-        syntaxGenerator.setAMSession(amSession);
-        syntaxGenerator.setPMSession(pmSession);
-        syntaxGenerator.setAtdnDate(atdnDate);
-        syntaxGenerator.setTAGroup(taGroup);
-        syntaxGenerator.setEntryBy(entryBy);
-        syntaxGenerator.setEntryDate(entryDate);
-        insertIntoUploadTable(syntaxGenerator.updateTAParticipantsList());
-
-
-    }
-
-    public boolean ifExistsInTaParticipantsListTable(String cCode, String eventCode, String partId, String atdnDate) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        boolean flag;
-        String sql = SQLiteQuery.ifExistsInTaParticipantsListTable_sql(cCode, eventCode, partId, atdnDate);
-        Cursor cursor = db.rawQuery(sql, null);
-
-        flag = (cursor.getCount() > 0);
-
-        if (cursor != null)
-            cursor.close();
-
-        db.close();
-        return flag;
-    }
-
-    public TA_ParticipantsListDataModel getTaParticipantsListTable(String cCode, String eventCode, String partId, String idCategory) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        TA_ParticipantsListDataModel data = new TA_ParticipantsListDataModel();
-        String sql = "SELECT * FROM " + TA_PARTICIPANTS_LIST_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "'" +
-                " AND " + EVENT_CODE_COL + " = '" + eventCode + "'" +
-                " AND " + PART_ID_COL + " = '" + partId + "' " +
-                " AND " + ID_CATEGORY_COL + " = '" + idCategory + "' " +
-                " GROUP BY " + PART_ORG_N_CODE_COL + " , " + PART_CAT_CODE_COL + " ," + POS_CODE_COL;
-
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-            data.setEventCode(cursor.getString(cursor.getColumnIndex(EVENT_CODE_COL)));
-
-            data.setPartId(cursor.getString(cursor.getColumnIndex(PART_ID_COL)));
-            data.setIdCatCode(cursor.getString(cursor.getColumnIndex(ID_CATEGORY_COL)));
-            data.setPartName(cursor.getString(cursor.getColumnIndex(PART_NAME_COL)));
-            data.setPartOrgNCode(cursor.getString(cursor.getColumnIndex(PART_ORG_N_CODE_COL)));
-            data.setSex(cursor.getString(cursor.getColumnIndex(TA_PARTICIPANTS_LIST_TABLE_SEX_COL)));
-            data.setPartCatCode(cursor.getString(cursor.getColumnIndex(PART_CAT_CODE_COL)));
-            data.setPosCode(cursor.getString(cursor.getColumnIndex(POS_CODE_COL)));
-            data.setAmSession(cursor.getString(cursor.getColumnIndex(AM_SESSION_COL)));
-            data.setPmSession(cursor.getString(cursor.getColumnIndex(PM_SESSION_COL)));
-            data.setTaGroup(cursor.getString(cursor.getColumnIndex(TA_GROUP_COL)));
-            data.setAtdnDate(cursor.getString(cursor.getColumnIndex(ATDN_DATE_COL)));
-
-
-        }
-        if (cursor != null)
-            cursor.close();
-
-        db.close();
-        return data;
-
-    }
-
-    public List<TaPartOrgN> getTaOrganization(String cCode) {
-        List<TaPartOrgN> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = SQLiteQuery.getTaOrganization_sql(cCode);
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TaPartOrgN data = new TaPartOrgN();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setPartOrgNCode(cursor.getString(cursor.getColumnIndex(PART_ORG_N_CODE_COL)));
-                data.setPartOrgNName(cursor.getString(cursor.getColumnIndex(PART_ORG_N_NAME_COL)));
-                data.setSrcBen(cursor.getString(cursor.getColumnIndex(SRC_BEN_COL)));
-
-
-                list.add(data);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        db.close();
-        return list;
-    }
-
-    public List<LupTaParticipentCategories> getLUP_TAParticipantCategories(String cCode, String taGroup) {
-        List<LupTaParticipentCategories> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = SQLiteQuery.getLUP_TAParticipantCategories_sql(cCode, taGroup);
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-                LupTaParticipentCategories data = new LupTaParticipentCategories();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setTaGroup(cursor.getString(cursor.getColumnIndex(TA_GROUP_COL)));
-                data.setParticipentCategoriesCode(cursor.getString(cursor.getColumnIndex(PART_CAT_CODE_COL)));
-                data.setParticipentCategoriesName(cursor.getString(cursor.getColumnIndex(PART_CAT_TITLE_COL)));
-
-
-                list.add(data);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        db.close();
-        return list;
-    }
-
-    public List<TAPosParticipants> getTAPosParticipants(String cCode) {
-        List<TAPosParticipants> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String sql = "SELECT " + ADM_COUNTRY_CODE_COL
-                + " , " + POS_CODE_COL
-                + " , " + POS_TITLE_COL
-                + " FROM " + TA_POS_PARTICIPANTS_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' ";
-
-
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TAPosParticipants data = new TAPosParticipants();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setPosCode(cursor.getString(cursor.getColumnIndex(POS_CODE_COL)));
-                data.setPosTitle(cursor.getString(cursor.getColumnIndex(POS_TITLE_COL)));
-
-
-                list.add(data);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-        db.close();
-        return list;
-    }
-
-    public void addTASubGroupTable(String cCode, String taGrouPCode, String taSubGrouCode, String taSubGrouTitle) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(TA_GROUP_COL, taGrouPCode);
-        values.put(TA_SUB_GROUP_COL, taSubGrouCode);
-        values.put(TA_SUB_TITLE_COL, taSubGrouTitle);
-
-        db.insert(TA_SUB_GROUP_TABLE, null, values);
-        db.close();
-    }
-
-    public void addTAPosParticipantsTable(String cCode, String posCode, String posTitle) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(POS_CODE_COL, posCode);
-        values.put(POS_TITLE_COL, posTitle);
-
-        db.insert(TA_POS_PARTICIPANTS_TABLE, null, values);
-        db.close();
-    }
-
-
-    public void addTAPartOrgTable(String cCode, String partOrgNCode, String partOrgNName, String srcBen) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(PART_ORG_N_CODE_COL, partOrgNCode);
-        values.put(PART_ORG_N_NAME_COL, partOrgNName);
-        values.put(SRC_BEN_COL, srcBen);
-
-        db.insert(TA_PART_ORG_N_TABLE, null, values);
-        db.close();
-    }
-
-
-    public void addTaParticipantsListTable(String cCode, String eventCode, String partId, String idCatCode,
-                                           String partName, String partOrgNCode, String sex,
-                                           String partCatCode, String posCode, String amSession,
-                                           String pmSession, String atdnDate, String taGroup, String entryBy, String entryDate) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(EVENT_CODE_COL, eventCode);
-        values.put(PART_ID_COL, partId);
-        values.put(ID_CATEGORY_COL, idCatCode);
-        values.put(PART_NAME_COL, partName);
-        values.put(PART_ORG_N_CODE_COL, partOrgNCode);
-        values.put(TA_PARTICIPANTS_LIST_TABLE_SEX_COL, sex);
-        values.put(PART_CAT_CODE_COL, partCatCode);
-        values.put(POS_CODE_COL, posCode);
-        values.put(AM_SESSION_COL, amSession);
-        values.put(PM_SESSION_COL, pmSession);
-        values.put(TA_GROUP_COL, taGroup);
-        values.put(ATDN_DATE_COL, atdnDate);
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-
-        db.insert(TA_PARTICIPANTS_LIST_TABLE, null, values);
-        db.close();
-
-        SQLServerSyntaxGenerator syntaxGenerator = new SQLServerSyntaxGenerator();
-
-        syntaxGenerator.setAdmCountryCode(cCode);
-        syntaxGenerator.setEventCode(eventCode);
-        syntaxGenerator.setPartID(partId);
-        syntaxGenerator.setIDCategory(idCatCode);
-        syntaxGenerator.setPartName(partName);
-        syntaxGenerator.setPartOrgNCode(partOrgNCode);
-        syntaxGenerator.setSex(sex);
-        syntaxGenerator.setPartCatCode(partCatCode);
-        syntaxGenerator.setPosCode(posCode);
-        syntaxGenerator.setAMSession(amSession);
-        syntaxGenerator.setPMSession(pmSession);
-        syntaxGenerator.setAtdnDate(atdnDate);
-        syntaxGenerator.setTAGroup(taGroup);
-        syntaxGenerator.setEntryBy(entryBy);
-        syntaxGenerator.setEntryDate(entryDate);
-        insertIntoUploadTable(syntaxGenerator.insertIntoTAParticipantsList());
-    }
-
-    public void addTAGroupTable(String cCode, String topicGroupCode, String topicGroupTitle) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(TOPIC_GROUP_COL, topicGroupCode);
-        values.put(TOPIC_GROUP_TITLE_COL, topicGroupTitle);
-
-        db.insert(TA_GROUP_TABLE, null, values);
-        db.close();
-    }
-
-    public void addTAEventTopicTable(String cCode, String eventCode, String topicMasterCode, String topicChildCode) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(EVENT_CODE_COL, eventCode);
-        values.put(TOPIC_MASTER_CODE_COL, topicMasterCode);
-        values.put(TOPIC_CHILD_CODE_COL, topicChildCode);
-
-        db.insert(TA_EVENT_TOPIC_TABLE, null, values);
-        db.close();
-    }
-
-    public void addTAcategoryTable(String cCode, String taCatCode, String taCatName, String srcBen) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(TA_CAT_CODE_COL, taCatCode);
-        values.put(TA_CAT_NAME_COL, taCatName);
-        values.put(SRC_BEN_COL, srcBen);
-
-
-        db.insert(TA_CATEGORY_TABLE, null, values);
-        db.close();
-    }
-
-    public void addTaMasterTable(String cCode, String eventCode, String eventName, String donorCode, String awardCode, String taGroup, String taSubGroup, String orgCode, String startDate, String endDate, String vanueName, String vanueAddress, String active, String totalDays, String hourPerDay
-    ) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-
-        values.put(EVENT_CODE_COL, eventCode);
-        values.put(EVENT_NAME_COL, eventName);
-        values.put(ADM_DONOR_CODE_COL, donorCode);
-
-        values.put(ADM_AWARD_CODE_COL, awardCode);
-        values.put(TA_GROUP_COL, taGroup);
-        values.put(TA_SUB_GROUP_COL, taSubGroup);
-        values.put(PROGRAM_ORGANIZATION_NAME_TABLE_ORG_CODE_COL, orgCode);
-        values.put(START_DATE_COL, startDate);
-        values.put(END_DATE_COL, endDate);
-        values.put(VENUE_NAME_COL, vanueName);
-        values.put(VENUE_ADDRESS_COL, vanueAddress);
-        values.put(ACTIVE_COL, active);
-        values.put(TOTAL_DAYS_COL, totalDays);
-        values.put(HOURS_PER_DAY_COL, hourPerDay);
-
-        db.insert(TA_MASTER_TABLE, null, values);
-        db.close();
-
-    }
 
     /**
      * @param cCode       Country Code
@@ -2877,69 +2390,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-    public void addInDistributionTableFormOnLine(DistributionSaveDataModel dist_data) {
-        dist_data.setEntryBy("-");
-        dist_data.setEntryDate("-");
-        addInDistributionTable(dist_data, true);
-
-    }
-
-    public long addInDistributionTable(DistributionSaveDataModel distData, boolean fromOnline) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, distData.getCountryCode());
-        values.put(ADM_DONOR_CODE_COL, distData.getAdmDonorCode());
-        values.put(ADM_AWARD_CODE_COL, distData.getAdmAwardCode());
-        values.put(LAY_R1_LIST_CODE_COL, distData.getDistrictCode());
-        values.put(LAY_R2_LIST_CODE_COL, distData.getUpCode());
-        values.put(LAY_R3_LIST_CODE_COL, distData.getUniteCode());
-        values.put(LAY_R4_LIST_CODE_COL, distData.getVillageCode());
-        values.put(PROG_CODE_COL, distData.getProgCode());
-        values.put(SRV_CODE_COL, distData.getSrvCode());
-        values.put(OP_MONTH_CODE_COL, distData.getOpMonthCode());
-        values.put(FDP_CODE_COL, distData.getFDPCode());
-        values.put(MEM_ID_15_D_COL, distData.getID());
-        values.put(DISTRIBUTION_STATUS_COL, distData.getDistStatus());
-        values.put(SRV_OP_MONTH_CODE_COL, distData.getSrvOpMonthCode());
-        values.put(DIST_FLAG_COL, distData.getDistFlag());
-        values.put(WORK_DAY_COL, distData.getWd());
 
 
-        values.put(ENTRY_BY, distData.getEntryBy());
-        values.put(ENTRY_DATE, distData.getEntryDate());
-        long id = db.insert(DISTRIBUTION_TABLE, null, values);
 
-        db.close();
-
-        if (!fromOnline) {
-            /** upload syntax*/
-            SQLServerSyntaxGenerator distributedData = new SQLServerSyntaxGenerator();
-            distributedData.setAdmCountryCode(distData.getCountryCode());
-            distributedData.setAdmDonorCode(distData.getAdmDonorCode());
-            distributedData.setAdmAwardCode(distData.getAdmAwardCode());
-            distributedData.setLayR1ListCode(distData.getDistrictCode());
-            distributedData.setLayR2ListCode(distData.getUpCode());
-            distributedData.setLayR3ListCode(distData.getUniteCode());
-            distributedData.setLayR4ListCode(distData.getVillageCode());
-            distributedData.setProgCode(distData.getProgCode());
-            distributedData.setSrvCode(distData.getSrvCode());
-            distributedData.setOpMonthCode(distData.getOpMonthCode());
-            distributedData.setFDPCode(distData.getFDPCode());
-            distributedData.setID(distData.getID());
-            distributedData.setDistStatus(distData.getDistStatus());
-            distributedData.setSrvOpMonthCode(distData.getSrvOpMonthCode());
-            distributedData.setDistFlag(distData.getDistFlag());
-            distributedData.setWD(distData.getWd());
-            distributedData.setEntryBy(distData.getEntryBy());
-            distributedData.setEntryDate(distData.getEntryDate());
-
-            insertIntoUploadTable(distributedData.insertIntoDistributionTable());
-            insertIntoUploadTable(distributedData.distMemAttend_sp());
-        }
-
-
-        return id;
-    }
 
 
 
@@ -3091,108 +2544,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return userId;
     }
 
-    public boolean ifExistsInCU2Table(AssignDataModel asPeople) {
-        boolean flag = false;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + REG_N_CU2_TABLE + " WHERE    " + ADM_COUNTRY_CODE_COL + "=? AND " + LAY_R1_LIST_CODE_COL + "=? AND "
-                        + LAY_R2_LIST_CODE_COL + "=? AND " + LAY_R3_LIST_CODE_COL + "=? AND " + LAY_R4_LIST_CODE_COL + "=? AND " + HHID_COL + "=? AND " + MEM_ID_COL + "=?  ",
-                new String[]{asPeople.getCountryCode(), asPeople.getDistrictCode(), asPeople.getUpazillaCode(), asPeople.getUnitCode(), asPeople.getVillageCode(),
-                        asPeople.getHh_id(), asPeople.getMemId()});//*keyValue,keyvalue1*/});
-
-        flag = (cursor.getCount() > 0) ? true : false;
-
-        if (cursor != null)
-            cursor.close();
-        db.close();
-
-        return flag;
-    }
-
-    public int editMemberDataIn_CU2(AssignDataModel assMem, String dob, String childName, String childSex) {
 
 
-        SQLiteDatabase db = this.getWritableDatabase();
 
 
-        ContentValues values = new ContentValues();
-        values.put(ADM_PROG_CODE_COL, assMem.getProgram_code());
-        values.put(ADM_SRV_CODE_COL, assMem.getService_code());
-        values.put(REG_N_DAT_COL, assMem.getRegNDate());
-        values.put(CU2DOB_DATE_COL, dob); // GDR Date
-        values.put(GRD_CODE_COL, assMem.getGrdCode());
-        values.put(CU2_GRD_DATE_COL, assMem.getGrdDate()); // GDR_Date
-        values.put(ENTRY_BY, assMem.getEntryBy());
-        values.put(ENTRY_DATE, assMem.getEntryDate());
-
-        values.put(CHILD_NAME_COL, childName);
-        values.put(CHILD_SEX_COL, childSex);
 
 
-        String query = ADM_COUNTRY_CODE_COL + " = '" + assMem.getCountryCode() + "' AND " +
-                LAY_R1_LIST_CODE_COL + " = '" + assMem.getDistrictCode() + "' AND " +
-                LAY_R2_LIST_CODE_COL + " = '" + assMem.getUpazillaCode() + "' AND " +
-                LAY_R3_LIST_CODE_COL + " = '" + assMem.getUnitCode() + "' AND " +
-                LAY_R4_LIST_CODE_COL + " = '" + assMem.getVillageCode() + "' AND " +
-                HHID_COL + " = '" + assMem.getHh_id() + "' AND " +
-                MEM_ID_COL + " = '" + assMem.getMemId() + "'  ";
 
 
-        int id = db.update(REG_N_CU2_TABLE, values, query, null);
-
-        db.close();
-        return id;
-    }
-
-    /*public long addMemberInto_CU2(AssignDataModel assingPerson, String dob) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(COUNTRY_CODE, assingPerson.getCountryCode()); // country name
-
-        values.put(LAY_R_LIST_CODE_COL, assingPerson.getDistrictCode()); // district name
-        values.put(LAY_R2_LIST_CODE_COL, assingPerson.getUpazillaCode()); // upazilla name
-        values.put(LAY_R3_LIST_CODE_COL, assingPerson.getUnitCode()); // Unit name
-        values.put(LAY_R4_LIST_CODE_COL, assingPerson.getVillageCode()); // village  name
-
-
-        values.put(HHID_COL, assingPerson.getHh_id()); // Hh id
-        values.put(HH_MEM_ID, assingPerson.getMemId()); // member id
-        values.put(ADM_PROG_CODE_COL, assingPerson.getProgram_code()); // program Code
-        values.put(ADM_SRV_CODE_COL, assingPerson.getService_code()); // service Code
-
-        values.put(REG_N_DAT_COL, assingPerson.getRegNDate()); //
-        values.put(CU2DOB_DATE_COL, dob);
-        values.put(GRD_CODE_COL, assingPerson.getGrdCode());
-        values.put(CU2_GRD_DATE_COL, assingPerson.getGrdDate()); // GDR_Date
-
-        values.put(ENTRY_BY, assingPerson.getEntryBy());
-        values.put(ENTRY_DATE, assingPerson.getEntryDate());
-
-// values.put(GRD_CODE_COL,"00"); // GDR_CODE
-        //  values.put(GRD_DATE_COL,"00"); // GDR_Date
-
-
-        // Inserting Row
-        long id = db.insert(REG_N_CU2_TABLE, null, values);
-        db.close(); // Closing database connection
-        // updateRegNLMFStatus(assingPerson, 0);
-        Log.d(TAG, "add member to the CU2 table: " + id);
-        return id;
-    }*/
-
-
-    /**
-     * Todo : Save permission
-     *
-     * @param cCode
-     * @param districtCode
-     * @param unitCode
-     * @param upzellaCode
-     * @param vCode
-     */
 
     public boolean getSavePermissionForHHEntries(String cCode, String districtCode, String upzellaCode, String unitCode, String vCode) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -3214,27 +2573,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-    public boolean getDeletePermissionForHHEntries(String cCode, String districtCode, String upzellaCode, String unitCode, String vCode) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String savePermission = "";
-        String selectQuery = SQLiteQuery.getSavePermissionSelectQuery(STAFF_GEO_INFO_ACCESS_TABLE, BTN_DEL_COL, cCode, districtCode, upzellaCode, unitCode, vCode);
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                savePermission = cursor.getString(cursor.getColumnIndex(BTN_DEL_COL));
-            }
-        }
-        if (cursor != null)
-            cursor.close();
-        db.close();
 
-      /*  if (savePermission.equals("1")) return true;
-        else
-            return  false;
-            */
-        // simplefli version
-        return savePermission.equals("1");
-    }
 
 
     public void addStaffGeoAccessInfo(String staffCode, String cCode, String donorCode, String awardCode, String layrListCode/*, String districtCode, String upzellaCode, String unitCode, String vCode*/, String btnNew, String btnSave, String btnDel, String btnpepr, String btnAprv, String btnRevw, String btnVrfy, String btnDtrain) {
@@ -3435,41 +2774,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     }
-
-
-
-
-
-
-
-    /**
-     * @return specific data exit or not
-     * @see #checkDataExistInTable(String, String)
-     */
-
-    public boolean ifDataExistIn_RegN_AGR(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID, String mmId) {
-        return checkDataExistInTable(SQLiteQuery.checkDataExitsQueryInRegN__TableSQL(REG_N_AGR_TABLE, cCode, distCode, upCode, unCode, vCode, hhID, mmId), REG_N_AGR_TABLE);
-    }
-
-    public boolean ifDataExistIn_RegN_FFA(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID, String mmId) {
-        return checkDataExistInTable(SQLiteQuery.checkDataExitsQueryInRegN__TableSQL(REG_N_FFA_TABLE, cCode, distCode, upCode, unCode, vCode, hhID, mmId), REG_N_FFA_TABLE);
-    }
-
-    public boolean ifDataExistIn_RegN_WE(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID, String mmId) {
-        return checkDataExistInTable(SQLiteQuery.checkDataExitsQueryInRegN__TableSQL(REG_N_WE_TABLE, cCode, distCode, upCode, unCode, vCode, hhID, mmId), REG_N_WE_TABLE);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3866,117 +3170,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-    public String getMaxCardRequesSl(String cCode, String donorCode,
-                                     String awardCode, String disCode,
-                                     String upCode, String unCode,
-                                     String vCode, String hhID,
-                                     String memID, String rptGroup,
-                                     String reportCode) {
-        String lasSl = "";
-        //String temp="";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT CASE WHEN MAX( " + CARD_REQUEST_SL_COL + " ) IS NULL THEN '0' ELSE " + CARD_REQUEST_SL_COL + " END AS SL" +
-                " FROM " + MEMBER_CARD_PRINT_TABLE + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' " +
-                " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + disCode + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' " +
-                " AND " + HHID_COL + " = '" + hhID + "' " +
-                " AND " + MEM_ID_COL + " = '" + memID + "' " +
-                " AND " + REPORT_GROUP_COL + " = '" + rptGroup + "' " +
-                " AND " + REPORT_CODE_COL + " = '" + reportCode + "' ";
-        Cursor cursor = null;
-        try {
-            cursor = db.rawQuery(selectQuery, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    lasSl = cursor.getString(cursor.getColumnIndex("SL"));
-                }
-
-            }
-        } catch (NullPointerException e) {
-//            Log.e(TAG, "In getMaxCardRequesSl() method Exeption " + e);
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-
-
-        db.close();
-
-        if (lasSl.length() > 0) {
-            int padd = 3 - lasSl.length();
-            for (int i = 0; i < padd; i++) {
-                lasSl = "0" + lasSl;
-            }
-        } else {
-            lasSl = "000";
-        }
-
-
-        return lasSl;
-    }
-
-    /**
-     * @param cCode    String
-     * @param distCode String
-     * @param upCode   String
-     * @param unCode   String
-     * @param vCode    String
-     * @param hhID     String
-     * @param mmId     String
-     * @return AGR_DataModel
-     * Data Check for AGR Table
-     */
-    public AGR_DataModel checkAssignCriteriaInAGR_TableForMalwai(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID, String mmId, boolean impelmetedinMain) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = SQLiteQuery.checkDataExitsQueryInAGR_TableAssignForMalwai(cCode, distCode, upCode, unCode, vCode, hhID, mmId, impelmetedinMain);
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        AGR_DataModel agr_dataModel = new AGR_DataModel();
-// default value
-        agr_dataModel.setElderleyYN("N");
-        agr_dataModel.setLandSize("00");
-        agr_dataModel.setDepenonGanyu("N");
-        agr_dataModel.setWillingness("N");
-        agr_dataModel.setWinterCultivation("N");
-        agr_dataModel.setVulnerableHh("N");
-        agr_dataModel.setPlantingVcrop(null);
-        //    Log.d(TAG, "In check AssignCriteria In AGR _ Table For Malwai");
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-
-                agr_dataModel.setElderleyYN(cursor.getString(cursor.getColumnIndex(ELDERLY_YN_COL)));
-
-                agr_dataModel.setLandSize(cursor.getString(cursor.getColumnIndex(LAND_SIZE_COL)));
-
-                agr_dataModel.setDepenonGanyu(cursor.getString(cursor.getColumnIndex(DEPEND_ON_GANYU_COL)));
-                agr_dataModel.setWillingness(cursor.getString(cursor.getColumnIndex(WILLINGNESS_COL)));
-
-                agr_dataModel.setWinterCultivation(cursor.getString(cursor.getColumnIndex(WINTER_CULTIVATION_COL)));
-                agr_dataModel.setVulnerableHh(cursor.getString(cursor.getColumnIndex(VULNERABLE_HH_COL)));
-                agr_dataModel.setPlantingVcrop(cursor.getString(cursor.getColumnIndex(PLANTING_VALUE_CHAIN_CROP_COL)));
-                agr_dataModel.setRegnDate(cursor.getString(cursor.getColumnIndex(REG_N_DAT_COL)));
-
-
-                agr_dataModel.setAgInvc(cursor.getString(cursor.getColumnIndex(AG_INVC_COL)));
-                agr_dataModel.setAgNasfam(cursor.getString(cursor.getColumnIndex(AG_NASFAM_COL)));
-                agr_dataModel.setAgCu(cursor.getString(cursor.getColumnIndex(AG_CU_COL)));
-                agr_dataModel.setAgOrther(cursor.getString(cursor.getColumnIndex(AG_OTHER_COL)));
-                agr_dataModel.setIntGoat(cursor.getInt(cursor.getColumnIndex(AG_L_S_GOAT_COL)));
-                agr_dataModel.setIntChicken(cursor.getInt(cursor.getColumnIndex(AG_L_S_CHICKEN_COL)));
-                agr_dataModel.setIntPegion(cursor.getInt(cursor.getColumnIndex(AG_L_S_PIGION_COL)));
-                agr_dataModel.setIntOther(cursor.getInt(cursor.getColumnIndex(AG_L_S_OTHER_COL)));
-
-
-            }
-            cursor.close();
-        }
-        db.close();
-        return agr_dataModel;
-    }
 
 
     public AGR_DataModel checkAssignCriteriaInRegN_WE(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID, String mmId) {
@@ -4015,376 +3208,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
         return agr_dataModel;
     }
-
-    /**
-     * @since :2015-11-09
-     * <p>
-     * <p>
-     * <p>
-     * get DalivaryStatus no from MemberCardRequestTable
-     */
-    public String getCardDeliveryStatus(String cCode, String donorCode, String awardCode, String disCode, String upCode, String unCode, String vCode, String hhID, String memID, String rptGroup, String reportCode, String requestSl) {
-        String cardDelivaryStatus = "";
-        //String temp="";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  CASE WHEN " + DELIVERY_STATUS_COL + " " +
-                " IS NULL THEN 'N' ELSE " + DELIVERY_STATUS_COL + " END AS deliveryStatus " +
-                " FROM " + MEMBER_CARD_PRINT_TABLE + " WHERE " + CARD_REQUEST_SL_COL + " = '" + requestSl + "' " +
-                " AND " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' " +
-                " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + disCode + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' " +
-                " AND " + HHID_COL + " = '" + hhID + "' " +
-                " AND " + MEM_ID_COL + " = '" + memID + "' " +
-                " AND " + REPORT_GROUP_COL + " = '" + rptGroup + "' " +
-                " AND " + REPORT_CODE_COL + " = '" + reportCode + "' ";
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(selectQuery, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    cardDelivaryStatus = cursor.getString(cursor.getColumnIndex("deliveryStatus"));
-
-                }
-
-            }
-        } catch (NullPointerException e) {
-//            Log.e(TAG, "in getCardDeliveryStatus() get Exception " + e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-        }
-        db.close();
-
-        return cardDelivaryStatus;
-    }
-
-
-    public String getCardDeliveryDate(String cCode, String donorCode,
-                                      String awardCode, String disCode,
-                                      String upCode, String unCode,
-                                      String vCode, String hhID,
-                                      String memID, String rptGroup,
-                                      String reportCode, String requestSl) {
-        String cardPrintDate = "";
-        //String temp="";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  CASE WHEN MAX(" + DELIVERY_DATE_COL + ")" +
-                " IS NULL THEN '' ELSE " + DELIVERY_DATE_COL + " END AS deliveryDate " +
-                " FROM " + MEMBER_CARD_PRINT_TABLE + " WHERE " + CARD_REQUEST_SL_COL + " = '" + requestSl + "' " +
-                " AND " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' " +
-                " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + disCode + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' " +
-                " AND " + HHID_COL + " = '" + hhID + "' " +
-                " AND " + MEM_ID_COL + " = '" + memID + "' " +
-                " AND " + REPORT_GROUP_COL + " = '" + rptGroup + "' " +
-                " AND " + REPORT_CODE_COL + " = '" + reportCode + "' ";
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(selectQuery, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    cardPrintDate = cursor.getString(cursor.getColumnIndex("deliveryDate"));
-               /*     *//** @tips: For Removing timestamp 2015-06-06 00:00:00.00 to 2015-06-06
-                     * use mm-- dd--YYYY*//*
-                    String dateformat = "";
-                    if (cardPrintDate.length() > 5 && !cardPrintDate.equals("No Data found")) {
-                        cardPrintDate = cardPrintDate.substring(0, 10);
-                        dateformat = "";
-                        dateformat = dateformat + cardPrintDate.substring(5, 7) + "-" + cardPrintDate.substring(8, 10) + "-" + cardPrintDate.substring(0, 4);
-                        cardPrintDate = dateformat;
-                    }*/
-                }
-
-            }
-        } catch (NullPointerException e) {
-//            Log.e(TAG, "in getCardRequestDate() get Exception " + e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-        }
-        db.close();
-
-        return cardPrintDate;
-    }
-
-
-    /**
-     * date :2015-11-07
-     * modified:
-     * author : Faisal mohamad
-     * status
-     * description : get Serial no from MemberCardRequestTable
-     */
-    public String getCardPrintDate(String cCode, String donorCode, String awardCode, String disCode, String upCode, String unCode, String vCode, String hhID, String memID, String rptGroup,
-                                   String reportCode, String requestSl) {
-        String cardPrintDate = "";
-        //String temp="";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  CASE WHEN MAX(" + PRINT_DATE_COL + ")" +
-                " IS NULL THEN '' ELSE " + PRINT_DATE_COL + " END AS printDate " +
-                " FROM " + MEMBER_CARD_PRINT_TABLE + " WHERE " + CARD_REQUEST_SL_COL + " = '" + requestSl + "' " +
-                " AND " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' " +
-                " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + disCode + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' " +
-                " AND " + HHID_COL + " = '" + hhID + "' " +
-                " AND " + MEM_ID_COL + " = '" + memID + "' " +
-                " AND " + REPORT_GROUP_COL + " = '" + rptGroup + "' " +
-                " AND " + REPORT_CODE_COL + " = '" + reportCode + "' ";
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(selectQuery, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    cardPrintDate = cursor.getString(cursor.getColumnIndex("printDate"));
-                    /** @tips: For Removing timestamp 2015-06-06 00:00:00.00 to 2015-06-06
-                     * use mm-- dd--YYYY*/
-                   /* String dateformat = "";
-                    if (cardPrintDate.length() > 5 && !cardPrintDate.equals("No Data found")) {
-                        cardPrintDate = cardPrintDate.substring(0, 10);
-                        dateformat = "";
-                        dateformat = dateformat + cardPrintDate.substring(5, 7) + "-" + cardPrintDate.substring(8, 10) + "-" + cardPrintDate.substring(0, 4);
-                        cardPrintDate = dateformat;
-                    }*/
-                }
-
-            }
-        } catch (NullPointerException e) {
-//            Log.e(TAG, "in getCardRequestDate() get Exception " + e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-        }
-        db.close();
-
-        return cardPrintDate;
-    }
-
-
-    public long addCardDelivaryDate(String c_code, String donorCode, String awardCode, String disCode, String upCode, String unCode, String vCode, String hhid, String memid, String reportGroupCode, String reportCode, String cRequestSl, String cpReasonCode,
-                                    String deliveryDate, String deliveryBy) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-
-        ContentValues values = new ContentValues();
-
-        values.put(DELIVERY_DATE_COL, deliveryDate);
-        values.put(DELIVERY_BY_COL, deliveryBy);
-        values.put(DELIVERY_STATUS_COL, "Y");
-//        values.put(SYNC_COL, "0");
-
-
-        String query = ADM_COUNTRY_CODE_COL + " = '" + c_code + "' AND " +
-                ADM_DONOR_CODE_COL + " = '" + donorCode + "'" +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "'" +
-                " AND " + LAY_R_LIST_CODE_COL + " = '" + disCode + "'" +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "'" +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "'" +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' AND " +
-                HHID_COL + " = '" + hhid + "' AND " +
-                HH_MEM_ID + " = '" + memid + "'AND  " +
-                REPORT_GROUP_COL + " = '" + reportGroupCode + "'AND  " +
-                REPORT_CODE_COL + " = '" + reportCode + "'AND  " +
-                CARD_REQUEST_SL_COL + " = '" + cRequestSl + "'AND  " +
-                CARD_PRINT_REASON_CODE_COL + " = '" + cpReasonCode + "' ";
-
-
-        // updating row
-        int id = db.update(MEMBER_CARD_PRINT_TABLE, values, query, null);
-//        Log.d(TAG, "update Card Member Card Print's DelevaryDate  of MemberCardPrint Table: " + id);
-
-
-        return id;
-
-
-    }
-
-
-    public long addCardRequestDataFromOnline(String c_code, String donorCode, String awardCode, String disCode, String upCode, String unCode, String vCode, String hhid, String memid, String reportGroupCode, String reportCode, String cRequestSl, String cpReasonCode,
-                                             String requestDate, String printDate, String printBy, String deliveryDate, String deliveryBy, String deliveryStatus, String entryBy, String entryDate) {
-
-
-        // TODO :: photo
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, c_code);
-        values.put(ADM_DONOR_CODE_COL, donorCode);
-        values.put(ADM_AWARD_CODE_COL, awardCode);
-
-        values.put(MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL, disCode);
-        values.put(LAY_R2_LIST_CODE_COL, upCode);
-        values.put(LAY_R3_LIST_CODE_COL, unCode);
-        values.put(LAY_R4_LIST_CODE_COL, vCode);
-
-        values.put(HHID_COL, hhid); // Registration id
-        values.put(MEM_ID_COL, memid); // member id
-
-
-        values.put(REPORT_GROUP_COL, reportGroupCode);
-        values.put(REPORT_CODE_COL, reportCode);
-        values.put(CARD_REQUEST_SL_COL, cRequestSl);
-        values.put(CARD_PRINT_REASON_CODE_COL, cpReasonCode);
-        values.put(REQUEST_DATE_COL, requestDate);
-        values.put(PRINT_DATE_COL, printDate);
-        values.put(PRINT_BY_COL, printBy);
-        values.put(DELIVERY_DATE_COL, deliveryDate);
-        values.put(DELIVERY_BY_COL, deliveryBy);
-
-        values.put(DELIVERY_STATUS_COL, deliveryStatus);
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-//        values.put(SYNC_COL, "1");
-
-        //  values.put(GRD_DATE_COL,"00"); // GDR_Date
-
-
-        // Inserting Row
-        long id = db.insert(MEMBER_CARD_PRINT_TABLE, null, values);
-        db.close(); // Closing database connection
-        // updateRegNLMFStatus(assingPerson, 0);
-//        Log.d(TAG, "New Member Card Print data added into MemberCardPrint Table: " + id);
-        return id;
-    }
-
-
-    public long addCardRequestDate(String c_code, String donorCode, String awardCode,
-                                   String disCode, String upCode, String unCode,
-                                   String vCode, String hhid, String memid,
-                                   String reportGroupCode, String reportCode, String cRequestSl, String cpReasonCode,
-                                   String requestDate, String entryBy,
-                                   String entryDate) {
-
-
-        // TODO :: photo
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, c_code);
-        values.put(ADM_DONOR_CODE_COL, donorCode);
-        values.put(ADM_AWARD_CODE_COL, awardCode);
-
-        values.put(MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL, disCode);
-        values.put(LAY_R2_LIST_CODE_COL, upCode);
-        values.put(LAY_R3_LIST_CODE_COL, unCode);
-        values.put(LAY_R4_LIST_CODE_COL, vCode);
-
-        values.put(HHID_COL, hhid); // Registration id
-        values.put(MEM_ID_COL, memid); // member id
-
-
-        values.put(REPORT_GROUP_COL, reportGroupCode);
-        values.put(REPORT_CODE_COL, reportCode);
-        values.put(CARD_REQUEST_SL_COL, cRequestSl);
-        values.put(CARD_PRINT_REASON_CODE_COL, cpReasonCode);
-        values.put(REQUEST_DATE_COL, requestDate);
-
-        values.put(DELIVERY_STATUS_COL, "N");
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-        values.put(SYNC_COL, "0");
-
-
-        //  values.put(GRD_DATE_COL,"00"); // GDR_Date
-
-
-        // Inserting Row
-        long id = db.insert(MEMBER_CARD_PRINT_TABLE, null, values);
-        db.close(); // Closing database connection
-        // updateRegNLMFStatus(assingPerson, 0);
-//        Log.d(TAG, "New Member Card Print data added into MemberCardPrint Table: " + id);
-        return id;
-    }
-
-
-    /**
-     * date :2015-11-07
-     * modified: 2015-11-07
-     * <p>
-     * <p>
-     * get Serial no from MemberCardRequestTable
-     */
-    public String getCardRequestDate(String cCode, String donorCode, String awardCode, String disCode, String upCode, String unCode, String vCode, String hhID,
-                                     String memID, String rptGroup, String reportCode, String requestSl) {
-        String cardRequestDate = "";
-        //String temp="";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  CASE WHEN MAX(" + REQUEST_DATE_COL + ")" +
-                " IS NULL THEN '' ELSE " + REQUEST_DATE_COL + " END AS requestDate " +
-                " FROM " + MEMBER_CARD_PRINT_TABLE + " WHERE " + CARD_REQUEST_SL_COL + " = '" + requestSl + "' " +
-                " AND " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' " +
-                " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + disCode + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + upCode + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + unCode + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + vCode + "' " +
-                " AND " + HHID_COL + " = '" + hhID + "' " +
-                " AND " + MEM_ID_COL + " = '" + memID + "' " +
-                " AND " + REPORT_GROUP_COL + " = '" + rptGroup + "' " +
-                " AND " + REPORT_CODE_COL + " = '" + reportCode + "' ";
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(selectQuery, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    cardRequestDate = cursor.getString(cursor.getColumnIndex("requestDate"));
-                    /** @tips: For Removing timestamp 2015-06-06 00:00:00.00 to 2015-06-06
-                     * use mm-- dd--YYYY*/
-                    String dateformat = "";
-                    if (cardRequestDate.length() > 5 && !cardRequestDate.equals("No Data found")) {
-                        cardRequestDate = cardRequestDate.substring(0, 10);
-                        dateformat = "";
-                        dateformat = dateformat + cardRequestDate.substring(5, 7) + "-" + cardRequestDate.substring(8, 10) + "-" + cardRequestDate.substring(0, 4);
-                        cardRequestDate = dateformat;
-                    }
-                }
-
-            }
-        } catch (NullPointerException e) {
-//            Log.e(TAG, "in getCardRequestDate() get Exception " + e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-        }
-        db.close();
-
-        return cardRequestDate;
-    }
-
-
-    /**
-     * LIST OF ID THAT GET SERVICE  OF VOUCHER PROGRAM
-     */
 
     /**
      * LIST OF ID THAT GET SERVICE
@@ -4613,38 +3436,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     }
 
-    // todo : check the it frist
-
-    /*public void isDataExitInCommunityGroup(String cCode, String donorCode, String awardCode, String progCode, String groupCode) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql= "SELECT * FROM "+COMMUNITY_GROUP_TABLE+
-                +" WHERE "+
-
-        ADM_COUNTRY_CODE_COL    , cCode
-        ADM_DONOR_CODE_COL      , donorCode
-        ADM_AWARD_CODE_COL      , awardCode
-        ADM_PROG_CODE_COL     , progCode
-        GROUP_CODE_COL, groupCode
-    }*/
 
 
-    /**
-     * table Schema
-     *
-     * @param cCode         Country  Code
-     * @param donorCode     donor Code
-     * @param awardCode     award Code
-     * @param progCode      program Code
-     * @param grpCode       group Code
-     * @param grpName       group Name
-     * @param grpCatCode    group Categories Code
-     * @param layR1Code     LayR1 Code
-     * @param layR2Code     LayR2 Code
-     * @param srvCenterCode Service Center Code
-     * @param entryBy       Service Center Code
-     * @param entryDate     Service Center Code
-     * @see Schema#sqlCreateCommunityGroup_Table()
-     */
+
+
+
+
     public void addCommunityGroup(String cCode, String donorCode, String awardCode, String progCode, String grpCode,
                                   String grpName, String grpCatCode, String layR1Code, String layR2Code, String layR3Code, String srvCenterCode
             , String entryBy, String entryDate) {
@@ -4911,52 +3708,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-    public void addInRegNAgrTableFromOnline(AGR_DataModel onlineData, String invc, String nasfm, String cu, String other, int goat, int chicken, int pegion, int other_sp) {
-        onlineData.setEntryBy("");
-        onlineData.setEntryDate("");
-        //TODO: FIX IT LATTER
-        insertDataInto_RegNAgrTable(onlineData, invc, nasfm, cu, other, goat, chicken, pegion, other_sp);
-
-    }
 
 
-    public void insertDataInto_RegNAgrTable(AGR_DataModel data, String invc, String nasfm, String cu, String other, int goat, int chicken, int pegion, int other_sp) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-
-        values.put(ADM_COUNTRY_CODE_COL, data.getCountryCode());
-        values.put(LAY_R1_LIST_CODE_COL, data.getDistrictCode());
-        values.put(LAY_R2_LIST_CODE_COL, data.getUpazillaCode());
-        values.put(LAY_R3_LIST_CODE_COL, data.getUnitCode());
-        values.put(LAY_R4_LIST_CODE_COL, data.getVillageCode());
-        values.put(HHID_COL, data.getHhId());
-        values.put(MEM_ID_COL, data.getHhMemId());
-        values.put(REG_N_DAT_COL, data.getRegnDate());
-        values.put(ELDERLY_YN_COL, data.getElderleyYN());
-        values.put(LAND_SIZE_COL, data.getLandSize());
-        values.put(DEPEND_ON_GANYU_COL, data.getDepenonGanyu());
-        values.put(WILLINGNESS_COL, data.getWillingness());
-        values.put(WINTER_CULTIVATION_COL, data.getWinterCultivation());
-        values.put(VULNERABLE_HH_COL, data.getVulnerableHh());
-        values.put(PLANTING_VALUE_CHAIN_CROP_COL, data.getPlantingVcrop());
-        values.put(ENTRY_BY, data.getEntryBy());
-        values.put(ENTRY_DATE, data.getEntryDate());
-        values.put(AG_INVC_COL, invc);
-        values.put(AG_NASFAM_COL, nasfm);
-        values.put(AG_CU_COL, cu);
-        values.put(AG_OTHER_COL, other);
-        values.put(AG_L_S_GOAT_COL, goat);
-        values.put(AG_L_S_CHICKEN_COL, chicken);
-        values.put(AG_L_S_PIGION_COL, pegion);
-        values.put(AG_L_S_OTHER_COL, other_sp);
-
-
-        db.insert(REG_N_AGR_TABLE, null, values);
-
-        db.close();
-    }/*REG_N_AGR_TABLE*/
 
 
 
@@ -5486,47 +4239,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<TrainingNActivityIndexDataModel> getTrainingActivityIndexList(final String cCode, final String eventTitleSearch) {
 
-        ArrayList<TrainingNActivityIndexDataModel> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = SQLiteQuery.getTrainingActivityIndexList(cCode, eventTitleSearch);
-
-        Cursor cursor = db.rawQuery(sql, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                TrainingNActivityIndexDataModel data = new TrainingNActivityIndexDataModel();
-                data.setcCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                data.setEventCode(cursor.getString(cursor.getColumnIndex(EVENT_CODE_COL)));
-                data.setEventTittle(cursor.getString(cursor.getColumnIndex(EVENT_NAME_COL)));
-                data.setDonorCode(cursor.getString(cursor.getColumnIndex(ADM_DONOR_CODE_COL)));
-                data.setAwardCode(cursor.getString(cursor.getColumnIndex(ADM_AWARD_CODE_COL)));
-                data.setTaGroupCode(cursor.getString(cursor.getColumnIndex(TA_GROUP_COL)));
-                data.setTaSubGroupCode(cursor.getString(cursor.getColumnIndex(TA_SUB_GROUP_COL)));
-
-                data.setTaOrgCode(cursor.getString(cursor.getColumnIndex(PROGRAM_ORGANIZATION_NAME_TABLE_ORG_CODE_COL)));
-                data.setStartDate(cursor.getString(cursor.getColumnIndex(START_DATE_COL)));
-                data.setEndDate(cursor.getString(cursor.getColumnIndex(END_DATE_COL)));
-                data.setVenueName(cursor.getString(cursor.getColumnIndex(VENUE_NAME_COL)));
-                data.setAddressName(cursor.getString(cursor.getColumnIndex(VENUE_ADDRESS_COL)));
-                data.setActiveStatus(cursor.getString(cursor.getColumnIndex(ACTIVE_COL)));
-                data.setTotalDays(cursor.getString(cursor.getColumnIndex(TOTAL_DAYS_COL)));
-                data.setHourPerDay(cursor.getString(cursor.getColumnIndex(HOURS_PER_DAY_COL)));
-
-
-                list.add(data);
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        return list;
-
-
-    }
 
     public ArrayList<CommunityGroupDataModel> getCommunityGroupList(final String cCode, final String donorCode, final String awardCode, final String progCode, final String groupName) {
 
@@ -5713,110 +4426,16 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addMemIntoCT_Table(CTDataModel memData) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        //values.put(ID_COL,idColoumn);
-        values.put(ADM_COUNTRY_CODE_COL, memData.getCountryCode());
-        values.put(LAY_R_LIST_CODE_COL, memData.getDistrictCode());
-        values.put(LAY_R2_LIST_CODE_COL, memData.getUpazillaCode());
-        values.put(LAY_R3_LIST_CODE_COL, memData.getUnitCode());
-        values.put(LAY_R4_LIST_CODE_COL, memData.getVillageCode());
-        values.put(HHID_COL, memData.getHhId());
-        values.put(HH_MEM_ID, memData.getMemID());
-        values.put(C11_CT_PR, memData.getC11CtPr());
-        values.put(C21_CT_PR, memData.getC21CtPr());
-        values.put(C31_CT_PR, memData.getC31CtPr());
-        values.put(C32_CT_PR, memData.getC32CtPr());
-        values.put(C33_CT_PR, memData.getC33CtPr());
-        values.put(C34_CT_PR, memData.getC34CtPr());
-        values.put(C35_CT_PR, memData.getC35CtPr());
-        values.put(C36_CT_PR, memData.getC36CtPr());
-        values.put(C37_CT_PR, memData.getC37CtPr());
-        values.put(C38_CT_PR, memData.getC38CtPr());
-        values.put(ENTRY_BY, memData.getEntryBy());
-        values.put(ENTRY_DATE, memData.getEntryDate());
-        long id = db.insert(REG_N_CT_TABLE, null, values);
-//        Log.i(TAG, "Insert into " + REG_N_CT_TABLE + " id : " + String.valueOf(id));
-        db.close();
-    }
 
 
 
 
 
 
-    public boolean ifExistsInCA2Table(AssignDataModel asPeople) {
-        //  todo : use checkDataExistInTable()
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + REG_N_CA2_TABLE + " WHERE    " + ADM_COUNTRY_CODE_COL + "=? AND " + LAY_R1_LIST_CODE_COL + "=? AND "
-                        + LAY_R2_LIST_CODE_COL + "=? AND " + LAY_R3_LIST_CODE_COL + "=? AND " + LAY_R4_LIST_CODE_COL + "=? AND " + HHID_COL + "=? AND " + MEM_ID_COL + "=?  ",
-                new String[]{asPeople.getCountryCode(), asPeople.getDistrictCode(), asPeople.getUpazillaCode(), asPeople.getUnitCode(), asPeople.getVillageCode(),
-                        asPeople.getHh_id(), asPeople.getMemId()});
-
-        if (cursor.getCount() > 0) {
-
-            cursor.close();
-            db.close();
-            return true;
-/* record exist */
-        } else {
 
 
-            return false;
-/* record not exist */
-        }
 
 
-    }
-
-    /**
-     * * todo : use checkDataExistInTable()
-     */
-    /**
-     * This method return tru if data Exits in Pw Table
-     *
-     * @param asPeople ede
-     * @return true
-     */
-
-    public boolean ifExistsInPWTable(AssignDataModel asPeople) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + REG_N_PW_TABLE + " WHERE    " + ADM_COUNTRY_CODE_COL + "=? AND " + LAY_R1_LIST_CODE_COL + "=? AND "
-                + LAY_R2_LIST_CODE_COL + "=? AND " + LAY_R3_LIST_CODE_COL + "=? AND " + LAY_R4_LIST_CODE_COL + "=? AND " + HHID_COL + "=? AND " + MEM_ID_COL + "=?  ";
-        Cursor cursor = db.rawQuery(sql,
-                new String[]{asPeople.getCountryCode(), asPeople.getDistrictCode(), asPeople.getUpazillaCode(), asPeople.getUnitCode(), asPeople.getVillageCode(),
-                        asPeople.getHh_id(), asPeople.getMemId()});
-
-        if (cursor.getCount() > 0) {
-
-            cursor.close();
-            db.close();
-            return true;
-            /** record exist */
-        } else {
-
-            return false;
-            /* record does not exist */
-        }
-
-    }
-
-    /**
-     * @param cCode     Country Code
-     * @param donorCode donorCode
-     * @param awardCode awardCode
-     * @param disttCode Layer1 Code
-     * @param upCode    Layer2 Code
-     * @param unCode    Layer3 Code
-     * @param vCode     Layer4 Code
-     * @param hhID      houshole id
-     * @param memID     member id
-     * @param progCode  program id
-     * @param srvCode   Service Id
-     * @return true/flase
-     */
 
 
     public boolean ifExistsInRegNmemProgGroup(String cCode, String donorCode, String awardCode, String disttCode, String upCode
@@ -5857,28 +4476,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-
-    /**
-     * * todo : use checkDataExistInTable()
-     */
-
-    public boolean ifExistsInLmdTable(AssignDataModel asPeople) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + REG_N_LM_TABLE + " WHERE    " + ADM_COUNTRY_CODE_COL + "=? AND " + LAY_R1_LIST_CODE_COL + "=? AND "
-                        + LAY_R2_LIST_CODE_COL + "=? AND " + LAY_R3_LIST_CODE_COL + "=? AND " + LAY_R4_LIST_CODE_COL + "=? AND " + HHID_COL + "=? AND " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + "=?  ",
-                new String[]{asPeople.getCountryCode(), asPeople.getDistrictCode(), asPeople.getUpazillaCode(), asPeople.getUnitCode(), asPeople.getVillageCode(),
-                        asPeople.getHh_id(), asPeople.getMemId()});//*keyValue,keyvalue1*/});
-        if (mCursor.getCount() > 0) {
-//            Log.d(TAG, " This data exists In LMD table");
-            return true;
-        /* record exist */
-        } else {
-//            Log.d(TAG, " This data  didn't exists In LMD table");
-            return false;
-        /* record not exist */
-        }
-
-    }
 
 
 
@@ -5966,9 +4563,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         // Inserting Row
         long id = db.insert(SERVICE_MASTER_TABLE, null, values);
-        db.close(); // Closing database connection
+        db.close();                                                                                     // Closing database connection
 
-//        Log.d(TAG, "New AWARD inserted into SERVICE_MASTER_TABLE TABLE: " + id);
+
 
     }
 
@@ -6031,15 +4628,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.insert(ADM_COUNTRY_AWARD_TABLE, null, values);
         db.close(); // Closing database connection
 
-        //  Log.d(TAG, "New AWARD inserted into COUNTRY AWARD_TABLE: " + id);
+
     }
 
-    // add donor name
 
-    /**
-     * @param donorCode
-     * @param donorName
-     */
     public void addDonorName(String donorCode, String donorName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -6449,26 +5041,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-    public long insertIntoDDR_RegN_VUL(String countryCode, String districtCode, String upozillaCode,
-                                       String unitCode, String villageCode, String houseHoldID,
-                                       String houseHoldMemberId, String regnDate, String disable,
-                                       String entryBy, String entryDate) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, countryCode);
-        values.put(LAY_R1_LIST_CODE, districtCode);
-        values.put(LAY_R2_LIST_CODE_COL, upozillaCode);
-        values.put(LAY_R3_LIST_CODE_COL, unitCode);
-        values.put(LAY_R4_LIST_CODE_COL, villageCode);
-        values.put(HHID_COL, houseHoldID);
-        values.put(REG_N_ASSIGN_PROG_SRV_HH_MEM_ID, houseHoldMemberId);
-        values.put(REG_N_DAT_COL, regnDate);
-        values.put(Disabled_YN_COL, disable);
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-        long id = db.insert(REG_N_VUL_TABLE, null, values);
-        return id;
-    }
+
 
 
     public boolean checkCriteriaServiceSpecificFlag(String countryCode, String donarCode, String awardCode, String progCode, String srvCode) {
@@ -6882,33 +5455,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return personList;
     }
 
-    public String getDistributionStatusFromDistributionTable(String cCode, String donorCode, String awardCode, String districtCode, String upCode, String unCode, String vilCode, String progCode, String srvCode, String distMonthCode, String fdpCode, String distFlag, String id) {
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "-";
-
-        String status = "";
-        selectQuery = SQLiteQuery.getDistributionStatusFromDistributionTableQuery(cCode, donorCode,
-                awardCode, districtCode, upCode, unCode, vilCode, progCode, srvCode, distMonthCode,
-                fdpCode, distFlag, id);
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                status = cursor.getString(cursor.getColumnIndex(DISTRIBUTION_STATUS_COL));
-            }
-            cursor.close();
-            db.close();
-        }
-//        Log.d("All_4", "status:" + status + "\n length :" + status.length());
-        if (!status.equals("null") && !(status.length() == 0)) {
-            status = "R";
-        } else {
-            status = "-";
-        }
-
-        return status;
-    }
 
     /**
      * Getting All Recodr from Service  table
@@ -7859,29 +6406,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return relationName;
     }
 
-    public void updateCardRequestStatus(String update_id, int status) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "UPDATE " + MEMBER_CARD_PRINT_TABLE + " SET " + SYNC_COL + "=" + status + " WHERE " + ID_COL + "=" + update_id;
-        db.execSQL(selectQuery);
-        db.close();
-    }
-
-//    public void updateRegistrationStatus(String update_id, int status) {
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String selectQuery = "UPDATE " + REG_N_HH_TABLE + " SET " + SYNC_COL + "=" + status + " WHERE " + ID_COL + "=" + update_id;
-//        db.execSQL(selectQuery);
-//        db.close();
-//    }
-
-   /* public void updateLiberaiRegistrationStatus(String update_id, int status) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "UPDATE " + LIBERIA_REGISTRATION_TABLE + " SET " + SYNC_COL + "=" + status + " WHERE " + ID_COL + "=" + update_id;
-        db.execSQL(selectQuery);
-        db.close();
-    }*/
 
 
     /**
@@ -8060,18 +6585,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put("VillageName", vname);
         values.put(REGN_ADDRESS_LOOKUP_CODE_COL, addressCode);
 
-//                                                                                                   donn't delete below code previous satage
-//        values.put(ADM_COUNTRY_CODE_COL, country);                                                // country code
-//        values.put(LAY_R_LIST_CODE_COL, dcode);                                                                 //  district code
-//        values.put(LAY_R2_LIST_CODE_COL, upcode); // upazilla code
-//        values.put(LAY_R3_LIST_CODE_COL, ucode); // unit code
-//        values.put(LAY_R4_LIST_CODE_COL, vcode); // Village code
-//        values.put(GEO_LAY_R_CODE_COL, layrCode); // whoe LaRCode code
-//        values.put(LAY_R4_LIST_NAME_COL, vname); // Village name
-//        values.put(REGN_ADDRESS_LOOKUP_CODE_COL, addressCode); // Village name
-//
-
-
         db.insert(SELECTED_VILLAGE_TABLE, null, values);
         db.close();
 
@@ -8167,439 +6680,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     }
-
-
-    public void addRegNPWFromOnLine(String c_code, String dname, String upname, String uname, String vname, String hhid, String memid, String program, String service, String regNdate, String grdCode,                                    //  String entryBy,
-                                    //  String entryDate,
-                                    String lmpDate, String pwGrdDate) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ADM_COUNTRY_CODE_COL, c_code); // country name
-
-        values.put(LAY_R1_LIST_CODE_COL, dname);                                                    // district code
-        values.put(LAY_R2_LIST_CODE_COL, upname);                                                   // upazilla code
-        values.put(LAY_R3_LIST_CODE_COL, uname);                                                    // Unit code
-        values.put(LAY_R4_LIST_CODE_COL, vname);                                                    // village  code
-
-        values.put(HHID_COL, hhid);                                                                 // House hold id
-        values.put(MEM_ID_COL, memid);                                                              // member id
-        values.put(REG_N_DAT_COL, regNdate); //
-        values.put(LMP_DATE_COL, lmpDate);
-        values.put(ADM_PROG_CODE_COL, program); //
-        values.put(ADM_SRV_CODE_COL, service);
-        values.put(GRDCODE_COL, grdCode);
-        values.put(PW_GRD_DATE_COL, pwGrdDate);
-
-        values.put(ENTRY_BY, "00");
-        values.put(ENTRY_DATE, "00");
-
-
-        db.insert(REG_N_PW_TABLE, null, values);                                                    // Inserting Row
-        db.close();                                                                                 // Closing database connection
-
-
-    }
-
-
-    /**
-     * this function insert member the into RegNAssProgSrv table
-     *
-     * @param data data
-     * @return row id of inserted value
-     * @since 2015-11-23
-     */
-
-
-
-    /**
-     * @param c_code     Country Code
-     * @param dname      layer Code 1(District or County)
-     * @param upname     layer Code 2
-     * @param uname      layer Code 3
-     * @param vname      layer Code 4 (Village or town)
-     * @param donorCode  house hold id
-     * @param awardCode  Member id
-     * @param hhid       program code
-     * @param memid      Service Code
-     * @param progCode   Registration Date
-     * @param srvCode    Graduation code
-     * @param regNdate   regNdate
-     * @param grdCode    grdCode
-     * @param gdrDate    gdrDate
-     * @param entryBy    entryBy
-     * @param entryDate  entryDate
-     * @param srvMinDate srvMinDate
-     * @param srvMaxDate srvMaxDate
-     * @param onLine     onLine
-     * @return
-     */
-
-
-
-
-
-
-
-
-    /**
-     * @param c_code    Country Code
-     * @param dname     layer Code 1(District or County)
-     * @param upname    layer Code 2
-     * @param uname     layer Code 3
-     * @param vname     layer Code 4 (Village or town)
-     * @param hhid      house hold id
-     * @param memId     Member id
-     * @param program   program code
-     * @param service   Service Code
-     * @param regNdate  Registration Date
-     * @param grdCode   Graduation code
-     * @param lmDate    lactating Mother starting date
-     * @param lmGrdDate lactating Mother Graduation Date
-     * @param childName childName
-     * @param childSex  childSex
-     */
-    public void addRegNLMFromOnLine(String c_code, String dname, String upname, String uname, String vname, String hhid,
-                                    String memId, String program, String service, String regNdate, String grdCode, String lmDate, String lmGrdDate, String childName, String childSex) {
-
-        addMemIntoRegN_LM(c_code, dname, upname, uname, vname, hhid, memId, program, service, regNdate, grdCode, lmDate, lmGrdDate, childName, childSex, "", "", "1");
-
-    }
-
-    /**
-     * @param cCode     Country Code
-     * @param distCode  layer Code 1(District or County)
-     * @param upCode    layer Code 2
-     * @param unCode    layer Code 3
-     * @param vCode     layer Code 4 (Village or town)
-     * @param hhID      house hold id
-     * @param memId     Member id
-     * @param progCode  program code
-     * @param servCode  Service Code
-     * @param regNdate  Registration Date
-     * @param grdCode   Graduation code
-     * @param lmDate    lactating Mother starting date
-     * @param lmGrdDate lactating Mother Graduation Date
-     * @param childName childName
-     * @param childSex  childSex
-     * @param entryBy   entry by
-     * @param entryDate entryDate
-     * @return row of inserted data
-     */
-
-    public long addMemIntoRegN_LM(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID,
-                                  String memId, String progCode, String servCode, String regNdate, String grdCode,
-                                  String lmDate, String lmGrdDate, String childName, String childSex,
-                                  String entryBy, String entryDate, String syn) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(LAY_R1_LIST_CODE_COL, distCode);
-        values.put(LAY_R2_LIST_CODE_COL, upCode);
-        values.put(LAY_R3_LIST_CODE_COL, unCode);
-        values.put(LAY_R4_LIST_CODE_COL, vCode);
-        values.put(HHID_COL, hhID);
-        values.put(MEM_ID_COL, memId);
-
-        values.put(ADM_PROG_CODE_COL, progCode);
-        values.put(ADM_SRV_CODE_COL, servCode);
-
-        values.put(GRD_CODE_COL, grdCode);
-        values.put(LMGRDDATE_COL, lmGrdDate);
-        values.put(REG_N_DAT_COL, regNdate);
-        values.put(LM_DATE_COL, lmDate);
-
-        values.put(CHILD_NAME_COL, childName);
-        values.put(CHILD_SEX_COL, childSex);
-
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-//        values.put(SYNC_COL, syn);
-
-
-        // Inserting Row
-        long id = db.insert(REG_N_LM_TABLE, null, values);
-        db.close();                                                                                 // Closing database connection
-
-        //  Log.d(TAG, "New" + REG_N_LM_TABLE + " " + id);
-        return id;
-    }
-
-
-    /**
-     * @param cCode      Country Code
-     * @param distCode   layer Code 1(District or County)
-     * @param upCode     layer Code 2
-     * @param unCode     layer Code 3
-     * @param vCode      layer Code 4 (Village or town)
-     * @param hhID       house hold id
-     * @param memId      Member id
-     * @param progCode   program code
-     * @param servCode   Service Code
-     * @param regNdate   Registration Date
-     * @param grdCode    Graduation code
-     * @param dob        date of Birth
-     * @param cu2GrdDate Cu Graduation Date
-     * @param childName  childName
-     * @param childSex   childSex
-     * @param entryBy    entry by
-     * @param entryDate  entryDate
-     * @return row of inserted data
-     */
-
-    public long addMemIntoRegN_CU2(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID,
-                                   String memId, String progCode, String servCode, String regNdate, String grdCode,
-                                   String dob, String cu2GrdDate, String childName, String childSex,
-                                   String entryBy, String entryDate, String syn) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(LAY_R1_LIST_CODE_COL, distCode);
-        values.put(LAY_R2_LIST_CODE_COL, upCode);
-        values.put(LAY_R3_LIST_CODE_COL, unCode);
-        values.put(LAY_R4_LIST_CODE_COL, vCode);
-        values.put(HHID_COL, hhID);
-        values.put(MEM_ID_COL, memId);
-
-        values.put(ADM_PROG_CODE_COL, progCode);
-        values.put(ADM_SRV_CODE_COL, servCode);
-
-        values.put(REG_N_DAT_COL, regNdate);
-
-        values.put(CU2DOB_DATE_COL, dob);
-
-
-        values.put(GRD_CODE_COL, grdCode);
-        values.put(CU2_GRD_DATE_COL, cu2GrdDate);
-
-
-        values.put(CHILD_NAME_COL, childName);
-        values.put(CHILD_SEX_COL, childSex);
-
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-        // values.put(SYNC_COL, syn);
-
-
-        // Inserting Row
-        long id = db.insert(REG_N_CU2_TABLE, null, values);
-        db.close();                                                                                 // Closing database connection
-
-
-        return id;
-    }
-
-    public void addRegNCU2_FromOnLine(String c_code, String dname, String upname, String uname, String vname, String hhid, String memid, String program, String service, String regNdate, String grdCode,
-                                      String cu2DOB, String cu2GrdDate, String childName, String childSex) {
-
-        addMemIntoRegN_CU2(c_code, dname, upname, uname, vname, hhid, memid, program, service, regNdate, grdCode, cu2DOB, cu2GrdDate, childName, childSex, "", "", "1");
-
-    }
-
-
-    /**
-     * @param c_code     Country Code
-     * @param dname      layer Code 1(District or County)
-     * @param upname     layer Code 2
-     * @param uname      layer Code 3
-     * @param vname      layer Code 4 (Village or town)
-     * @param hhid       house hold id
-     * @param memid      Member id
-     * @param program    program code
-     * @param service    Service Code
-     * @param regNdate   Registration Date
-     * @param grdCode    Graduation code
-     * @param ca2DOB     date of Birth
-     * @param ca2GrdDate Cu Graduation Date
-     * @param childName  childName
-     * @param childSex   childSex
-     */
-
-
-    public void addRegNCA2_FromOnLine(String c_code, String dname, String upname, String uname, String vname, String hhid, String memid, String program, String service, String regNdate, String grdCode,
-
-                                      String ca2DOB, String ca2GrdDate, String childName, String childSex) {
-
-        addMemIntoRegN_CA2(c_code, dname, upname, uname, vname, hhid, memid, program, service, regNdate, grdCode, ca2DOB, ca2GrdDate, childName, childSex, "", "");
-
-    }
-
-
-    /**
-     * @param cCode      Country Code
-     * @param distCode   layer Code 1(District or County)
-     * @param upCode     layer Code 2
-     * @param unCode     layer Code 3
-     * @param vCode      layer Code 4 (Village or town)
-     * @param hhID       house hold id
-     * @param memId      Member id
-     * @param progCode   program code
-     * @param servCode   Service Code
-     * @param regNdate   Registration Date
-     * @param grdCode    Graduation code
-     * @param dob        date of Birth
-     * @param ca2GrdDate Cu Graduation Date
-     * @param childName  childName
-     * @param childSex   childSex
-     * @param entryBy    entry by
-     * @param entryDate  entryDate
-     * @return row of inserted data
-     */
-
-    public long addMemIntoRegN_CA2(String cCode, String distCode, String upCode, String unCode, String vCode, String hhID,
-                                   String memId, String progCode, String servCode, String regNdate, String grdCode,
-                                   String dob, String ca2GrdDate, String childName, String childSex,
-                                   String entryBy, String entryDate) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-
-        values.put(ADM_COUNTRY_CODE_COL, cCode);
-        values.put(LAY_R1_LIST_CODE_COL, distCode);
-        values.put(LAY_R2_LIST_CODE_COL, upCode);
-        values.put(LAY_R3_LIST_CODE_COL, unCode);
-        values.put(LAY_R4_LIST_CODE_COL, vCode);
-        values.put(HHID_COL, hhID);
-        values.put(MEM_ID_COL, memId);
-        values.put(ADM_PROG_CODE_COL, progCode);
-        values.put(ADM_SRV_CODE_COL, servCode);
-        values.put(REG_N_DAT_COL, regNdate);
-        values.put(CA2DOB_DATE_COL, dob);
-        values.put(GRD_CODE_COL, grdCode);
-        values.put(CA2_GRD_DATE_COL, ca2GrdDate);
-        values.put(CHILD_NAME_COL, childName);
-        values.put(CHILD_SEX_COL, childSex);
-        values.put(ENTRY_BY, entryBy);
-        values.put(ENTRY_DATE, entryDate);
-        //  values.put(SYNC_COL, syn);
-
-
-        // Inserting Row
-        long id = db.insert(REG_N_CA2_TABLE, null, values);
-        db.close();                                                                 // Closing database connection
-
-
-        return id;
-    }
-
-
-    public int editMemberDataIn_CA2(AssignDataModel asPeople) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String where = ADM_COUNTRY_CODE_COL + " = '" + asPeople.getCountryCode() + "'" +
-                " AND " + LAY_R1_LIST_CODE_COL + " = '" + asPeople.getDistrictCode() + "'" +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + asPeople.getUpazillaCode() + "'" +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + asPeople.getUnitCode() + "'" +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + asPeople.getVillageCode() + "'" +
-                " AND " + HHID_COL + " = '" + asPeople.getHh_id() + "'" +
-                " AND " + MEM_ID_COL + " = '" + asPeople.getMemId() + "'  ";
-
-
-        ContentValues values = new ContentValues();
-
-
-        values.put(ADM_PROG_CODE_COL, asPeople.getProgram_code());
-        values.put(ADM_SRV_CODE_COL, asPeople.getService_code());
-
-        values.put(REG_N_DAT_COL, asPeople.getRegNDate());
-        values.put(CA2DOB_DATE_COL, asPeople.getDobDate());
-        values.put(GRDCODE_COL, asPeople.getGrdCode());
-        values.put(CA2_GRD_DATE_COL, asPeople.getDobDate());
-        values.put(ENTRY_BY, asPeople.getEntryBy());
-        values.put(ENTRY_DATE, asPeople.getEntryDate());
-//        values.put(SYNC_COL, "0");
-
-        // Log.d(TAG, "asPeople.getLmpDate() :" + asPeople.getLmpDate());
-
-
-        // updating row
-        int id = db.update(REG_N_CA2_TABLE, values, where, null);
-       /* int id= db.update( REG_N_PW_TABLE, values, HH_MEM_ID + " = ? AND ",
-                new String[]{asPeople.getMemberId()});*/
-
-        //updateRegNCA2Status(asPeople, 0);
-
-        return id;
-    }
-
-
-    public int upDateRegNLM(AssignDataModel asPeople, String lmDate) {
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-
-        ContentValues values = new ContentValues();
-
-        values.put(REG_N_DAT_COL, asPeople.getRegNDate()); // sex
-        values.put(LM_DATE_COL, lmDate); // GDR_CODE
-        values.put(ENTRY_BY, asPeople.getEntryBy());
-        values.put(ENTRY_DATE, asPeople.getEntryDate());
-
-
-//        Log.d(TAG, "asPeople.getLmpDate() :" + asPeople.getLmpDate());
-
-        String query = ADM_COUNTRY_CODE_COL + " = '" + asPeople.getCountryCode() + "' AND " +
-                LAY_R1_LIST_CODE_COL + " = '" + asPeople.getDistrictCode() + "' AND " +
-                LAY_R2_LIST_CODE_COL + " = '" + asPeople.getUpazillaCode() + "' AND " +
-                LAY_R3_LIST_CODE_COL + " = '" + asPeople.getUnitCode() + "' AND " +
-                LAY_R4_LIST_CODE_COL + " = '" + asPeople.getVillageCode() + "' AND " +
-                HHID_COL + " = '" + asPeople.getHh_id() + "' AND " +
-                MEM_ID_COL + " = '" + asPeople.getMemId() + "'  ";
-
-        // updating row
-        int id = db.update(REG_N_LM_TABLE, values, query, null);
-
-//        updateRegNLMFStatus(asPeople, 0);
-
-        return id;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * update regn Ass n ser prg tabel upload status
-     */
-    public void updateRegNLMFStatus(AssignDataModel aPeople, int status) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "UPDATE " + REG_N_LM_TABLE + " SET " + SYNC_COL + "=" + status + " WHERE " +
-                ADM_COUNTRY_CODE_COL + "=" + aPeople.getCountryCode() + " AND " + LAY_R1_LIST_CODE_COL + "=" + aPeople.getDistrictCode() + " AND " +
-                LAY_R2_LIST_CODE_COL + "=" + aPeople.getUpazillaCode() + " AND " +
-                LAY_R3_LIST_CODE_COL + "=" + aPeople.getUnitCode() + " AND " +
-                LAY_R4_LIST_CODE_COL + "=" + aPeople.getVillageCode() + " AND " + HHID_COL + "=" + aPeople.getHh_id() + " AND " +
-                HH_MEM_ID + "=" + aPeople.getMemId();
-
-        //String selectQuery = "UPDATE " + REG_N_HH_TABLE + " SET " + SYNC_COL + "=" + status +" WHERE " + ID_COL + "=" + update_id;
-        db.execSQL(selectQuery);
-        db.close();
-    }
-
-
-
 
 
     public void addServiceFromOnline(String c_code, String donorCode, String awardCode,
@@ -10108,30 +8188,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     }
 
-    public int deleteDistribution(DistributionSaveDataModel distData) {
 
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = ADM_COUNTRY_CODE_COL + " = '" + distData.getCountryCode() + "'" +
-                " AND " + ADM_DONOR_CODE_COL + " = '" + distData.getAdmDonorCode() + "' " +
-                " AND " + ADM_AWARD_CODE_COL + " = '" + distData.getAdmAwardCode() + "' " +
-                " AND " + LAY_R1_LIST_CODE_COL + " = '" + distData.getDistrictCode() + "' " +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + distData.getUpCode() + "' " +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + distData.getUniteCode() + "' " +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + distData.getVillageCode() + "' " +
-                " AND " + PROG_CODE_COL + " = '" + distData.getProgCode() + "' " +
-                " AND " + SRV_CODE_COL + " = '" + distData.getSrvCode() + "' " +
-                " AND " + OP_MONTH_CODE_COL + " = '" + distData.getOpMonthCode() + "' " +
-
-                " AND " + MEM_ID_15_D_COL + " = '" + distData.getID() + "' ";
-
-        int id = db.delete(DISTRIBUTION_TABLE, where, null);
-
-
-        db.close();
-        return id;
-
-    }
 
 
     public void deleteMember(int mID) {

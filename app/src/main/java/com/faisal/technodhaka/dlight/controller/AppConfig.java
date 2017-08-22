@@ -39,6 +39,9 @@ public class AppConfig {
      *   Localhost
      ***********************************************************************/
     //  public static final String API_LINK = "http://192.168.49.1/api/local/";
+/*      public static final String API_LINK = "http://192.168.157.1/api/dlite/api/";
+    public static final String API_LINK_ENU = "http://192.168.157.1/api/dlite/api/index.php?enu";
+    public static final String API_LINK_VER = "http://192.168.157.1/api/dlite/api/index.php?ver";*/
     /**********************************************************************
      *    end
      ***********************************************************************/

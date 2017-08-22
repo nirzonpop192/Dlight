@@ -41,4 +41,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="welcome">Welcome</string>
+    <string name="fullname">fullName</string>
+    <string name="country">country</string>
 </resources>

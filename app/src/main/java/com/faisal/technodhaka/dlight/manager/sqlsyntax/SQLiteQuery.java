@@ -96,22 +96,7 @@ public class SQLiteQuery {
     }
 
 
-    public static String getTaOrganization_sql(String cCode) {
-        return "SELECT " + ADM_COUNTRY_CODE_COL
-                + " , " + PART_ORG_N_CODE_COL
-                + " , " + PART_ORG_N_NAME_COL
-                + " , " + SRC_BEN_COL
-                + " FROM " + TA_PART_ORG_N_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' ";
-    }
 
-    public static String ifExistsInTaParticipantsListTable_sql(String cCode, String eventCode, String partId, String atdnDate) {
-        return "SELECT * FROM " + TA_PARTICIPANTS_LIST_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "'" +
-                " AND " + EVENT_CODE_COL + " = '" + eventCode + "'" +
-                " AND " + PART_ID_COL + " = '" + partId + "' " +
-                " AND " + ATDN_DATE_COL + " = '" + atdnDate + "' ";
-    }
 
 
     public static String editTaParticipantsListTable_sql(String cCode, String eventCode, String partId, String atdnDate) {
@@ -122,91 +107,6 @@ public class SQLiteQuery {
     }
 
 
-    public static String loadTaSummaryOrganization_sql(final String cCode, final String eventCode) {
-        return " select  " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_CODE_COL + " AS code "
-                + " , " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_NAME_COL + " AS title " +
-                "    , " + "   (Select   count(  " + TA_PARTICIPANTS_LIST_TABLE + "." + PART_ORG_N_CODE_COL + ")  " +
-                " from " + TA_PARTICIPANTS_LIST_TABLE
-                + " where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + "='" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "'  " +
-                "   and " + TA_PARTICIPANTS_LIST_TABLE + "." + PART_ORG_N_CODE_COL + " = " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_CODE_COL +
-
-                " )  AS count " +
-                "    from " + TA_PARTICIPANTS_LIST_TABLE + " " +
-                "    inner join " + TA_PART_ORG_N_TABLE + "  ON " +
-                "    " + TA_PART_ORG_N_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " " +
-                "    and " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + PART_ORG_N_CODE_COL +
-                "    where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "' " +
-                "    group by  " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_CODE_COL
-                + " , " + TA_PART_ORG_N_TABLE + "." + PART_ORG_N_NAME_COL;
-    }
-
-    public static String loadTaSummaryCategory_sql(final String cCode, final String eventCode) {
-        return " select " + TA_CATEGORY_TABLE + "." + TA_CAT_CODE_COL + " AS code "
-                + " , " + TA_CATEGORY_TABLE + "." + TA_CAT_NAME_COL + " AS title " +
-                "    , " + "   (Select count(  " + TA_PARTICIPANTS_LIST_TABLE + "." + ID_CATEGORY_COL + " )  " +
-                "from " + TA_PARTICIPANTS_LIST_TABLE + " where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + "='" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "'  " +
-                "   and " + TA_PARTICIPANTS_LIST_TABLE + "." + ID_CATEGORY_COL + " = " + TA_CATEGORY_TABLE + "." + TA_CAT_CODE_COL + " )  AS count " +
-                "    from " + TA_PARTICIPANTS_LIST_TABLE + " " +
-                "    inner join " + TA_CATEGORY_TABLE + "  ON " +
-                "    " + TA_CATEGORY_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " " +
-                "    and " + TA_CATEGORY_TABLE + "." + TA_CAT_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + ID_CATEGORY_COL +
-                "    where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "' " +
-                "    group by  code , title";
-//        Log.d(TAG," sql:"+sql);
-//        return sql;
-    }
-
-    public static String loadTaSummaryPosition_sql(final String cCode, final String eventCode) {
-        return " select " + TA_POS_PARTICIPANTS_TABLE + "." + POS_CODE_COL + " AS code "
-                + " , " + TA_POS_PARTICIPANTS_TABLE + "." + POS_TITLE_COL + " AS title " +
-                "    , " + "   (Select count(  " + TA_PARTICIPANTS_LIST_TABLE + "." + POS_CODE_COL + " )  from " + TA_PARTICIPANTS_LIST_TABLE + " where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + "='" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "'  " +
-                "   and " + TA_PARTICIPANTS_LIST_TABLE + "." + POS_CODE_COL + " = " + TA_POS_PARTICIPANTS_TABLE + "." + POS_CODE_COL + " )  AS count " +
-                "    from " + TA_PARTICIPANTS_LIST_TABLE + " " +
-                "    inner join " + TA_POS_PARTICIPANTS_TABLE + "  ON " +
-                "    " + TA_POS_PARTICIPANTS_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " " +
-                "    and " + TA_POS_PARTICIPANTS_TABLE + "." + POS_CODE_COL + " = " + TA_PARTICIPANTS_LIST_TABLE + "." + POS_CODE_COL +
-                "    where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "' " +
-                "    group by  code , title";
-    }
-
-
-    public static String loadTaSummarySession_sql(final String cCode, final String eventCode) {
-//        SELECT AMSession
-//        ,case when AMSession='1' then 'AM' else 'PM' end as title
-//                , COUNT  (AMSession) FROM TAParticipantsList where
-//        TAParticipantsList.CountryCode = '0002'     and  TAParticipantsList.EventCode = '00000002'
-//                -- and title= case when 'AM' then AMSession='1' else PMSession='0' end
-//        group by title
-
-        return " select " + AM_SESSION_COL + " AS code "
-                + " ,  CASE WHEN " + AM_SESSION_COL + " = '1' THEN 'AM' ELSE 'PM' END  AS title " +
-                "    , " + "  count(*) AS count " +
-                "    from " + TA_PARTICIPANTS_LIST_TABLE + " " +
-                "    where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "' " +
-                //     " and " + SEX_COL + " =  case when "+SEX_COL+" = 'M' then 'M' else 'F' end " +
-                "    group by  title ";
-    }
-
-
-    public static String loadTaSummarySex_sql(final String cCode, final String eventCode) {
-
-
-        return " select " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " AS code "
-                + " ,  CASE WHEN " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " = 'F' THEN 'Female' ELSE 'Male' END  AS title " +
-                "    , " + "  count(  " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " ) AS count " +
-                "    from " + TA_PARTICIPANTS_LIST_TABLE + " " +
-                "    where " + TA_PARTICIPANTS_LIST_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                "    and  " + TA_PARTICIPANTS_LIST_TABLE + "." + EVENT_CODE_COL + " = '" + eventCode + "' " +
-                " and " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " =  case when " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " = 'M' then 'M' else 'F' end " +
-                "    group by  code ";
-    }
 
 
     /**
@@ -621,16 +521,7 @@ public class SQLiteQuery {
                 " AND " + OP_MONTH_CODE_COL + "='" + opMonthCode + "'";
     }
 
-    public static String dbo_Get_MemCU2DOB(String cCode, String layR1Code, String layR2Code, String layR3Code, String layR4Code, String hhId, String memId) {
-        return "SELECT " + CU2DOB_DATE_COL + " FROM " + REG_N_CU2_TABLE
-                + " WHERE    " + ADM_COUNTRY_CODE_COL + " = " + cCode
-                + " AND " + LAY_R1_LIST_CODE_COL + " = " + layR1Code
-                + " AND " + LAY_R2_LIST_CODE_COL + " = " + layR2Code
-                + " AND " + LAY_R3_LIST_CODE_COL + " = " + layR3Code
-                + " AND " + LAY_R4_LIST_CODE_COL + " = " + layR4Code
-                + " AND " + HHID_COL + " = " + hhId
-                + " AND " + MEM_ID_COL + " = " + memId + "  ";
-    }
+
 
     public static String dbo_Get_dayDifference(String cCode, String donorCode, String awardCode,
                                                String opMonthCode, String tableName,
@@ -808,26 +699,7 @@ public class SQLiteQuery {
 
     }
 
-    public static String getDistributionStatusFromDistributionTableQuery(String countryCode, String donorCode, String awardCode, String districtCode, String upzillaCode, String uniteCode, String villageCode, String programCode, String srviceCode, String distMonthCode, String fdpCode, final String distFlag, String id) {
-        String sql = "SELECT CASE WHEN " + SQLiteHandler.DISTRIBUTION_STATUS_COL + " IS NULL THEN '-' ELSE " + SQLiteHandler.DISTRIBUTION_STATUS_COL + " END   AS " + SQLiteHandler.DISTRIBUTION_STATUS_COL
-                + " FROM " + DISTRIBUTION_TABLE
-                + " WHERE "
-                + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_DONOR_CODE_COL + " = '" + donorCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_AWARD_CODE_COL + " = '" + awardCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + LAY_R2_LIST_CODE_COL + " = '" + upzillaCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + LAY_R3_LIST_CODE_COL + " = '" + uniteCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + PROG_CODE_COL + " = '" + programCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + SRV_CODE_COL + " = '" + srviceCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = '" + distMonthCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + FDP_CODE_COL + " = '" + fdpCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + DIST_FLAG_COL + " = '" + distFlag + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + MEM_ID_15_D_COL + " = '" + id + "' ";
-        Log.d("All_1", "sql:" + sql);
-        return sql;
-    }
+
 
     public static String getSingleHouseHoldDataForLiberiaQuery(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId) {
         return " SELECT " +
@@ -990,30 +862,7 @@ public class SQLiteQuery {
                 + "  ORDER BY " + SQLiteHandler.FDP_MASTER_TABLE + "." + SQLiteHandler.FDP_NAME_COL;
     }
 
-    public static String checkDataExitsQueryInCT_TableAssignForLiberia(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
-        return "SELECT * FROM " + SQLiteHandler.REG_N_CT_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + LAY_R_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + HH_MEM_ID + " = '" + memberID + "' ";
 
-    }
-   /* // havet use it
-
-    public static String checkAssignedCriteriaQueryInCT_TableForLiberia(String columnName, String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
-        return "SELECT " + columnName + " FROM " + SQLiteHandler.REG_N_CT_TABLE
-                + " WHERE " + SQLiteHandler.ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + SQLiteHandler.LAY_R_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + SQLiteHandler.LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + SQLiteHandler.LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + SQLiteHandler.LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + SQLiteHandler.HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + SQLiteHandler.HH_MEM_ID + " = '" + memberID + "' ";
-
-    }*/
 
 
 
@@ -1030,16 +879,7 @@ public class SQLiteQuery {
 
 
 
-    public static String checkDataExitsQueryInRegN_ARG_TableSQL(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
-        return "SELECT * FROM " + SQLiteHandler.REG_N_AGR_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + MEM_ID_COL + " = '" + memberID + "' ";
-    }
+
 
 
     public static String checkDataExitsQueryInRegN_FFA_TableSQL(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
@@ -1053,29 +893,7 @@ public class SQLiteQuery {
                 + " AND " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " = '" + memberID + "' ";
     }
 
-    public static String checkDataExitsQueryInRegN__TableSQL(String tableName, String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
 
-        if (tableName.equals(REG_N_AGR_TABLE)) {
-            return "SELECT * FROM " + tableName
-                    + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                    + " AND " + LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                    + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                    + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                    + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                    + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                    + " AND " + MEM_ID_COL + " = '" + memberID + "' ";
-        } else {
-            return "SELECT * FROM " + tableName
-                    + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                    + " AND " + LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                    + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                    + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                    + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                    + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                    + " AND " + MEM_ID_COL + " = '" + memberID + "' ";
-        }
-
-    }
 // havet use it
 
 
@@ -1099,42 +917,7 @@ public class SQLiteQuery {
                 + " AND " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " = '" + memberID + "' ";
     }
 
-    /**
-     * AGR Table Check
-     */
-    public static String checkDataExitsQueryInAGR_TableAssignForMalwai(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID, boolean impelmetedinMain) {
-        return " SELECT " + ELDERLY_YN_COL + " , "
-                + LAND_SIZE_COL + " , "
-                + DEPEND_ON_GANYU_COL + " , "
-                + WILLINGNESS_COL + " , "
-                + WINTER_CULTIVATION_COL + " , "
-                + VULNERABLE_HH_COL + " , "
-                + PLANTING_VALUE_CHAIN_CROP_COL + " , "
-                + REG_N_DAT_COL + " , "
-                + LUP_SRV_OPTION_LIST_TABLE + "." + LUP_OPTION_NAME_COL + " AS vcCropStr ,"
-                + AG_INVC_COL + " , "
-                + AG_NASFAM_COL + " , "
-                + AG_CU_COL + ", "
-                + AG_OTHER_COL + " , "
-                + AG_L_S_GOAT_COL + " , "
-                + AG_L_S_CHICKEN_COL + " , "
-                + AG_L_S_PIGION_COL + " , "
-                + AG_L_S_OTHER_COL + "  "
 
-                + " FROM " + REG_N_AGR_TABLE
-                + " LEFT JOIN " + LUP_SRV_OPTION_LIST_TABLE
-                + " ON " + REG_N_AGR_TABLE + " . " + ADM_COUNTRY_CODE_COL + " = " + LUP_SRV_OPTION_LIST_TABLE + " . " + ADM_COUNTRY_CODE_COL +
-                " AND " + PLANTING_VALUE_CHAIN_CROP_COL + " = " + LUP_OPTION_CODE_COL
-                + " WHERE " + REG_N_AGR_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + MEM_ID_COL + " = '" + memberID + "' ";
-
-
-    }
 
     public static String get_RegNAssProgSrvRegistrationDateRangeSelectQuery(String cCode) {
         return "SELECT " + USA_START_DATE_COL + " , " + USA_END_DATE_COL + " FROM " + OP_MONTH_TABLE +
@@ -1297,51 +1080,6 @@ public class SQLiteQuery {
     }
 
 
-    public static String get_DistCriteriaList_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String programCode, String distFlag) {
-
-
-        return " SELECT " + SERVICE_MASTER_TABLE + "." + SERVICE_MASTER_SERVICE_SHORT_NAME_COL + " AS Criteria , " +
-                SERVICE_MASTER_TABLE + "." + ADM_PROG_CODE_COL + " || '' || " + SERVICE_MASTER_TABLE + "." + ADM_SRV_CODE_COL + " AS IdCriteria"
-
-
-                + " ,  ( SELECT COUNT (*) FROM  " + SERVICE_TABLE
-                + " WHERE " + SERVICE_TABLE + "." + PROG_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_PROG_CODE_COL
-                + " AND " + SERVICE_TABLE + "." + SRV_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_SRV_CODE_COL
-
-                + " AND " + SERVICE_TABLE + "." + SRV_STATUS_COL + " = 'C' "
-                + " AND " + SERVICE_TABLE + "." + DISTRIBUTION_STATUS_COL + " IN ('S','P') ) AS plan "
-
-
-                + " ,  ( SELECT COUNT (*) FROM " + DISTRIBUTION_TABLE
-                + " WHERE " + DISTRIBUTION_TABLE + "." + PROG_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_PROG_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + SRV_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_SRV_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = " + OP_MONTH_TABLE + "." + OP_MONTH_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + DISTRIBUTION_STATUS_COL + " = 'R'"
-
-                + " ) AS receive " +
-
-                " FROM " + DISTRIBUTION_TABLE
-
-                + " JOIN " + OP_MONTH_TABLE
-                + " ON " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_COUNTRY_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_DONOR_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_DONOR_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_AWARD_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_AWARD_CODE_COL + " "
-                + " AND " + OP_MONTH_TABLE + "." + OPERATION_CODE_COL + " = '3' "
-                + " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = " + OP_MONTH_TABLE + "." + OP_MONTH_CODE_COL
-
-                + " JOIN " + SERVICE_MASTER_TABLE
-                + " ON " + DISTRIBUTION_TABLE + "." + PROG_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_PROG_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + SRV_CODE_COL + " = " + SERVICE_MASTER_TABLE + "." + ADM_SRV_CODE_COL +
-
-                " WHERE  " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " AND " + DISTRIBUTION_TABLE + "." + ADM_DONOR_CODE_COL + " = '" + donorCode + "' " +
-                " AND " + DISTRIBUTION_TABLE + "." + ADM_AWARD_CODE_COL + " = '" + awardCord + "'" +
-                " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = '" + opMCode + "'  " +
-                " AND " + DISTRIBUTION_TABLE + "." + PROG_CODE_COL + " = '" + programCode + "'  " +
-                " AND " + DISTRIBUTION_TABLE + "." + DIST_FLAG_COL + " = '" + distFlag + "'  " +
-                " GROUP BY " + SERVICE_MASTER_TABLE + "." + SERVICE_MASTER_SERVICE_SHORT_NAME_COL;
-    }
-
 
     public static String getSrvExtendedItemSummaryList_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String programCode) {
 
@@ -1443,64 +1181,6 @@ public class SQLiteQuery {
 
     }
 
-    public static String getTotalDistributionAttendanceSummary_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String prgCode, String srvCode, String distFlag) {
-        String getMemName;
-        if (cCode.equals("0004")) {
-            getMemName = SQLiteHandler.REGISTRATION_MEMBER_TABLE + "." + SQLiteHandler.MEM_NAME_FIRST_COL + " || ' ' || " +
-                    SQLiteHandler.REGISTRATION_MEMBER_TABLE + "." + SQLiteHandler.MEM_NAME_MIDDLE_COL + " || ' ' || " +
-                    SQLiteHandler.REGISTRATION_MEMBER_TABLE + "." + SQLiteHandler.MEM_NAME_LAST_COL;
-
-        } else {
-            getMemName = REGISTRATION_MEMBER_TABLE + "." + MEM_NAME_COL;
-
-        }
-/**
- * todo: check status
- */
-
-        return " SELECT " + DISTRIBUTION_TABLE + "." + MEM_ID_15_D_COL + " AS NewID "
-                + " , " + DISTRIBUTION_TABLE + "." + DISTRIBUTION_STATUS_COL + " AS status "
-                + " , CASE   WHEN length(" + DISTRIBUTION_TABLE + "." + MEM_ID_15_D_COL + ") >=15 "
-                + " THEN " + getMemName
-                + " ELSE " + REG_N_HH_TABLE + "." + REGISTRATION_TABLE_HH_HEAD_NAME + " END AS rptName "
-
-                + " FROM " + DISTRIBUTION_TABLE
-                + " JOIN " + OP_MONTH_TABLE
-                + " ON " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_COUNTRY_CODE_COL
-                + " AND " + OP_MONTH_TABLE + "." + OPERATION_CODE_COL + " = '3' "
-                + " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = " + OP_MONTH_TABLE + "." + OP_MONTH_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_DONOR_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_DONOR_CODE_COL
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_AWARD_CODE_COL + " = " + OP_MONTH_TABLE + "." + ADM_AWARD_CODE_COL
-                + " LEFT JOIN " + REGISTRATION_MEMBER_TABLE
-                + " ON " + REGISTRATION_MEMBER_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL
-                + " AND " + REGISTRATION_MEMBER_TABLE + "." + LAY_R1_LIST_CODE_COL
-                + " || " + REGISTRATION_MEMBER_TABLE + "." + LAY_R2_LIST_CODE_COL
-                + " || " + REGISTRATION_MEMBER_TABLE + "." + LAY_R3_LIST_CODE_COL
-                + " || " + REGISTRATION_MEMBER_TABLE + "." + LAY_R4_LIST_CODE_COL
-                + " || " + REGISTRATION_MEMBER_TABLE + "." + HHID_COL
-                + " || " + REGISTRATION_MEMBER_TABLE + "." + HH_MEM_ID + " = " + DISTRIBUTION_TABLE + "." + MEM_ID_15_D_COL
-
-
-                + " LEFT JOIN " + REG_N_HH_TABLE
-                + " ON " + REG_N_HH_TABLE + "." + ADM_COUNTRY_CODE_COL + " = " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL
-                + " AND " + REG_N_HH_TABLE + "." + LAY_R1_LIST_CODE_COL
-                + " || " + REG_N_HH_TABLE + "." + LAY_R2_LIST_CODE_COL
-                + " || " + REG_N_HH_TABLE + "." + LAY_R3_LIST_CODE_COL
-                + " || " + REG_N_HH_TABLE + "." + LAY_R4_LIST_CODE_COL
-                + " || " + REG_N_HH_TABLE + "." + HHID_COL
-                + " = " + DISTRIBUTION_TABLE + "." + MEM_ID_15_D_COL
-
-                + " WHERE " + DISTRIBUTION_TABLE + "." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_DONOR_CODE_COL + " = '" + donorCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + ADM_AWARD_CODE_COL + " = '" + awardCord + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + PROG_CODE_COL + " = '" + prgCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + SRV_CODE_COL + " = '" + srvCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + OP_MONTH_CODE_COL + " = '" + opMCode + "' "
-                + " AND " + DISTRIBUTION_TABLE + "." + DIST_FLAG_COL + " = '" + distFlag + "' "
-
-                + " GROUP BY " + MEM_ID_15_D_COL
-                ;
-    }
 
     public static String getTotal_Service_Itemize_AttendanceSummary_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String prgCode/*, String srvCode*/, String vouItSpec) {
         return " SELECT " + SERVICE_EXTENDED_TABLE + "." + LAY_R1_LIST_CODE_COL + " || '' || "
@@ -3181,7 +2861,7 @@ public class SQLiteQuery {
     }
 
     /**
-     * {@link PointAttributes#loadLocation(String, String, String)} method use this query
+     *
      *
      * @param cCode      country Code
      * @param grpCode    group Code
@@ -3198,7 +2878,7 @@ public class SQLiteQuery {
 
     /**
      * the sql used only Map Activity
-     * {@link MapActivity#loadLocation(String)} method used this query
+     *
      *
      * @param cCode country code
      * @return location name, groupCode + subGroupCode + locationCode
@@ -3429,48 +3109,6 @@ public class SQLiteQuery {
                 " WHERE " + DT_BASIC_COL + "= '" + dtBasic + "'" +
                 " AND " + DTQ_CODE_COL + "= '" + dtQCode + "'";
     }
-
-    public static String getTrainingActivityIndexList(final String cCode, final String eventTitleSearch) {
-
-
-        //  + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-        //     + " , " + EVENT_CODE_COL + " VARCHAR(8) "
-        //      + " , " + EVENT_NAME_COL + " VARCHAR(100) "
-        //  + " , " + ADM_DONOR_CODE_COL + " VARCHAR(2) "
-        //     + " , " + ADM_AWARD_CODE_COL + " VARCHAR(2) "
-        //   + " , " + TA_GROUP_COL + " VARCHAR(3) "
-        //    + " , " + TA_SUB_GROUP_COL + " VARCHAR(3) "
-        //     + " , " + PROGRAM_ORGANIZATION_NAME_TABLE_ORG_CODE_COL + " VARCHAR(10) "
-        //    + " , " + START_DATE_COL + " VARCHAR(10) "
-        //         + " , " + END_DATE_COL + " VARCHAR(10) "
-////                + " , " + VENUE_NAME_COL + " VARCHAR(100) "
-////                + " , " + VENUE_ADDRESS_COL + " VARCHAR(200) "
-        //    + " , " + ACTIVE_COL + " VARCHAR(10) "
-        //      + " , " + TOTAL_DAYS_COL + " VARCHAR(10) "
-        //       + " , " + HOURS_PER_DAY_COL + " VARCHAR(10) "
-
-        //  TA_MASTER_TABLE
-        return " SELECT " + ADM_COUNTRY_CODE_COL
-                + " , " + EVENT_CODE_COL
-                + " , " + EVENT_NAME_COL
-                + " , " + ADM_DONOR_CODE_COL
-                + " , " + ADM_AWARD_CODE_COL
-                + " , " + TA_GROUP_COL
-                + " , " + TA_SUB_GROUP_COL
-                + " , " + PROGRAM_ORGANIZATION_NAME_TABLE_ORG_CODE_COL
-                + " , " + START_DATE_COL
-                + " , " + END_DATE_COL
-                + " , " + VENUE_NAME_COL
-                + " , " + VENUE_ADDRESS_COL
-                + " , " + ACTIVE_COL
-                + " , " + TOTAL_DAYS_COL
-                + " , " + HOURS_PER_DAY_COL
-                + " FROM " + TA_MASTER_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "'"
-                + " AND " + ACTIVE_COL + " = 'Y' "
-                + " AND " + EVENT_NAME_COL + " LIKE '%" + eventTitleSearch + "%' ";
-    }
-
 
 
 

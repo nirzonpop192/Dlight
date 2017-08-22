@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName1, txtWebsite;
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+//    private FloatingActionButton fab;
     // urls to load navigation header background image
     // and profile image
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
@@ -161,6 +161,47 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mHandler = new Handler();
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        // Navigation view header
+        navHeader = navigationView.getHeaderView(0);
+
+        txtName = (TextView) navHeader.findViewById(R.id.name);
+        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
+        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+
+        // load toolbar titles from string resources
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+/*        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+
+        // load nav menu header data
+        loadNavHeader();
+
+        // initializing navigation menu
+        setUpNavigationView();
+
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_HOME;
+            loadHomeFragment();
+        }
 
         main_activity = this;
         mContext = this;
@@ -192,15 +233,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
 
-     /*   btnViewRec = (Button) findViewById(R.id.btnViewRecord);
-        btnViewRec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent iView = new Intent(getApplicationContext(), MW_RegisterViewRecord.class);
-                startActivity(iView);
-                //main_activity.finish();
-            }
-        });*/
+
 
 
         // Logout button click event
@@ -237,44 +270,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         callBroadCastReceiverToCheck();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        mHandler = new Handler();
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        // Navigation view header
-        navHeader = navigationView.getHeaderView(0);
-        txtName = (TextView) navHeader.findViewById(R.id.name);
-        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
-        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-
-        // load toolbar titles from string resources
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        // load nav menu header data
-        loadNavHeader();
-
-        // initializing navigation menu
-        setUpNavigationView();
-
-        if (savedInstanceState == null) {
-            navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
-            loadHomeFragment();
-        }
 
 
     }                                                                                               // end of onCreate
@@ -286,7 +282,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Ravi Tamada");
+        txtName.setText(getUserName());
         txtWebsite.setText("www.androidhive.info");
 
         // loading header background image
@@ -324,7 +320,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             drawer.closeDrawers();
 
             // show or hide the fab button
-            toggleFab();
+//            toggleFab();
             return;
         }
 
@@ -351,7 +347,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         // show or hide the fab button
-        toggleFab();
+//        toggleFab();
 
         //Closing drawer on item click
         drawer.closeDrawers();
@@ -525,10 +521,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-            return true;
-        }
+//        if (id == R.id.action_logout) {
+//            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+//            return true;
+//        }
 
         // user is in notifications fragment
         // and selected 'Mark all as Read'
@@ -546,12 +542,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     // show or hide the fab
-    private void toggleFab() {
+   /* private void toggleFab() {
         if (navItemIndex == 0)
             fab.show();
         else
             fab.hide();
-    }
+    }*/
 
 
 
@@ -839,94 +835,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     } // end Load Spinner
 
-   /* @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }*/
 
-    private class Inject_RegNAssProgSrvDataIntoSQLite extends AsyncTask<Void, Integer, Void> {
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            new Inject_DynamicTableIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String retrieveData = readDataFromFile("reg_ass_prog_srv_data");
-            try {
-
-
-                JSONObject jObj = new JSONObject(retrieveData);
-
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REGN_PW_JSON_A)) {
-                    Parser.regNPWParser(jObj.getJSONArray(Parser.REGN_PW_JSON_A), db);
-
-                }
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REGN_LM_JSON_A)) {
-                    Parser.regNLMParser(jObj.getJSONArray(Parser.REGN_LM_JSON_A), db);
-
-                }
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REGN_CU_2_JSON_A)) {
-                    Parser.regNCU2Parser(jObj.getJSONArray(Parser.REGN_CU_2_JSON_A), db);
-
-                }
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REGN_CA_2)) {
-                    Parser.RegN_CA2Parser(jObj.getJSONArray(Parser.REGN_CA_2), db);
-                }
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REG_N_AGR_JSON_A)) {
-                    Parser.RegN_AGRParser(jObj.getJSONArray(Parser.REG_N_AGR_JSON_A), db);
-                }
-
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REG_N_CT_JSON_A)) {
-                    Parser.RegN_CTParser(jObj.getJSONArray(Parser.REG_N_CT_JSON_A), db);
-                }
-
-
-                if (!jObj.isNull("reg_n_ffa")) {
-                    Parser.reg_N_FFAParser(jObj.getJSONArray("reg_n_ffa"), db);
-                }
-
-                if (!jObj.isNull("reg_n_we")) {
-                    Parser.reg_N_WEParser(jObj.getJSONArray("reg_n_we"), db);
-                }
-
-
-            } catch (Exception e) {
-                Log.e(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-            return null;
-
-        }
-    }
 
 
     private class Inject_DynamicTableIntoSQLite extends AsyncTask<Void, Integer, Void> {
@@ -935,7 +844,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            new Inject_TrainingActivityIntoSQLite().execute();
+
+            new Inject_EnuTableIntoSQLite().execute();
 
         }
 
@@ -1029,95 +939,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private class Inject_TrainingActivityIntoSQLite extends AsyncTask<Void, Integer, Void> {
 
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            new Inject_EnuTableIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-
-            /**
-             * Read JSON DATA  from the text file
-             * */
-            String retrieveData = readDataFromFile(LoginActivity.TRAINING_N_ACTIVITY);
-
-            try {
-
-                /**                 * The total string Convert into JSON object                 * */
-
-                JSONObject jObj = new JSONObject(retrieveData);
-
-                publishProgress(++progressIncremental);
-
-                if (!jObj.isNull("T_A_master")) {
-                    Parser.TA_Master_Parser(jObj.getJSONArray("T_A_master"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_category")) {
-                    Parser.T_A_category_Parser(jObj.getJSONArray("T_A_category"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_eventTopic")) {
-                    Parser.T_A_eventTopic_Parser(jObj.getJSONArray("T_A_eventTopic"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_group")) {
-                    Parser.T_A_group_Parser(jObj.getJSONArray("T_A_group"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_partOrgN")) {
-                    Parser.T_A_partOrgN_Parser(jObj.getJSONArray("T_A_partOrgN"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_posParticipants")) {
-                    Parser.T_A_posParticipants_Parser(jObj.getJSONArray("T_A_posParticipants"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_subGroup")) {
-                    Parser.T_A_subGroup_Parser(jObj.getJSONArray("T_A_subGroup"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_topicChild")) {
-                    Parser.T_A_topicChild_Parser(jObj.getJSONArray("T_A_topicChild"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("T_A_topicMaster")) {
-                    Parser.T_A_topicMaster_Parser(jObj.getJSONArray("T_A_topicMaster"), db);
-                }
-
-                publishProgress(++progressIncremental);
-                if (!jObj.isNull("LUP_TAParticipantCat")) {
-                    Parser.LUP_TAParticipantCat_Parser(jObj.getJSONArray("LUP_TAParticipantCat"), db);
-                }
-
-
-            } catch (Exception e) {
-                Log.e(TAG, "Exception : " + e);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-    }
 
     private class Inject_EnuTableIntoSQLite extends AsyncTask<Void, Integer, Void> {
 
@@ -1165,160 +987,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-
-    private class Inject_Reg_HouseH_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            new Inject_Service_DataIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String receiveData = readDataFromFile(LoginActivity.REG_HOUSE_HOLD_DATA);
-            /**             * the parsing held by other class             */
-
-            Parser.RegistrationNHHParser(receiveData, db);
-
-
-            return null;
-        }
-    }
-
-    private class Inject_Service_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            // insert assigne data
-            new Inject_Reg_Member_DataIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String retreiveData = readDataFromFile(LoginActivity.SERVICE_DATA);
-
-
-            /**
-             * The total string Convert into JSON object
-             * */
-
-            try {
-                JSONObject jObj = new JSONObject(retreiveData);
-
-                if (!jObj.isNull(Parser.SERVICE_TABLE_JSON_A)) {
-                    JSONArray services_data = jObj.getJSONArray(Parser.SERVICE_TABLE_JSON_A);
-                    publishProgress(++progressIncremental);
-                    Parser.SrvTableParser(services_data, db);
-                }
-
-
-                if (!jObj.isNull("service_exe_table")) {// this is not servie
-                    JSONArray services_exe_table = jObj.getJSONArray("service_exe_table");
-
-              /*      publishProgress(++progressIncremental);
-                    Parser.SrvExtTableParser(services_exe_table, db);*/
-                }
-            } catch (Exception e) {
-                Log.d(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-    }
-
-    /**
-     * inject Reg member data
-     */
-
-    private class Inject_Reg_Member_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            new Inject_Reg_Member_Prog_Grp_DataIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String retreiveData = readDataFromFile(LoginActivity.REG_MEMBER_DATA);
-            Parser.RegNMemberParser(retreiveData, db);
-            publishProgress(++progressIncremental);
-
-            return null;
-        }
-    }
-
-
-    /**
-     * inject Reg member Program  Group data
-     */
-
-    private class Inject_Reg_Member_Prog_Grp_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
-
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            new Inject_RegNAssProgSrvDataIntoSQLite().execute();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String retrieveData = readDataFromFile(LoginActivity.REG_MEMBER_PROG_GROUP_DATA);
-            // todo change the  structure
-            Parser.RegNMemProGrpParser(retrieveData, db);
-            publishProgress(++progressIncremental);
-
-            Parser.GpsLocationContentParser(retrieveData, db);
-            publishProgress(++progressIncremental);
-
-
-
-            return null;
-        }
-    }
 
 
     private class Inject_All_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
@@ -1427,140 +1095,100 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.ADM_PROGRAM_MASTER_JSON_A)) {
+                if (!jObj.isNull(Parser.ADM_PROGRAM_MASTER_JSON_A))
                     Parser.admProgramMasterParser(jObj.getJSONArray(Parser.ADM_PROGRAM_MASTER_JSON_A), db);
-                }
+
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.ADM_SERVICE_MASTER_JSON_A)) {
+                if (!jObj.isNull(Parser.ADM_SERVICE_MASTER_JSON_A))
                     Parser.admServiceMasterParser(jObj.getJSONArray(Parser.ADM_SERVICE_MASTER_JSON_A), db);
 
-                }
 
 
-                //adm_op_month
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.ADM_OP_MONTH_JSON_A)) {
+                if (!jObj.isNull(Parser.ADM_OP_MONTH_JSON_A))
                     Parser.admOpMonthParser(jObj.getJSONArray(Parser.ADM_OP_MONTH_JSON_A), db);
 
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.ADM_COUNTRY_PROGRAM_JSON_A)) {
+                if (!jObj.isNull(Parser.ADM_COUNTRY_PROGRAM_JSON_A))
                     Parser.admCountryProgramParser(jObj.getJSONArray(Parser.ADM_COUNTRY_PROGRAM_JSON_A), db);
 
-                }
+
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.DOB_SERVICE_CENTER_JSON_A)) {
+                if (!jObj.isNull(Parser.DOB_SERVICE_CENTER_JSON_A))
                     Parser.srvCenterParser(jObj.getJSONArray(Parser.DOB_SERVICE_CENTER_JSON_A), db);
 
-                }
+
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.STAFF_ACCESS_INFO_JSON_A)) {
+                if (!jObj.isNull(Parser.STAFF_ACCESS_INFO_JSON_A))
                     Parser.staff_access_infoParser(jObj.getJSONArray(Parser.STAFF_ACCESS_INFO_JSON_A), db);
-                }
+
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.LB_REG_HH_CATEGORY_JSON_A)) {
+                if (!jObj.isNull(Parser.LB_REG_HH_CATEGORY_JSON_A))
                     Parser.lupRegnHHCategoryParser(jObj.getJSONArray(Parser.LB_REG_HH_CATEGORY_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REG_LUP_GRADUATION_JSON_A)) {
+                if (!jObj.isNull(Parser.REG_LUP_GRADUATION_JSON_A))
                     Parser.regNLupGraduationParser(jObj.getJSONArray(Parser.REG_LUP_GRADUATION_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.LAYER_LABELS_JSON_A)) {
+                if (!jObj.isNull(Parser.LAYER_LABELS_JSON_A))
                     Parser.geoLayRMasterParser(jObj.getJSONArray(Parser.LAYER_LABELS_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.DISTRICT_JSON_A)) {
+                if (!jObj.isNull(Parser.DISTRICT_JSON_A))
                     Parser.geoLayR1ListParser(jObj.getJSONArray(Parser.DISTRICT_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.UPAZILLA_JSON_A)) {
+                if (!jObj.isNull(Parser.UPAZILLA_JSON_A))
                     Parser.geoLayR2ListParser(jObj.getJSONArray(Parser.UPAZILLA_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.UNIT_JSON_A)) {
+                if (!jObj.isNull(Parser.UNIT_JSON_A))
                     Parser.geoLayR3ListParser(jObj.getJSONArray(Parser.UNIT_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.VILLAGE_JSON_A)) {
+                if (!jObj.isNull(Parser.VILLAGE_JSON_A))
                     Parser.geoLayR4ListParser(jObj.getJSONArray(Parser.VILLAGE_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.RELATION_JSON_A)) {
+                if (!jObj.isNull(Parser.RELATION_JSON_A))
                     Parser.lupRegNHHRelationParser(jObj.getJSONArray(Parser.RELATION_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.REPORT_TEMPLATE_JSON_A)) {
+                if (!jObj.isNull(Parser.REPORT_TEMPLATE_JSON_A))
                     Parser.rptTemplateParser(jObj.getJSONArray(Parser.REPORT_TEMPLATE_JSON_A), db);
-                }
+
 
 
                 publishProgress(++progressIncremental);
-                if (!jObj.isNull(Parser.CARD_PRINT_REASON_JSON_A)) {
+                if (!jObj.isNull(Parser.CARD_PRINT_REASON_JSON_A))
                     Parser.lupRegNCardPrintReasonParser(jObj.getJSONArray(Parser.CARD_PRINT_REASON_JSON_A), db);
-                }
 
 
-                publishProgress(++progressIncremental);
 
-
-                if (!jObj.isNull(Parser.REG_MEM_CARD_REQUEST_JSON_A)) {
-                    JSONArray reg_mem_card_requests = jObj.getJSONArray(Parser.REG_MEM_CARD_REQUEST_JSON_A);
-                    size = reg_mem_card_requests.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject reg_mem_card_request = reg_mem_card_requests.getJSONObject(i);
-
-                        String AdmCountryCode = reg_mem_card_request.getString(Parser.ADM_COUNTRY_CODE);
-                        String AdmDonorCode = reg_mem_card_request.getString(Parser.ADM_DONOR_CODE);
-                        String AdmAwardCode = reg_mem_card_request.getString(Parser.ADM_AWARD_CODE);
-                        String LayR1ListCode = reg_mem_card_request.getString(Parser.LAY_R_1_LIST_CODE);
-                        String LayR2ListCode = reg_mem_card_request.getString(Parser.LAY_R_2_LIST_CODE);
-                        String LayR3ListCode = reg_mem_card_request.getString(Parser.LAY_R_3_LIST_CODE);
-                        String LayR4ListCode = reg_mem_card_request.getString(Parser.LAY_R_4_LIST_CODE);
-                        String HHID = reg_mem_card_request.getString(Parser.HHID);
-                        String MemID = reg_mem_card_request.getString(Parser.MEM_ID);
-                        String RptGroup = reg_mem_card_request.getString(Parser.RPT_GROUP);
-                        String RptCode = reg_mem_card_request.getString(Parser.RPT_CODE);
-                        String RequestSL = reg_mem_card_request.getString(Parser.REQUEST_SL);
-                        String ReasonCode = reg_mem_card_request.getString(Parser.REASON_CODE);
-                        String RequestDate = reg_mem_card_request.getString(Parser.REQUEST_DATE);
-                        String PrintDate = reg_mem_card_request.getString(Parser.PRINT_DATE);
-                        String PrintBy = reg_mem_card_request.getString(Parser.PRINT_BY);
-                        String DeliveryDate = reg_mem_card_request.getString(Parser.DELIVERY_DATE);
-                        String DeliveredBy = reg_mem_card_request.getString(Parser.DELIVERED_BY);
-                        String DelStatus = reg_mem_card_request.getString(Parser.DEL_STATUS);
-                        String EntryBy = reg_mem_card_request.getString(Parser.ENTRY_BY);
-                        String EntryDate = reg_mem_card_request.getString(Parser.ENTRY_DATE);
-
-                        db.addCardRequestDataFromOnline(AdmCountryCode, AdmDonorCode, AdmAwardCode, LayR1ListCode, LayR2ListCode, LayR3ListCode, LayR4ListCode,
-                                HHID, MemID, RptGroup, RptCode, RequestSL, ReasonCode, RequestDate,
-                                PrintDate, PrintBy, DeliveryDate, DeliveredBy, DelStatus, EntryBy, EntryDate);
-
-                        //Log.d(TAG, "In Reg Mem Card Request Table: AdmCountryCode : " + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : " + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode + " HHID : " + HHID);
-                    }
-                }
 
 
                 publishProgress(++progressIncremental);
@@ -1582,8 +1210,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                         db.addStaffFDPAccess(StfCode, AdmCountryCode, FDPCode, btnNew, btnSave, btnDel);
 
-                        //  Log.d(TAG, "In Reg Mem Card Request Table: AdmCountryCode : " + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : "
-                        //        + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode+ " HHID : " + HHID);
+
                     }
                 }
 
@@ -1607,47 +1234,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                         db.addFDPMaster(AdmCountryCode, FDPCode, FDPName, FDPCatCode, WHCode, LayR1Code, LayR2Code);
 
-                        //  Log.d(TAG, "In Reg Mem Card Request Table: AdmCountryCode : " + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : "
-                        //        + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode+ " HHID : " + HHID);
+
                     }
                 }
 
 
-                publishProgress(++progressIncremental);
 
 
-                if (!jObj.isNull(Parser.DISTRIBUTION_TABLE_JSON_A)) {
-                    JSONArray distribution_tableDatas = jObj.getJSONArray(Parser.DISTRIBUTION_TABLE_JSON_A);
-                    size = distribution_tableDatas.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject distribution_tableData = distribution_tableDatas.getJSONObject(i);
-                        DistributionSaveDataModel data = new DistributionSaveDataModel();
-                        data.setCountryCode(distribution_tableData.getString(Parser.ADM_COUNTRY_CODE));
-                        data.setAdmDonorCode(distribution_tableData.getString(Parser.ADM_DONOR_CODE));
-                        data.setAdmAwardCode(distribution_tableData.getString(Parser.ADM_AWARD_CODE));
-                        data.setDistrictCode(distribution_tableData.getString(Parser.LAY_R_1_LIST_CODE));
-                        data.setUpCode(distribution_tableData.getString(Parser.LAY_R_2_LIST_CODE));
-                        data.setUniteCode(distribution_tableData.getString(Parser.LAY_R_3_LIST_CODE));
-                        data.setVillageCode(distribution_tableData.getString(Parser.LAY_R_4_LIST_CODE));
-                        data.setProgCode(distribution_tableData.getString(Parser.PROG_CODE));
-                        data.setSrvCode(distribution_tableData.getString(Parser.SRV_CODE));
-                        data.setOpMonthCode(distribution_tableData.getString(Parser.OP_MONTH_CODE));
-                        data.setFDPCode(distribution_tableData.getString(Parser.FDP_CODE));
-                        data.setID(distribution_tableData.getString(Parser.ID));
-                        data.setDistStatus(distribution_tableData.getString(Parser.DIST_STATUS));
-                        data.setSrvOpMonthCode(distribution_tableData.getString(Parser.SRV_OP_MONTH_CODE));
-                        data.setDistFlag(distribution_tableData.getString(Parser.DIST_FLAG));
-                        data.setWd(distribution_tableData.getString("WD"));
 
-                        db.addInDistributionTableFormOnLine(data);
-
-                        //  Log.d(TAG, "In Reg Mem Card Request Table: AdmCountryCode : " + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : "
-                        //        + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode+ " HHID : " + HHID);
-                    }
-                }
-
-
-                publishProgress(++progressIncremental);
 
 
 
@@ -1840,10 +1434,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
                         db.addGPS_SubGroupAttributesFromOnline(GrpCode, SubGrpCode, AttributeCode, AttributeTitle, DataType, LookUpCode);
-                        /*Log.d("NIR2", "addGPS_SubGroupAttributesFromOnline : GrpCode : " + GrpCode
-                                + " SubGrpCode : " + SubGrpCode + " AttributeCode : " + AttributeCode
-                                + " AttributeTitle : " + AttributeTitle + " DataType : " + DataType
-                                + " LookUpCode : " + LookUpCode);*/
+
 
                     }
                 }
@@ -2077,7 +1668,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void string) {
 
-            new Inject_Reg_HouseH_DataIntoSQLite().execute();
+            new Inject_DynamicTableIntoSQLite().execute();
+
         }
     }
 
@@ -2100,63 +1692,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-   /* private void showOperationModelLabel(SharedPreferences settings) {
-//        int operationMode = settings.getInt(UtilClass.OPERATION_MODE, 0);
-        String operationModeName = sqlH.getDeviceOperationModeName();
-        switch (operationModeName) {
-            case UtilClass.REGISTRATION_OPERATION_MODE_NAME:
 
-                tvOperationMode.setText("REGISTRATION");
-                List<String> list;
-                list = db.selectGeoDataVillage();
-                String villageName = "";
-                for (int i = 0; i < list.size(); i++) {
-                    villageName += list.get(i) + "\n";
-                }
-                tvGeoData.setText(villageName);
-
-                break;
-
-            case UtilClass.TRANING_N_ACTIVITY_OPERATION_MODE_NAME:
-
-                tvOperationMode.setText("TRAINING N ACTIVITY");
-
-                list = db.selectGeoDataVillage();
-                villageName = "";
-                for (int i = 0; i < list.size(); i++) {
-                    villageName += list.get(i) + "\n";
-                }
-                tvGeoData.setText(villageName);
-
-                break;
-            case UtilClass.DISTRIBUTION_OPERATION_MODE_NAME:
-
-                tvOperationMode.setText("DISTRIBUTION");
-                list = db.selectGeoDataFDP();
-                String fdPName = "";
-                for (int i = 0; i < list.size(); i++) {
-                    fdPName += list.get(i) + "\n";
-                }
-                tvGeoData.setText(fdPName);
-                break;
-            case UtilClass.SERVICE_OPERATION_MODE_NAME:
-
-                tvOperationMode.setText("SERVICE");
-                list = db.selectGeoDataCenter();
-                String centerName = "";
-                for (int i = 0; i < list.size(); i++) {
-                    centerName += list.get(i) + "\n";
-                }
-                tvGeoData.setText(centerName);
-
-                break;
-
-
-            case UtilClass.OTHER_OPERATION_MODE_NAME:
-                tvOperationMode.setText("ORTHER");
-                tvGeoData.setText("NOT APPLICABLE");
-
-                break;
-        }
-    }*/
 }

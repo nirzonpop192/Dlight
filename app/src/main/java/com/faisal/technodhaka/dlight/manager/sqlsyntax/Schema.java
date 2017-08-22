@@ -268,68 +268,10 @@ public class Schema {
                 + " ) ";
     }
 
-    /**
-     * creating Sub Assigne Table
-     **/
-
-    public static String sqlCreateRegN_AGR_Table() {
-        return CREATE_TABLE_IF_NOT_EXISTS + REG_N_AGR_TABLE + " ("
-
-//                + SQLiteHandler.ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
-
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4), "
-                + LAY_R1_LIST_CODE_COL + " VARCHAR(2), "
-                + LAY_R2_LIST_CODE_COL + " VARCHAR(2), "
-                + LAY_R3_LIST_CODE_COL + " VARCHAR(2), "
-                + LAY_R4_LIST_CODE_COL + " VARCHAR(2), "
-                + HHID_COL + " VARCHAR(5), "
-                + MEM_ID_COL + " VARCHAR(20), "
-                + REG_N_DAT_COL + " VARCHAR(20), "
-                + ELDERLY_YN_COL + " VARCHAR(1), "
-                + LAND_SIZE_COL + " VARCHAR(21), "
-                + DEPEND_ON_GANYU_COL + " VARCHAR(1), "
-                + WILLINGNESS_COL + " VARCHAR(1), "
-                + WINTER_CULTIVATION_COL + " VARCHAR(1), "
-                + VULNERABLE_HH_COL + " VARCHAR(1), "
-                + PLANTING_VALUE_CHAIN_CROP_COL + " VARCHAR(3), "
-                + AG_INVC_COL + " VARCHAR(1) DEFAULT 'N', "
-                + AG_NASFAM_COL + " VARCHAR(1) DEFAULT 'N', "
-                + AG_CU_COL + " VARCHAR(1) DEFAULT 'N', "
-                + AG_OTHER_COL + " VARCHAR(1) DEFAULT 'N', "
-                + AG_L_S_GOAT_COL + " INT DEFAULT 0, "
-                + AG_L_S_CHICKEN_COL + " INT DEFAULT 0, "
-                + AG_L_S_PIGION_COL + " INT DEFAULT 0, "
-                + AG_L_S_OTHER_COL + " INT DEFAULT 0, "
-                + ENTRY_BY + " VARCHAR(50) DEFAULT '0', "
-                + ENTRY_DATE + " VARCHAR(50) DEFAULT '0' "
-                + " )";
 
 
-    }
 
-    public static String sqlCreateDistributionTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + DISTRIBUTION_TABLE + " ( "
 
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(10), "
-                + ADM_DONOR_CODE_COL + " VARCHAR(5), "
-                + ADM_AWARD_CODE_COL + " VARCHAR(5), "
-                + LAY_R1_LIST_CODE_COL + " VARCHAR(10), "
-                + LAY_R2_LIST_CODE_COL + " VARCHAR(10), "
-                + LAY_R3_LIST_CODE_COL + " VARCHAR(10), "
-                + LAY_R4_LIST_CODE_COL + " VARCHAR(10), "
-                + PROG_CODE_COL + " VARCHAR(10), "
-                + SRV_CODE_COL + " VARCHAR(10), "
-                + OP_MONTH_CODE_COL + " VARCHAR(10), "
-                + FDP_CODE_COL + " VARCHAR(10), "
-                + MEM_ID_15_D_COL + " VARCHAR(25), "
-                + DISTRIBUTION_STATUS_COL + " VARCHAR(2), "
-                + SRV_OP_MONTH_CODE_COL + " VARCHAR(2), "
-                + DIST_FLAG_COL + " VARCHAR(100), "
-                + WORK_DAY_COL + " VARCHAR(10), "
-                + ENTRY_BY + " VARCHAR(20), "
-                + ENTRY_DATE + " VARCHAR(22) "
-                + " )";
-    }
 
     public static String sqlCreateStaffFDPAccessTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + STAFF_FDP_ACCESS_TABLE + " ( "
@@ -549,27 +491,7 @@ public class Schema {
     }
 
 
-    // create Vul table schema
-    public static String sqlCreateRegNVUL_Table() {
 
-        return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.REG_N_VUL_TABLE + " ("
-
-                + SQLiteHandler.ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
-
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4), "
-                + LAY_R1_LIST_CODE + " VARCHAR(2), "
-                + LAY_R2_LIST_CODE_COL + " VARCHAR(2), "
-                + LAY_R3_LIST_CODE_COL + " VARCHAR(2), "
-                + LAY_R4_LIST_CODE_COL + " VARCHAR(2), "
-                + HHID_COL + " VARCHAR(5), "
-                + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " VARCHAR(20), "
-                + REG_N_DAT_COL + " VARCHAR(20), "
-                + SQLiteHandler.Disabled_YN_COL + " VARCHAR(1), "
-                + ENTRY_BY + " VARCHAR(50) DEFAULT '0', "
-                + ENTRY_DATE + " VARCHAR(50) DEFAULT '0' "
-                + " )";
-
-    }
 
     // create Vul table schema
     public static String sqlCreateVoucherItem_Table() {
@@ -1401,139 +1323,8 @@ public class Schema {
     }
 
 
-    public static String createTAMasterTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_MASTER_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + EVENT_CODE_COL + " VARCHAR(8) "
-                + " , " + EVENT_NAME_COL + " VARCHAR(100) "
-                + " , " + ADM_DONOR_CODE_COL + " VARCHAR(2) "
-                + " , " + ADM_AWARD_CODE_COL + " VARCHAR(2) "
-                + " , " + TA_GROUP_COL + " VARCHAR(3) "
-                + " , " + TA_SUB_GROUP_COL + " VARCHAR(3) "
-                + " , " + PROGRAM_ORGANIZATION_NAME_TABLE_ORG_CODE_COL + " VARCHAR(10) "
-                + " , " + START_DATE_COL + " VARCHAR(10) "
-                + " , " + END_DATE_COL + " VARCHAR(10) "
-                + " , " + VENUE_NAME_COL + " VARCHAR(100) "
-                + " , " + VENUE_ADDRESS_COL + " VARCHAR(200) "
-                + " , " + ACTIVE_COL + " VARCHAR(10) "
-                + " , " + TOTAL_DAYS_COL + " VARCHAR(10) "
-                + " , " + HOURS_PER_DAY_COL + " VARCHAR(10) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + EVENT_CODE_COL + " ) "
-                + " ) ";
-    }
 
 
-    public static String createTACategoryTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_CATEGORY_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + TA_CAT_CODE_COL + " VARCHAR(3) "
-                + " , " + TA_CAT_NAME_COL + " VARCHAR(50) "
-                + " , " + SRC_BEN_COL + " VARCHAR(3) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + TA_CAT_CODE_COL + " ) "
-                + " ) ";
-    }
-
-    public static String createTAEventTopicTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_EVENT_TOPIC_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + EVENT_CODE_COL + " VARCHAR(3) "
-                + " , " + TOPIC_MASTER_CODE_COL + " VARCHAR(50) "
-                + " , " + TOPIC_CHILD_CODE_COL + " VARCHAR(3) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + EVENT_CODE_COL + ", " + TOPIC_MASTER_CODE_COL + ", " + TOPIC_CHILD_CODE_COL + " ) "
-                + " ) ";
-    }
-
-    public static String createTAGroupTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_GROUP_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + TOPIC_GROUP_COL + " VARCHAR(3) "
-                + " , " + TOPIC_GROUP_TITLE_COL + " VARCHAR(200) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + TOPIC_GROUP_COL + " ) "
-                + " ) ";
-    }
-
-
-    public static String createTAParticipantsTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_PARTICIPANTS_LIST_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + EVENT_CODE_COL + " VARCHAR(8) "
-                + " , " + PART_ID_COL + " VARCHAR(50) "
-                + " , " + ID_CATEGORY_COL + " VARCHAR(3) "
-                + " , " + PART_NAME_COL + " VARCHAR(100) "
-                + " , " + PART_ORG_N_CODE_COL + " VARCHAR(3) "
-                + " , " + TA_PARTICIPANTS_LIST_TABLE_SEX_COL + " VARCHAR(1) "
-                + " , " + PART_CAT_CODE_COL + " VARCHAR(3) "
-                + " , " + POS_CODE_COL + " VARCHAR(3) "
-                + " , " + AM_SESSION_COL + " VARCHAR(1) "
-                + " , " + PM_SESSION_COL + " VARCHAR(1) "
-                + " , " + ATDN_DATE_COL + " VARCHAR(30) "
-                + " , " + TA_GROUP_COL + " VARCHAR(3) "
-                + " , " + ENTRY_BY + " VARCHAR(4) "
-                + " , " + ENTRY_DATE + " VARCHAR(20) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + EVENT_CODE_COL + ", " + PART_ID_COL + ", " + ATDN_DATE_COL + " ) "
-                + " ) ";
-    }
-
-
-    public static String createTAPartOrgNTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_PART_ORG_N_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + PART_ORG_N_CODE_COL + " VARCHAR(3) "
-                + " , " + PART_ORG_N_NAME_COL + " VARCHAR(200) "
-                + " , " + SRC_BEN_COL + " VARCHAR(1) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + PART_ORG_N_CODE_COL + " ) "
-                + " ) ";
-    }
-
-    public static String createTAPosParticipantsTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_POS_PARTICIPANTS_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + POS_CODE_COL + " VARCHAR(3) "
-                + " , " + POS_TITLE_COL + " VARCHAR(100) "
-
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + POS_CODE_COL + " ) "
-                + " ) ";
-    }
-
-
-    public static String createTASubGroupTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_SUB_GROUP_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + TA_GROUP_COL + " VARCHAR(3) "
-                + " , " + TA_SUB_GROUP_COL + " VARCHAR(3) "
-                + " , " + TA_SUB_TITLE_COL + " VARCHAR(200) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + TA_GROUP_COL + ", " + TA_SUB_GROUP_COL + " ) "
-                + " ) ";
-    }
-
-    public static String createTATopicChildTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_TOPIC_CHILD_TABLE
-                + " ( "
-                + TOPIC_MASTER_CODE_COL + " VARCHAR(4) "
-                + " , " + TOPIC_CHILD_CODE_COL + " VARCHAR(3) "
-                + " , " + TOPIC_SUB_TITLE_COL + " VARCHAR(200) "
-
-                + " , " + PRIMARY_KEY + " (" + TOPIC_MASTER_CODE_COL + ", " + TOPIC_CHILD_CODE_COL + " ) "
-                + " ) ";
-    }
-
-    public static String createTATopicMasterTable() {
-        return CREATE_TABLE_IF_NOT_EXISTS + TA_TOPIC_MASTER_TABLE
-                + " ( "
-                + TOPIC_MASTER_CODE_COL + " VARCHAR(4) "
-                + " , " + TOPIC_TITLE_COL + " VARCHAR(200) "
-
-                + " , " + PRIMARY_KEY + " (" + TOPIC_MASTER_CODE_COL + " ) "
-                + " ) ";
-    }
 
 
     public static String crateLUP_TAParticipantCat() {
