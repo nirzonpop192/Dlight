@@ -34,4 +34,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.0.1'
     // Glide image library
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    // powerful & easy to use chart library for Android
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }

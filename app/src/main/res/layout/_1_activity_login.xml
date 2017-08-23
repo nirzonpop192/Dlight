@@ -12,14 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/blue">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
         <!--     <include layout="@layout/header" />-->
 
         <LinearLayout
@@ -93,6 +86,14 @@
 
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_above="@+id/logInControl_ll"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_dlite_256" />
 
 
     </RelativeLayout>

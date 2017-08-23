@@ -71,6 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static final String IS_APP_FIRST_RUN = "IsAppFirstRun";
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -360,27 +362,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected boolean getValidDateRangeUSAFormat(String test_date, String sdate, String edate) throws ParseException {
-
-        String curr_date;
-        if (isTheDateValidUSAFormat(test_date)) {
-            curr_date = test_date;
-        } else {
-            curr_date = test_date;
-
-        }
-
-        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
-
-        Date newDate = format.parse(curr_date);
-        Date startDate = format.parse(sdate);
-        Date endDate = format.parse(edate);
-
-        return newDate.getTime() >= startDate.getTime() && newDate.getTime() <= endDate.getTime();
-
-    }
-
-
     //dynamically file will create Read from it
     protected String readDataFromFile(String mfile_name) {
         String retrieveString = "";
@@ -407,7 +388,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(TAG, "Can not read file: " + e.toString());
         }
-        //Log.i("REFAT---->", ret);
+
         Log.i(TAG, String.valueOf(retrieveString.length()));
         return retrieveString;
     }
@@ -451,7 +432,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(iMainActivity);
 
     }
-
 
 
     /**

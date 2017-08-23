@@ -2013,7 +2013,10 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 
             // set check box is checked or not
 
-            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(), dtA_Table_Data.get(i).getDt_ACode(), mDTRSeq);
+            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(),
+                    dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(),
+                    dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(),
+                    dtA_Table_Data.get(i).getDt_ACode(), mDTRSeq);
             if (loadAns != null) {
                 if (loadAns.getDtaValue().equals("Y")) {
                     checkBox.setChecked(true);
@@ -2030,7 +2033,9 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         String dt_SkipDTQCode;
         for (int i = 0; i < dtA_Table_Data.size(); i++) {
             dt_SkipDTQCode = dtA_Table_Data.get(i).getDt_SkipDTQCode();
-            if (dt_SkipDTQCode != null && !dt_SkipDTQCode.equals("null") && dt_SkipDTQCode.length() > 4) {
+
+            if (dt_SkipDTQCode != null && !dt_SkipDTQCode.equals("null") &&
+                    dt_SkipDTQCode.length() > 4) {
                 isSkipRullAssociated = true;
                 break;
             } else {
@@ -2042,9 +2047,9 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         if (isChecked) {
-            countChecked++; //              increase number of Selected Check box
+            countChecked++;                                                                         //  increase number of Selected Check box
         } else {
-            countChecked--;//              decrease number of  Selected  Check box
+            countChecked--;                                                                         //   decrease number of  Selected  Check box
         }
     }
 

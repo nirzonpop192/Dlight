@@ -121,7 +121,7 @@
                     android:textStyle="bold" />
 
 
-                <Button
+    <!--            <Button
                     android:id="@+id/btnDynamicData"
                     style="@style/btn_main_page"
                     android:layout_marginBottom="5dp"
@@ -134,7 +134,8 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingStart="5dp"
-                    android:text="dynamic_data" />
+                    android:text="dynamic_data" />-->
+
 
 
             </LinearLayout>

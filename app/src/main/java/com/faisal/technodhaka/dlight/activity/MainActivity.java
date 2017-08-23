@@ -46,6 +46,7 @@ import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.controller.AppController;
 import com.faisal.technodhaka.dlight.data_model.adapters.DistributionSaveDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
+import com.faisal.technodhaka.dlight.fragments.ChartFragment;
 import com.faisal.technodhaka.dlight.fragments.HomeFragment;
 import com.faisal.technodhaka.dlight.fragments.MoviesFragment;
 import com.faisal.technodhaka.dlight.fragments.NotificationsFragment;
@@ -81,7 +82,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity  {
 
     public static final String LIBERIA_COUNTRY_CODE = "0004";
     public static final int TOTAL_NO_OF_TABLE = 88;
@@ -105,9 +106,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
-    private Button btnDynamicData;
+//    private Button btnDynamicData;
 
-//    private Button btnNewReg;
+    //    private Button btnNewReg;
 //    private Button btnSummaryRep;
     ///private Button btnViewRec;
     private Button btnSyncRec;
@@ -121,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ProgressDialog progressDialog;
 
-    private TextView  tvLastSync, tvSyncRequired, tvOperationMode, tvDeviceId;
+    private TextView tvLastSync, tvSyncRequired, tvOperationMode, tvDeviceId;
     private Context mContext;
 
     private int progressIncremental;
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName1, txtWebsite;
     private Toolbar toolbar;
-//    private FloatingActionButton fab;
+    //    private FloatingActionButton fab;
     // urls to load navigation header background image
     // and profile image
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
@@ -147,6 +148,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG_MOVIES = "movies";
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_SETTINGS = "settings";
+    private static final String TAG_CHART = "chart";
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -232,10 +234,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvDeviceId.setText(deviceId);
 
 
-
-
-
-
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
 
@@ -258,19 +256,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             editor.apply();
         }
         loadCountry();
-        setAllButtonDisabled();
-        viewAccessController();
+ /*       setAllButtonDisabled();
+        viewAccessController();*/
         //showOperationModelLabel(settings);
-
-
-
 
 
 //       String versionName= VersionUtils.getVersionName(getApplicationContext());                  delete it
 
         callBroadCastReceiverToCheck();
-
-
 
 
     }                                                                                               // end of onCreate
@@ -308,8 +301,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * selected from navigation menu
      */
     private void loadHomeFragment() {
-        // selecting appropriate nav menu item
-        selectNavMenu();
+
+        selectNavMenu();                                                                              // selecting appropriate nav menu item
 
         // set toolbar title
         setToolbarTitle();
@@ -379,6 +372,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 // settings fragment
                 SettingsFragment settingsFragment = new SettingsFragment();
                 return settingsFragment;
+
+            case 5:
+                // settings fragment
+                ChartFragment charFragment = new ChartFragment();
+                return charFragment;
             default:
                 return new HomeFragment();
         }
@@ -423,15 +421,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
+
+               /*     case R.id.nav_chart:
+                        navItemIndex = 5;
+                        CURRENT_TAG = TAG_CHART;
+                        break;*/
+
                     case R.id.nav_about_us:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+
+                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));        // launch new intent instead of loading fragment
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_privacy_policy:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));   // launch new intent instead of loading fragment
                         drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_dynamic:
+
+                        Intent iDynamicData = new Intent(getApplicationContext(), DynamicTable.class); // launch new intent instead of loading fragment
+                        iDynamicData.putExtra(KEY.COUNTRY_ID, idCountry);
+                        startActivity(iDynamicData);
+                        return true;
+
+                    case R.id.nav_chart:
+
+                        Intent iChartActivity = new Intent(getApplicationContext(), ChartActivity.class); // launch new intent instead of loading fragment
+                        iChartActivity.putExtra(KEY.COUNTRY_ID, idCountry);
+                        startActivity(iChartActivity);
                         return true;
                     default:
                         navItemIndex = 0;
@@ -550,7 +567,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }*/
 
 
-
     private void callBroadCastReceiverToCheck() {
         Intent registerBroadcast = new Intent(this, VersionStateChangeReceiver.class);
         sendBroadcast(registerBroadcast);
@@ -565,13 +581,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fileOrDirectory.delete();
 
     }
-
-
-
-
-
-
-
 
 
     private void hideProgressBar() {
@@ -647,7 +656,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             case UtilClass.TRANING_N_ACTIVITY_OPERATION_MODE_NAME:
             case UtilClass.OTHER_OPERATION_MODE_NAME:
-                btnDynamicData.setEnabled(true);
+//                btnDynamicData.setEnabled(true);
 
 
                 break;
@@ -660,11 +669,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void buttonSetListener() {
 
 
+        btnSyncRec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+                boolean syncProcessOnGoing = settings.getBoolean(UtilClass.PROCESS_ON_GOING_KEY, false);
+                if (!syncProcessOnGoing)
+                    synchronizationProcess(btnSyncRec);
+            }
+        });
 
-        btnSyncRec.setOnClickListener(this);
 
-
-        btnDynamicData.setOnClickListener(this);
+//        btnDynamicData.setOnClickListener(this);
 
 
     }
@@ -677,7 +693,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setAllButtonDisabled() {
 
 
-        btnDynamicData.setEnabled(false);
+//        btnDynamicData.setEnabled(false);
 
 
     }
@@ -696,7 +712,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
 
-        btnDynamicData = (Button) findViewById(R.id.btnDynamicData);
+//        btnDynamicData = (Button) findViewById(R.id.btnDynamicData);
         tvOperationMode = (TextView) findViewById(R.id.tv_operation_mode);
 
         tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);
@@ -710,7 +726,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-
+/*
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -718,24 +734,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btnSyncRecord:
 
 
-                SharedPreferences settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-                boolean syncProcessOnGoing = settings.getBoolean(UtilClass.PROCESS_ON_GOING_KEY, false);
-                if (!syncProcessOnGoing)
-                    synchronizationProcess(v);
+
 
                 break;
 
 
-            case R.id.btnDynamicData:
+ *//*           case R.id.btnDynamicData:
                 finish();
                 Intent iDynamicData = new Intent(getApplicationContext(), DynamicTable.class);
                 iDynamicData.putExtra(KEY.COUNTRY_ID, idCountry);
                 startActivity(iDynamicData);
-                break;
+                break;*//*
 
         }
 
-    }
+    }*/
 
     private void synchronizeData(View v) {
         final AppController globalVariable = (AppController) getApplicationContext();
@@ -834,8 +847,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
     } // end Load Spinner
-
-
 
 
     private class Inject_DynamicTableIntoSQLite extends AsyncTask<Void, Integer, Void> {
@@ -940,7 +951,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     private class Inject_EnuTableIntoSQLite extends AsyncTask<Void, Integer, Void> {
 
 
@@ -986,7 +996,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             progressDialog.setProgress(values[0]);
         }
     }
-
 
 
     private class Inject_All_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
@@ -1104,12 +1113,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.admServiceMasterParser(jObj.getJSONArray(Parser.ADM_SERVICE_MASTER_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.ADM_OP_MONTH_JSON_A))
                     Parser.admOpMonthParser(jObj.getJSONArray(Parser.ADM_OP_MONTH_JSON_A), db);
-
-
 
 
                 publishProgress(++progressIncremental);
@@ -1117,11 +1123,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.admCountryProgramParser(jObj.getJSONArray(Parser.ADM_COUNTRY_PROGRAM_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.DOB_SERVICE_CENTER_JSON_A))
                     Parser.srvCenterParser(jObj.getJSONArray(Parser.DOB_SERVICE_CENTER_JSON_A), db);
-
 
 
                 publishProgress(++progressIncremental);
@@ -1134,11 +1138,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.lupRegnHHCategoryParser(jObj.getJSONArray(Parser.LB_REG_HH_CATEGORY_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.REG_LUP_GRADUATION_JSON_A))
                     Parser.regNLupGraduationParser(jObj.getJSONArray(Parser.REG_LUP_GRADUATION_JSON_A), db);
-
 
 
                 publishProgress(++progressIncremental);
@@ -1146,11 +1148,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.geoLayRMasterParser(jObj.getJSONArray(Parser.LAYER_LABELS_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.DISTRICT_JSON_A))
                     Parser.geoLayR1ListParser(jObj.getJSONArray(Parser.DISTRICT_JSON_A), db);
-
 
 
                 publishProgress(++progressIncremental);
@@ -1158,11 +1158,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.geoLayR2ListParser(jObj.getJSONArray(Parser.UPAZILLA_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.UNIT_JSON_A))
                     Parser.geoLayR3ListParser(jObj.getJSONArray(Parser.UNIT_JSON_A), db);
-
 
 
                 publishProgress(++progressIncremental);
@@ -1170,11 +1168,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.geoLayR4ListParser(jObj.getJSONArray(Parser.VILLAGE_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.RELATION_JSON_A))
                     Parser.lupRegNHHRelationParser(jObj.getJSONArray(Parser.RELATION_JSON_A), db);
-
 
 
                 publishProgress(++progressIncremental);
@@ -1182,13 +1178,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Parser.rptTemplateParser(jObj.getJSONArray(Parser.REPORT_TEMPLATE_JSON_A), db);
 
 
-
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.CARD_PRINT_REASON_JSON_A))
                     Parser.lupRegNCardPrintReasonParser(jObj.getJSONArray(Parser.CARD_PRINT_REASON_JSON_A), db);
-
-
-
 
 
                 publishProgress(++progressIncremental);
@@ -1237,13 +1229,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     }
                 }
-
-
-
-
-
-
-
 
 
                 publishProgress(++progressIncremental);
@@ -1690,7 +1675,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
-
 
 
 }

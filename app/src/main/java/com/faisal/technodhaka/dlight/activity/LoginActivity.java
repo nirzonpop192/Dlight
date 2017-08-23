@@ -38,7 +38,7 @@ import com.faisal.technodhaka.dlight.controller.AppController;
 import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
 import com.faisal.technodhaka.dlight.data_model.FDPItem;
 import com.faisal.technodhaka.dlight.data_model.ProgramMasterDM;
-import com.faisal.technodhaka.dlight.data_model.ServiceCenterItem;
+
 import com.faisal.technodhaka.dlight.data_model.TemOpMonth;
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
@@ -159,15 +159,8 @@ public class LoginActivity extends BaseActivity {
     private TextView tvDeviceId;
 
 
-//    private Button btnImportDb;
 
-    /**
-     * function to verify login details & select 2 FDP
-     */
 
-    List<ServiceCenterItem> serviceCenterNameList = new ArrayList<ServiceCenterItem>();
-    ArrayList<ServiceCenterItem> selectedServiceCenterList = new ArrayList<ServiceCenterItem>();
-    ArrayList<FDPItem> aLfdp_itemsSelected = new ArrayList<FDPItem>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -175,6 +168,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout._1_activity_login);
         barPDialogHandler = new Handler();
+
+
         viewReference();
         /**
          * Initialize Button and Input Boxes
@@ -627,7 +622,7 @@ public class LoginActivity extends BaseActivity {
      */
 
     List<FDPItem> fdpNameList = new ArrayList<FDPItem>();
-    ArrayList<FDPItem> selectedFdpList = new ArrayList<FDPItem>();
+
     String[] fdpNameStringArray;
 
 
@@ -746,100 +741,6 @@ public class LoginActivity extends BaseActivity {
 
 
 
-    public List<FDPItem> insertFDPNameListToSArray(boolean countrySpec) {
-        int i;
-        if (countrySpec) {
-            ArrayList<FDPItem> temCountySpecicFDPList = new ArrayList<FDPItem>();
-            for (i = 0; i < fdpNameList.size(); ++i) {
-                if (selectedCountryList.get(0).getAdmCountryCode().equals(fdpNameList.get(i).getAdmCountryCode())) {
-                    temCountySpecicFDPList.add(fdpNameList.get(i));
-                }
-
-            }
-            fdpNameList.clear();
-            for (i = 0; i < temCountySpecicFDPList.size(); ++i) {
-
-                fdpNameList.add(temCountySpecicFDPList.get(i));
-
-
-            }
-
-
-            fdpNameStringArray = new String[fdpNameList.size()];
-
-            for (i = 0; i < fdpNameList.size(); ++i) {
-
-                FDPItem fdpItem = fdpNameList.get(i);
-                fdpNameStringArray[i] = fdpItem.getFDPName();
-
-            }
-
-
-            return fdpNameList;
-        } else {
-            fdpNameStringArray = new String[fdpNameList.size()];
-
-            for (i = 0; i < fdpNameList.size(); ++i) {
-
-                FDPItem fdpItem = fdpNameList.get(i);
-                fdpNameStringArray[i] = fdpItem.getFDPName();
-
-            }
-
-
-            return fdpNameList;
-        }
-
-    }
-
-
-    public List<VillageItem> insertVillageNameListToSArray(boolean countrySpec) {
-        int i;
-        if (countrySpec) {
-            ArrayList<VillageItem> temCountySpecicVillageList = new ArrayList<VillageItem>();
-            for (i = 0; i < villageNameList.size(); ++i) {
-                if (selectedCountryList.get(0).getAdmCountryCode().equals(villageNameList.get(i).getAdmCountryCode())) {
-                    temCountySpecicVillageList.add(villageNameList.get(i));
-                }
-
-            }
-            villageNameList.clear();
-            for (i = 0; i < temCountySpecicVillageList.size(); ++i) {
-
-                villageNameList.add(temCountySpecicVillageList.get(i));
-
-
-            }
-/***
- * convert into array string
- */
-
-            villageNameStringArray = new String[villageNameList.size()];
-
-            for (i = 0; i < villageNameList.size(); ++i) {
-
-                VillageItem villageItem = villageNameList.get(i);
-                villageNameStringArray[i] = villageItem.getLayR4ListName();
-
-            }
-
-
-            return villageNameList;
-        } else {
-            villageNameStringArray = new String[villageNameList.size()];
-
-            for (i = 0; i < villageNameList.size(); ++i) {
-
-                VillageItem villageItem = villageNameList.get(i);
-                villageNameStringArray[i] = villageItem.getLayR4ListName();
-
-            }
-
-
-            return villageNameList;
-        }
-
-    }
 
 
     public List<AdmCountryDataModel> insertCountryNameListToSArray() {
@@ -880,7 +781,7 @@ public class LoginActivity extends BaseActivity {
                      */
                     selectedVillageList.clear();
                     selectedCountryList.clear();
-                    selectedServiceCenterList.clear();
+                    
                     if (!strCountryMode.equals("")) {
 
                         for (int i = 0; i < countryNameStringArray.length; i++) {
@@ -977,7 +878,8 @@ public class LoginActivity extends BaseActivity {
                 if (!error) {
 
                     Log.d("TAG", "Before downLoad RegNHouseHold 6" + "  user_name:" + user_name + " password :" + password + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
-                    downLoadRegNHouseHold(user_name, password, selectedVilJArry, operationMode);
+                    downLoadDynamicData(user_name, password, selectedVilJArry, operationMode);
+
 
                 } else {
                     // Error in login. Invalid UserName or Password
@@ -1023,445 +925,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    /**
-     * function to verify login details download RegN house hold
-     */
-    public void downLoadRegNHouseHold(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_reg_hh";
 
-
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                /***
-                 * @deis: IN THIS STRING RESPONSE WRITE THE JSON DATA
-                 *
-                 */
-                AppController.getInstance().getRequestQueue().getCache().clear();
-                writeJSONToTextFile(response, REG_HOUSE_HOLD_DATA);
-
-                /**
-                 *  DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-                 */
-
-                String errorResult = response.substring(9, 14);
-
-                int size = 0;
-
-                boolean error = !errorResult.equals("false");
-
-                if (!error) {
-
-                    /**
-                     * if registration json size is equal zero than this
-                     * method call itself recursively
-                     */
-                    try {
-                        JSONObject jObj = new JSONObject(response);
-
-                        if (!jObj.isNull(Parser.REGISTRATION_JSON_A)) {
-
-                            JSONArray registration = jObj.getJSONArray(Parser.REGISTRATION_JSON_A);
-
-
-                            size = registration.length();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (size == 0 && !operationMode.equals("4")) {
-                        downLoadRegNHouseHold(user_Name, pass_word, selectedVilJArry, operationMode);
-                        Log.e(TAG, " house hold member is not found ");
-                    } else {
-                        Log.d("TAG", "Before downLoad RegNMembers 5" + "  user_Name:" + user_Name + " pass_word :" + pass_word + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
-                        downLoadRegNMembers(user_Name, pass_word, selectedVilJArry, operationMode);
-
-                    }
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    hideDialog();
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_reg_house_hold");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-    /**
-     * function to verify login details download RegN member data
-     */
-    public void downLoadRegNMembers(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_reg";
-
-
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                /***
-                 *  IN THIS STRING RESPONSE WRITE THE JSON DATA
-                 */
-                AppController.getInstance().getRequestQueue().getCache().clear();
-                writeJSONToTextFile(response, REG_MEMBER_DATA);
-
-
-                // DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-
-                String errorResult = response.substring(9, 14);
-
-/**
- * if Json string get false than it return false
- */
-                boolean error = !errorResult.equals("false");
-
-                int size = 0;
-
-                if (!error) {
-
-                    JSONObject jObj = null;
-                    try {
-                        jObj = new JSONObject(response);
-
-                        // Adding existing members data into local database
-                        if (!jObj.isNull(Parser.MEMBERS_JSON_A)) {
-
-                            JSONArray members = jObj.getJSONArray(Parser.MEMBERS_JSON_A);
-                            size = members.length();
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (size == 0 && !operationMode.equals("4")) {
-                        downLoadRegNMembers(user_Name, pass_word, selectedVilJArry, operationMode);
-
-                        Log.e(TAG, "member data no download ");
-                    } else {
-                        System.setProperty("http.keepAlive", "false");
-                        Log.d("TAG", "Before downLoad RegNMemberProgGroup 4" + "  user_Name:" + user_Name + " pass_word :" + pass_word + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
-                        downLoadRegNMemberProgGroup(user_Name, pass_word, selectedVilJArry, operationMode);
-                    }
-
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    hideDialog();
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_reg_member");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-    /**
-     * function to verify login details download RegN member prog group code
-     */
-    public void downLoadRegNMemberProgGroup(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_reg_mem_grp";
-
-
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                // clear catch
-                AppController.getInstance().getRequestQueue().getCache().clear();
-                writeJSONToTextFile(response, REG_MEMBER_PROG_GROUP_DATA);
-
-                Log.d("DIM", " After RegN Member Prog Group in txt stape: 4");
-
-
-                String errorResult = response.substring(9, 14);                                     // DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-
-
-                boolean error = !errorResult.equals("false");
-
-                if (!error) {
-                    System.setProperty("http.keepAlive", "false");
-                    Log.d("TAG", "Before downLoad ServiceData 3" + "  user_Name:" + user_Name + " pass_word :" + pass_word + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
-                    downLoadServiceData(user_Name, pass_word, selectedVilJArry, operationMode);
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    hideDialog();
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                    // hideDialog();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_reg_mem_grp_data");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-    /**
-     * function to verify login details download Service
-     */
-    public void downLoadServiceData(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_reg";
-
-
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                // clear catch
-                AppController.getInstance().getRequestQueue().getCache().clear();
-                writeJSONToTextFile(response, SERVICE_DATA);
-
-                Log.d("DIM", " After write data in Service Data . step :5");
-
-
-                String errorResult = response.substring(9, 14);
-
-
-                boolean error = !errorResult.equals("false");
-
-                if (!error) {
-
-                    System.setProperty("http.keepAlive", "false");
-                    Log.d("TAG", "Before downLoad AssignProgSrv 2" + "  user_Name:" + user_Name + " pass_word :" + pass_word + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
-                    downLoadAssignProgSrv(user_Name, pass_word, selectedVilJArry, operationMode);
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    hideDialog();
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_service_data");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-    /**
-     * function to verify login details download RegN AssProgSrv in mysql db
-     */
-    /**
-     * @param user_Name            staff user Name
-     * @param pass_word            staff user Password
-     * @param selectedLayRCodeJSON selected  village array
-     * @param operationMode        operation Mode
-     */
-    public void downLoadAssignProgSrv(final String user_Name, final String pass_word, final JSONArray selectedLayRCodeJSON, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_ass_prog";
-
-
-        StringRequest strReq = new StringRequest(Method.POST, AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-                AppController.getInstance().getRequestQueue().getCache().clear();                   //IN THIS STRING RESPONSE WRITE THE JSON DATA
-                writeJSONToTextFile(response, "reg_ass_prog_srv_data");
-
-                Log.d("DIM", " After Load Assign Program Service in txt last stap :6");
-
-
-                String errorResult = response.substring(9, 14);                                     // DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-
-
-                boolean error = !errorResult.equals("false");                                       // If Json String  get False than it return false
-
-                if (!error) {
-
-                    // Log.d("TAG", "Before Downloading Dynamic " + "  user_Name:" + user_Name +
-                    // " pass_word :" + pass_word + " selectedLayRCodeJSON:" + selectedLayRCodeJSON +
-                    // "operationMode:" + operationMode);
-                    downLoadDynamicData(user_Name, pass_word, selectedLayRCodeJSON, operationMode);
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    hideDialog();
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_reg_assn_prog");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedLayRCodeJSON.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);                      // Adding request to request queue
-    }
-
-
-    /**
-     * function to verify login details download RegN AssProgSrv in mysql db
-     */
     public void downLoadDynamicData(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
         // Tag used to cancel the request
         String tag_string_req = "req_ass_prog";
@@ -1484,7 +948,7 @@ public class LoginActivity extends BaseActivity {
 
                 if (!error) {
 
-                    downLoadTrainingActivity(user_Name, pass_word, selectedVilJArry, operationMode);                                        // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
+                    downLoadEnuTable(user_Name, pass_word);                                        // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
 
                 } else {
                     // Error in login. Invalid UserName or Password
@@ -1526,74 +990,6 @@ public class LoginActivity extends BaseActivity {
 
 
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);          // Adding request to request queue
-    }
-
-    public void downLoadTrainingActivity(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
-        // Tag used to cancel the request
-        String tag_string_req = "trainingNActivity";
-
-        StringRequest strReq = new StringRequest(Method.POST, AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-
-
-                AppController.getInstance().getRequestQueue().getCache().clear();                   // clear catch
-                writeJSONToTextFile(response, TRAINING_N_ACTIVITY);
-
-                Log.d(TAG, " After Loading Dynamic Table in txt last step :8");
-
-
-                hideDialog();
-
-                String errorResult = response.substring(9, 14);                                     // DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-
-                boolean error = !errorResult.equals("false");                                       // If Json String  get False than it return false
-
-                if (!error) {
-
-                    downLoadEnuTable(user_Name, pass_word);
-
-
-                } else {
-                    // Error in login. Invalid UserName or Password
-                    String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                    Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "down_load_training_n_activity");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-        };
-
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 

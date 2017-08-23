@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+
+
+    tools:context="com.faisal.technodhaka.dlight.activity.ChartActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header" />
+
+    <Spinner
+        android:id="@+id/spSurveyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_gravity="center_horizontal|right"
+        android:layout_marginLeft="50dp"
+        android:background="#FFFFFF"
+        android:drawSelectorOnTop="true"
+        android:padding="2dp"
+
+        android:textColor="#939393" />
+
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spSurveyTitle"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" />
+</RelativeLayout>

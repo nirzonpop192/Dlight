@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.faisal.technodhaka.dlight.activity.MainActivity;
 import com.faisal.technodhaka.dlight.data_model.FDPItem;
-import com.faisal.technodhaka.dlight.data_model.ServiceCenterItem;
+
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
 import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
 
@@ -268,48 +268,7 @@ public class UtilClass {
     /**
      * @discription:
      */
-    /**
-     * <p>This method convert  selected Service Center Code into json array</p>
-     *
-     * @param className             ClassName is String Variable. That track down the invoking Class.
-     *                              <p>If Calling Class is LogIn Than selected Village will be inserted into db</p>
-     * @param selectedSrvCenterList Selected (max)2 Service Center Code
-     * @param sqlH                  Database Helper
-     * @return The json Data of selected Service Center Code Code
-     */
-    public static JSONArray srvCenterCodeJSONConverter(String className, ArrayList<ServiceCenterItem> selectedSrvCenterList, SQLiteHandler sqlH) {
 
-        JSONArray selectedFdpJson = new JSONArray();
-
-        for (int j = 0; j < selectedSrvCenterList.size(); j++) {
-
-            JSONObject mData = new JSONObject();
-
-
-            try {
-
-                mData.put("selectedLayR4Code", selectedSrvCenterList.get(j).getAdmCountryCode() + selectedSrvCenterList.get(j).getServiceCenterCode()); /// use same key for gynerick
-                if (className.equals("LoginActivity")) {
-                    /** insert the into the data base */
-                    String countryCode = selectedSrvCenterList.get(j).getAdmCountryCode();
-                    String ServiceCenterCode = selectedSrvCenterList.get(j).getServiceCenterCode();
-                    String ServiceCenterName = selectedSrvCenterList.get(j).getServiceCenterName();
-                    Log.d(TAG, " countryCode : " + countryCode + " ServiceCenterCode   : " + ServiceCenterCode + " ServiceCenterName   : " + ServiceCenterName);
-                    sqlH.addSelectedServiceCenter(countryCode, ServiceCenterCode, ServiceCenterName);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            selectedFdpJson.put(mData);
-        }
-
-
-        Log.d(TAG, selectedFdpJson.toString());
-        return selectedFdpJson;
-
-    }
 
 
     /**
