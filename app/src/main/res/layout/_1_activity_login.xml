@@ -10,7 +10,7 @@
         android:id="@+id/parent_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue">
+        android:background="@color/colorPrimaryDark">
 
 
         <!--     <include layout="@layout/header" />-->
@@ -59,6 +59,7 @@
 
                 <Button
                     android:id="@+id/btnExit"
+                    android:textColor="@color/blue"
                     style="@style/button_action_normal"
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
@@ -70,6 +71,7 @@
                     android:text="@string/clean" />
 
                 <Button
+                    android:textColor="@color/blue"
                     android:id="@+id/btnLogin"
                     style="@style/button_action_normal"
                     android:layout_width="fill_parent"

@@ -1,4 +1,4 @@
-package com.faisal.technodhaka.dlight.manager.sqlsyntax;
+package com.faisal.technodhaka.dlight.database;
 
 import android.util.Log;
 

@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.KEY;
 import com.faisal.technodhaka.dlight.views.adapters.DynamicDataIndexAdapter;
 import com.faisal.technodhaka.dlight.views.notifications.ADNotificationManager;
@@ -80,10 +80,7 @@ public class DynamicTable extends BaseActivity {
      * this method get the specific dynamic table   want to survey .
      */
     private void dynamicTableSearch() {
-        // why data craft did this Faisal don't know
-/*                        dataArray.clear();
-                adapter = new DynamicDataIndexAdapter((Activity) mContext, dataArray);
-                listView.setAdapter(adapter);*/
+
 
         if (edtDTSearch.getText().toString().length() == 0) {                                       //Search button should filter all when there is nothing written in the text box.
             new LoadListView(idCountry, "").execute();

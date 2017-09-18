@@ -116,27 +116,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:gravity="left"
-                    android:text="ACTIVITY"
+                    android:text="Chart"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
 
-    <!--            <Button
-                    android:id="@+id/btnDynamicData"
-                    style="@style/btn_main_page"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-
-                    android:drawableLeft="@drawable/dynamic_icon_42"
-                    android:drawableStart="@drawable/dynamic_icon_42"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingStart="5dp"
-                    android:text="dynamic_data" />-->
 
 
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -274,6 +265,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight=".55"
+                android:background="@color/colorPrimary"
                 android:drawableLeft="@drawable/sync"
                 android:drawableStart="@drawable/sync"
                 android:gravity="center_vertical"

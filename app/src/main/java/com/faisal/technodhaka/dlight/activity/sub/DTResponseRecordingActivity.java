@@ -11,17 +11,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Base64;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +56,8 @@ import com.faisal.technodhaka.dlight.data_model.FreezeDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
-import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLServerSyntaxGenerator;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLServerSyntaxGenerator;
 import com.faisal.technodhaka.dlight.parse.Parse;
 import com.faisal.technodhaka.dlight.utils.CameraUtils;
 import com.faisal.technodhaka.dlight.utils.KEY;
@@ -63,11 +68,14 @@ import com.faisal.technodhaka.dlight.views.notifications.CustomToast;
 import com.faisal.technodhaka.dlight.views.spinner.SpinnerLoader;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -343,6 +351,8 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
      */
     String mResponseController;
 
+    String ba1;
+    String mCurrentPhotoPath;
 
     /**
      * Refer the all the necessary view in java object
@@ -1934,7 +1944,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 //                    case CameraUtils.DELETE_IMAGE:
 //                        // checkPhotoAvailability(CountryCode, GrpCode, subGrpCode, LocationCode, ContentCode);
 //                        break;
-                    case CameraUtils.CANCEL - 1:
+                    case CameraUtils.CANCEL:
                         imageCaptureOptionDialog.dismiss();
                         break;
                 }
@@ -1959,14 +1969,84 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 
             adjustImageView(mPhotoBitmap);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Must compress the Image to reduce image size to make upload easy
             if (mPhotoBitmap != null)
-                mPhotoBitmap.compress(Bitmap.CompressFormat.PNG, 99, stream);
+                mPhotoBitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
             byte[] byteArray = stream.toByteArray();
             String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
             base64 = base64.trim();
             setImageString(base64);
 
         }
+    }
+
+    private void upload() {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Must compress the Image to reduce image size to make upload easy
+        if (mPhotoBitmap != null)
+            mPhotoBitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+        byte[] byteArray = stream.toByteArray();
+        String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        base64 = base64.trim();
+        setImageString(base64);
+
+/*        Bitmap bm = BitmapFactory.decodeFile(mCurrentPhotoPath);
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+
+        bm.compress(Bitmap.CompressFormat.JPEG, 50, bao);
+        byte[] ba = bao.toByteArray();
+        String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        base64 = base64.trim();
+        setImageString(base64);*/
+
+        // Upload image to server
+//        new uploadToServer().execute();
+
+    }
+
+    private void captureImage() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                ex.printStackTrace();
+            }
+
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_1);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.e("Getpath", "Cool" + mCurrentPhotoPath);
+        return image;
     }
 
 
@@ -1978,6 +2058,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
     private void adjustImageView(Bitmap bitmap) {
         dt_photo.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
         dt_photo.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+
         dt_photo.setImageBitmap(bitmap);
     }
 
@@ -2002,7 +2083,10 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         for (int i = 0; i < dtA_Table_Data.size(); i++) {
             TableRow row = new TableRow(this);
             row.setId(i);
-            LinearLayout.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams =
+                    new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,
+                            TableRow.LayoutParams.WRAP_CONTENT);
+
             row.setLayoutParams(layoutParams);
             CheckBox checkBox = new CheckBox(this);
             checkBox.setOnCheckedChangeListener(DTResponseRecordingActivity.this);
@@ -2070,7 +2154,8 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
     public void setDate() {
 
         // anonymous object
-        new DatePickerDialog(mContext, datePickerListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(mContext, datePickerListener, calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     /**
@@ -2102,7 +2187,8 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
      */
     private void loadDynamicSpinnerList(final String cCode, final String resLupText) {
 
-        SpinnerLoader.loadDynamicSpinnerListLoader(mContext, sqlH, dt_spinner, cCode, resLupText, strSpinner, mDTQTable, dyIndex);
+        SpinnerLoader.loadDynamicSpinnerListLoader(mContext, sqlH, dt_spinner, cCode, resLupText,
+                strSpinner, mDTQTable, dyIndex);
 
 
         dt_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -2162,13 +2248,11 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 
 
     }
+
     /**
      * Radio - EditText & CheckBox - EditText
      */
 
-    /**
-     * @param List_DtATable
-     */
 
     public void loadRadioButtonAndEditText(List<DT_ATableDataModel> List_DtATable, String dataType) {
 
@@ -2215,11 +2299,11 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
             et.setBackgroundColor(Color.WHITE);
 
 
-/**
- *
- * todo aad index after set DTRespose Sequn {@link #saveOnResponseTable(String, DT_ATableDataModel)}
- */
-            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(), List_DtATable.get(i).getDt_ACode(), mDTRSeq);
+            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(),
+                    dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(),
+                    dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(),
+                    List_DtATable.get(i).getDt_ACode(), mDTRSeq);
+
             if (loadAns != null) {
                 rdbtn.setChecked(true);
                 String value = loadAns.getDtaValue();

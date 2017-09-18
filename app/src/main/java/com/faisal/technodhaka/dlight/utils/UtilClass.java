@@ -2,18 +2,16 @@ package com.faisal.technodhaka.dlight.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.faisal.technodhaka.dlight.activity.MainActivity;
-import com.faisal.technodhaka.dlight.data_model.FDPItem;
+
 
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -219,50 +217,7 @@ public class UtilClass {
 
     }
 
-    /**
-     * <p>This method convert  selected FDP data into json array</p>
-     *
-     * @param className     ClassName is String Variable. That track down the invoking Class.
-     *                      <p>If Calling Class is LogIn Than selected Village will be inserted into db</p>
-     * @param selectFdpList Selected (max)2 Fdp Code(Food distribution point)
-     * @param sqlH          Database Helper
-     * @return The json Data of selected fdp Code
-     */
-    public static JSONArray fdpCodeJSONConverter(String className, ArrayList<FDPItem> selectFdpList, SQLiteHandler sqlH) {
 
-        JSONArray selectedFdpJson = new JSONArray();
-
-        for (int j = 0; j < selectFdpList.size(); j++) {
-
-            JSONObject mData = new JSONObject();
-
-
-            try {
-
-                mData.put("selectedLayR4Code", selectFdpList.get(j).getAdmCountryCode() + selectFdpList.get(j).getFDPCode()); /// use same key for gynerick
-                if (className.equals("LoginActivity")) {
-                    /** insert the into the data base */
-                    String countryCode = selectFdpList.get(j).getAdmCountryCode();
-                    String FdpCode = selectFdpList.get(j).getFDPCode();
-                    String FdpName = selectFdpList.get(j).getFDPName();
-
-                    Log.d(TAG, " countryCode : " + countryCode +
-                            " FdpCode   : " + FdpCode + " FdpName   : " + FdpName);
-                    sqlH.addSelectedFDP(countryCode, FdpCode, FdpName);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            selectedFdpJson.put(mData);
-        }
-
-
-        Log.d(TAG, selectedFdpJson.toString());
-        return selectedFdpJson;
-
-    }
 
 
     /**
@@ -271,19 +226,7 @@ public class UtilClass {
 
 
 
-    /**
-     * this method will provided the mode of operation
-     *
-     * @param activity Activity
-     * @return Operation Mode which could be Registration , Service , Distribution
-     */
 
- /*   public static int getAppOperationMode(Activity activity) {
-        SharedPreferences settings;
-        settings = activity.getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE); //1
-        return settings.getInt(UtilClass.OPERATION_MODE, 0);
-
-    }*/
 
 
     /**

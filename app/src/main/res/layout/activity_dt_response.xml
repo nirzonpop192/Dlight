@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.siddiquinoor.restclient.activity.sub_activity.dynamic_table.DTResponseActivity">
+    tools:context="com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity">
     <!-- Header aligned to top -->
     <include
         android:id="@+id/header"
@@ -18,7 +18,7 @@
 
 
         <TextView
-
+            android:id="@+id/tv_pageTitle"
             style="@style/page_title_style"
 
             android:text="string/dt_response_title" />
@@ -53,9 +53,9 @@
                 android:orientation="vertical">
 
 
-                <TextView
+              <!--  <TextView
                     style="@style/txt_label"
-                    android:text="Table Name" />
+                    android:text="Table Name" />-->
 
                 <TextView
                     style="@style/txt_label"
@@ -86,10 +86,10 @@
                 android:layout_weight=".2"
                 android:orientation="vertical">
 
-                <Spinner
+        <!--        <Spinner
                     android:id="@+id/sp_dtResponse_table_name"
                     style="@style/spinner_style"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent" />-->
 
 
                 <Spinner
@@ -140,31 +140,22 @@
 
     <!-- title of list view  -->
     <LinearLayout
-        android:id="@+id/table_title"
+        android:id="@+id/ll_border"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/ll_details"
-        android:background="#627C9F"
-        android:orientation="horizontal">
+        android:background="@color/colorBorder"
+        android:orientation="horizontal"></LinearLayout>
 
 
-    </LinearLayout>
-
-
-
-
-    <!-- Search Button -->
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-
-        android:layout_height="wrap_content"
+    <ListView
+        android:background="@color/white"
         android:layout_above="@+id/footer"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/lv_assign">
+        android:id="@+id/lv_question_set"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_border"></ListView>
 
-
-    </LinearLayout>
 
     <include
         android:id="@+id/footer"

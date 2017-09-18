@@ -1,9 +1,9 @@
-package com.faisal.technodhaka.dlight.manager.sqlsyntax;
+package com.faisal.technodhaka.dlight.database;
 
 
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
-import static com.faisal.technodhaka.dlight.manager.SQLiteHandler.*;
+import static com.faisal.technodhaka.dlight.database.SQLiteHandler.*;
 
 
 
@@ -914,32 +914,7 @@ public class Schema {
     }
 
 
-    public static String sqlCreateDistNPlanBasic() {
-        return CREATE_TABLE_IF_NOT_EXISTS + DIST_N_PLAN_BASIC_TABLE + "("
 
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(10), "
-                + ADM_DONOR_CODE_COL + " VARCHAR(10), "
-                + ADM_AWARD_CODE_COL + " VARCHAR(10), "
-                + PROG_CODE_COL + " VARCHAR(10), "
-                + OPERATION_CODE_COL + " VARCHAR(10), "
-                + SRV_OP_MONTH_CODE_COL + " VARCHAR(10), "
-                + DIST_OP_MONTH_CODE_COL + " VARCHAR(10), "
-                + FDP_CODE_COL + " VARCHAR(10), "
-                + DIST_FLAG_COL + " VARCHAR(10), "
-                + ORG_CODE_COL + " VARCHAR(10), "
-                + DISTRIBUTOR_COL + " VARCHAR(10), "
-                + DISTRIBUTION_DATE_COL + " VARCHAR(50)  , "
-                + DELIVERY_DATE_COL + " VARCHAR(50)  , "
-                + STATUS + " VARCHAR(50)  , "
-                + PREPARED_BY_COL + " VARCHAR(20) , "
-                + VERIFIED_BY_COL + " VARCHAR(20) , "
-                + APPROVED_BY_COL + " VARCHAR(20)  "
-
-
-                + " ) ";
-
-
-    }
 
     public static String createTableLUP_RegNAddLookup() {
         return CREATE_TABLE_IF_NOT_EXISTS + LUP_REGN_ADDRESS_LOOKUP_TABLE
@@ -1266,7 +1241,7 @@ public class Schema {
     }
 
 
-    public static String createTableRegN_FFA() {
+  /*  public static String createTableRegN_FFA() {
         return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.REG_N_FFA_TABLE
                 + " ( "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
@@ -1287,9 +1262,9 @@ public class Schema {
                 + " , " + ENTRY_BY + " VARCHAR(4) "
                 + " , " + ENTRY_DATE + " VARCHAR(20) "
                 + " ) ";
-    }
+    }*/
 
-    public static String createTableRegN_WE() {
+   /* public static String createTableRegN_WE() {
         return CREATE_TABLE_IF_NOT_EXISTS + REG_N_WE_TABLE
                 + " ( "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
@@ -1307,7 +1282,7 @@ public class Schema {
                 + " ) ";
 
 
-    }
+    }*/
 
     public static String createTableDTASkipTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + DTA_SKIP_TABLE

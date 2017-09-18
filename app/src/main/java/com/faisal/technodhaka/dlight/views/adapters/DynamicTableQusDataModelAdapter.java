@@ -15,28 +15,29 @@ import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
 import java.util.ArrayList;
 
 /**
- * Created by USER on 9/27/2016.
+ * Created by Faisal
+ * on 9/27/2016.
  */
 public class DynamicTableQusDataModelAdapter extends BaseAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    private ArrayList<DTQTableDataModel> datas = new ArrayList<DTQTableDataModel>();
+    private ArrayList<DTQTableDataModel> data = new ArrayList<DTQTableDataModel>();
 
 
-    public DynamicTableQusDataModelAdapter(Activity activity, ArrayList<DTQTableDataModel> datas) {
+    public DynamicTableQusDataModelAdapter(Activity activity, ArrayList<DTQTableDataModel> data) {
         this.activity = activity;
-        this.datas = datas;
+        this.data = data;
     }
 
     @Override
     public int getCount() {
-        return datas.size();
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return datas.get(position);
+        return data.get(position);
     }
 
     @Override
@@ -66,6 +67,7 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
              */
 
             holder.tv_dtQus = (TextView) row.findViewById(R.id.dt_qus_row_tv_dtQus);
+            holder.tv_dtQusNo = (TextView) row.findViewById(R.id.dt_qus_row_tv_dtNo);
 //            holder.ibtn_go = (ImageButton) row.findViewById(R.id.dt_q_row_ibtn_go);
 
 
@@ -75,6 +77,7 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
         }
 
         holder.tv_dtQus.setText(data.getqText());
+        holder.tv_dtQusNo.setText(data.getqSeq());
 
 
 /*        holder.ibtn_go.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +105,12 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
 
     private void changeTextColor(int color) {
         holder.tv_dtQus.setTextColor(color);
+        holder.tv_dtQusNo.setTextColor(color);
     }
 
     private static class ViewHolder {
         TextView tv_dtQus;
+        TextView tv_dtQusNo;
 //        ImageButton ibtn_go;
     }
 }

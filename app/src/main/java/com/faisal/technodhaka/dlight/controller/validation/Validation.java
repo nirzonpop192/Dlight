@@ -3,7 +3,7 @@ package com.faisal.technodhaka.dlight.controller.validation;
 import android.content.Context;
 
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
 import java.text.ParseException;
 import java.util.HashMap;

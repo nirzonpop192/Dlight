@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -36,19 +35,15 @@ import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.AppController;
 import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
-import com.faisal.technodhaka.dlight.data_model.FDPItem;
-import com.faisal.technodhaka.dlight.data_model.ProgramMasterDM;
 
-import com.faisal.technodhaka.dlight.data_model.TemOpMonth;
+
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.network.ConnectionDetector;
 import com.faisal.technodhaka.dlight.parse.Parser;
-import com.faisal.technodhaka.dlight.utils.FileUtils;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 import com.faisal.technodhaka.dlight.views.notifications.AlertDialogManager;
-import com.faisal.technodhaka.dlight.views.notifications.CustomToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +52,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.ParseException;
@@ -67,7 +61,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.faisal.technodhaka.dlight.utils.UtilClass.DISTRIBUTION_OPERATION_MODE_NAME;
-import static com.faisal.technodhaka.dlight.utils.UtilClass.OTHER_OPERATION_MODE;
 import static com.faisal.technodhaka.dlight.utils.UtilClass.OTHER_OPERATION_MODE_NAME;
 import static com.faisal.technodhaka.dlight.utils.UtilClass.REGISTRATION_OPERATION_MODE_NAME;
 import static com.faisal.technodhaka.dlight.utils.UtilClass.SERVICE_OPERATION_MODE_NAME;
@@ -79,19 +72,11 @@ import static com.faisal.technodhaka.dlight.utils.UtilClass.TRANING_N_ACTIVITY_O
 public class LoginActivity extends BaseActivity {
     // LogCat tag
     private static final String TAG = LoginActivity.class.getSimpleName();
-    public static final String REG_HOUSE_HOLD_DATA = "reg_house_hold_data";
-    public static final String REG_MEMBER_DATA = "reg_member_data";
-    public static final String REG_MEMBER_PROG_GROUP_DATA = "reg_member_prog_grp_data";
-    public static final String SERVICE_DATA = "service_data";
+
     public static final String ALL_DATA = "all_data";
     public static final String DYNAMIC_TABLE = "dynamic_table";
     public static final String ENU_TABLE = "enu_table";
-    private static final int REG_MODE = 0;
-    private static final int DIST_MODE = 1;
-    private static final int SERV_MODE = 2;
-    private static final int OTHER_MODE = 3;
-    public static final String TRAINING_N_ACTIVITY = "trainingNActivity";
-    public static final int TRAINING_MODE = 4;
+
 
 
     /**
@@ -145,16 +130,7 @@ public class LoginActivity extends BaseActivity {
 //    private Button btnClean;
     String strCountryMode = "";
 
-    String temSelectedProgram;
 
-    String tem;
-
-    /**
-     * variable is only used for {@link #getOperationModeAlert(String, String)} method
-     * Clicking on an item  store the value in temValue}
-     * which is used in positive Button
-     */
-    private String temValue;
 
     private TextView tvDeviceId;
 
@@ -402,14 +378,17 @@ public class LoginActivity extends BaseActivity {
                 String user_name = "";
                 String password = "";
                 // in developments mode
-                if (ac.DEV_ENVIRONMENT) {
+               /* if (ac.DEV_ENVIRONMENT) {
                     user_name = "nkalam";
                     password = "p3";
                 } else {
                     user_name = inputUsername.getText().toString().trim();
                     password = inputPassword.getText().toString().trim();
                 }
+*/
 
+                user_name = inputUsername.getText().toString().trim();
+                password = inputPassword.getText().toString().trim();
                 // Check for empty data in the form
                 if (user_name.trim().length() > 0 && password.trim().length() > 0) {
 
@@ -441,12 +420,13 @@ public class LoginActivity extends BaseActivity {
                                     }
 
                                 } else {
-//                                    pDialog = new ProgressDialog(mContext);
-//                                    pDialog.setCancelable(false);
-//                                    pDialog.setMessage("Loading..");
-//                                    pDialog.show();
 
-                                    getOperationModeAlert(user_name, password);                     // for selecting operation Mood
+                                    pDialog = new ProgressDialog(mContext);
+                                    pDialog.setCancelable(false);
+                                    pDialog.setMessage("Downloading  data .");
+                                    pDialog.show();
+                                    checkCountrySelection(user_name, password, "4");
+                                               // for selecting operation Mood
                                 }
 
 
@@ -478,108 +458,10 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    String strOperationMode = "";
-
-    /**
-     * @param user_name user name
-     * @param password  password
-     */
-
-    private void getOperationModeAlert(final String user_name, final String password) {
-        aCountryL_itemsSelected = (ArrayList<AdmCountryDataModel>) insertCountryNameListToSArray();
-        itemCheckedOpearationMode = new boolean[operationModeStringArray.length];
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Operation Mode");
-
-        builder.setSingleChoiceItems(operationModeStringArray, -1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                strOperationMode = "";
-                strOperationMode = operationModeStringArray[which];
-            }
-        });
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                if (!strOperationMode.equals("")) {
-
-                    for (int mode_index = 0; mode_index < itemCheckedOpearationMode.length; mode_index++) {
-                        if (operationModeStringArray[mode_index].equals(strOperationMode)) {
-
-                            // remove shred preference dependence from app
-                            String entryTime = "";
-
-                            try {
-                                entryTime = getDateTime();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            db.insertIntoDeviceOperationMode((mode_index + 1), strOperationMode, user_name, entryTime);
-                            pDialog = new ProgressDialog(mContext);
-                            pDialog.setCancelable(false);
-                            pDialog.setMessage("Downloading  data .");
-                            pDialog.show();
-                            switch (mode_index) {
-                                case REG_MODE:
-                                    mdialog.dismiss();
-                                    checkCountrySelection(user_name, password, "4");
-                                    break;
-                                case DIST_MODE:
-                                    mdialog.dismiss();
-
-                                    checkCountrySelection(user_name, password, "4");
-                                    break;
-                                case SERV_MODE:
-                                    mdialog.dismiss();
-                                    checkCountrySelection(user_name, password, "4");
-                                    break;
-
-                                case OTHER_MODE:
-                                    mdialog.dismiss();
-                                    checkCountrySelection(user_name, password, "4");
 
 
-                                    break;
-                                case TRAINING_MODE:
-                                    mdialog.dismiss();
-                                    checkCountrySelection(user_name, password, "4");
-                                    break;
-
-                                default:
-                                    hideDialog();
-                                    mdialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, "Select  any one", Toast.LENGTH_SHORT).show();
-                                    break;
-
-                            }
-                        } else {
-                            hideDialog();
-                            mdialog.dismiss();
-                        }
-
-                    }
-                } else {
-                    mdialog.dismiss();
-                    hideDialog();
-                }
 
 
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                hideDialog();
-
-
-                mdialog.dismiss();
-            }
-        });
-        mdialog = builder.create();
-        mdialog.show();
-    }
 
     @Override
     protected void onResume() {
@@ -617,13 +499,6 @@ public class LoginActivity extends BaseActivity {
 
 
 
-  /**
-     * function to verify login details & select 2 FDP
-     */
-
-    List<FDPItem> fdpNameList = new ArrayList<FDPItem>();
-
-    String[] fdpNameStringArray;
 
 
     public void checkCountrySelection(final String user_name, final String password, final String operationMode) {

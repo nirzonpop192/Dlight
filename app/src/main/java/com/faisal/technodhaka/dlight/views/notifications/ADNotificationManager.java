@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.activity.MainActivity;
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
 /**
  * @author : POP

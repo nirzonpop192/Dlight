@@ -35,9 +35,8 @@ import com.faisal.technodhaka.dlight.activity.MainActivity;
 
 import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.SessionManager;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.CalculationPadding;
-import com.faisal.technodhaka.dlight.utils.KEY;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

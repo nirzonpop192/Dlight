@@ -55,7 +55,7 @@ public class AppConfig {
      ***********************************************************************/
 
     // Application developments  Environment
-    public static Boolean DEV_ENVIRONMENT = false; // false / true
+    public static Boolean DEV_ENVIRONMENT = true; // false / true
 
     /**
      * new version apk name apk

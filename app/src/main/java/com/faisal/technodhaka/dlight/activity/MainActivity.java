@@ -17,18 +17,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +40,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.controller.AppController;
-import com.faisal.technodhaka.dlight.data_model.adapters.DistributionSaveDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.fragments.ChartFragment;
 import com.faisal.technodhaka.dlight.fragments.HomeFragment;
@@ -52,40 +47,31 @@ import com.faisal.technodhaka.dlight.fragments.MoviesFragment;
 import com.faisal.technodhaka.dlight.fragments.NotificationsFragment;
 import com.faisal.technodhaka.dlight.fragments.PhotosFragment;
 import com.faisal.technodhaka.dlight.fragments.SettingsFragment;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.manager.SyncDatabase;
 import com.faisal.technodhaka.dlight.network.ConnectionDetector;
 import com.faisal.technodhaka.dlight.parse.Parser;
 import com.faisal.technodhaka.dlight.utils.CircleTransform;
-import com.faisal.technodhaka.dlight.utils.FileUtils;
 import com.faisal.technodhaka.dlight.utils.KEY;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 import com.faisal.technodhaka.dlight.version.VersionStateChangeReceiver;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
-import com.faisal.technodhaka.dlight.views.notifications.ADNotificationManager;
 import com.faisal.technodhaka.dlight.views.notifications.AlertDialogManager;
-import com.faisal.technodhaka.dlight.views.notifications.CustomToast;
 import com.faisal.technodhaka.dlight.views.spinner.SpinnerLoader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
 
-    public static final String LIBERIA_COUNTRY_CODE = "0004";
+
     public static final int TOTAL_NO_OF_TABLE = 88;
+    public static final int SETTING_FRAGMENT = 4;
     private static ProgressDialog pDialog;
 
     private final String TAG = MainActivity.class.getSimpleName();
@@ -104,13 +90,9 @@ public class MainActivity extends BaseActivity  {
 
 
     private TextView txtName;
-    private TextView txtEmail;
-    private Button btnLogout;
-//    private Button btnDynamicData;
 
-    //    private Button btnNewReg;
-//    private Button btnSummaryRep;
-    ///private Button btnViewRec;
+    private Button btnLogout;
+
     private Button btnSyncRec;
     private SQLiteHandler sqlH;
     private Spinner spCountry;
@@ -185,13 +167,6 @@ public class MainActivity extends BaseActivity  {
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
-/*        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         // load nav menu header data
         loadNavHeader();
@@ -256,12 +231,6 @@ public class MainActivity extends BaseActivity  {
             editor.apply();
         }
         loadCountry();
- /*       setAllButtonDisabled();
-        viewAccessController();*/
-        //showOperationModelLabel(settings);
-
-
-//       String versionName= VersionUtils.getVersionName(getApplicationContext());                  delete it
 
         callBroadCastReceiverToCheck();
 
@@ -368,7 +337,7 @@ public class MainActivity extends BaseActivity  {
                 NotificationsFragment notificationsFragment = new NotificationsFragment();
                 return notificationsFragment;
 
-            case 4:
+            case SETTING_FRAGMENT:
                 // settings fragment
                 SettingsFragment settingsFragment = new SettingsFragment();
                 return settingsFragment;
@@ -418,7 +387,7 @@ public class MainActivity extends BaseActivity  {
                         CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
                     case R.id.nav_settings:
-                        navItemIndex = 4;
+                        navItemIndex = SETTING_FRAGMENT;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
 
@@ -572,98 +541,8 @@ public class MainActivity extends BaseActivity  {
         sendBroadcast(registerBroadcast);
     }
 
-    void deleteRecursive(File fileOrDirectory) {
-
-        if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles())
-                deleteRecursive(child);
-
-        fileOrDirectory.delete();
-
-    }
 
 
-    private void hideProgressBar() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-    /**
-     * @param msg text massage
-     */
-    private void startProgressBar(String msg) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage(msg);
-        pDialog.setCancelable(true);
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pDialog.show();
-    }
-
-    /**
-     * this method bring the database front Internal memory
-     */
-    public void newBackupDBFromApp() {
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            //   File data = Environment.getDataDirectory();
-
-            String dbBy = getStaffID();
-            String dbByName = getUserName();
-            String backupDate = getDateTime();
-            String backupdbName = "G_path_" + dbBy + "-" + dbByName + "_" + backupDate + ".db";
-
-            if (sd.canWrite()) {
-                String currentDBPath = "/data/data/" + getPackageName() + "/databases/pci";
-                String backupDBPath = backupdbName;
-                File currentDB = new File(currentDBPath);
-                File backupDB = new File(sd, backupDBPath);
-
-                if (currentDB.exists()) {
-                    FileChannel src = new FileInputStream(currentDB).getChannel();
-                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                    dst.transferFrom(src, 0, src.size());
-                    src.close();
-                    dst.close();
-                    Toast.makeText(getApplicationContext(), "Import Successful! " + backupDB.getAbsolutePath(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Backup Failed!", Toast.LENGTH_SHORT)
-                    .show();
-
-        }
-    }
-
-
-    /**
-     * <p>
-     * This method control the button view with respect to operation
-     * </p>
-     */
-
-    private void viewAccessController() {
-        // get operation mode from shared and preference
-//        int operationMode = settings.getInt(UtilClass.OPERATION_MODE, 0);
-
-        String operationModeName = sqlH.getDeviceOperationModeName();
-        switch (operationModeName) {
-            case UtilClass.REGISTRATION_OPERATION_MODE_NAME:
-
-            case UtilClass.DISTRIBUTION_OPERATION_MODE_NAME:
-
-            case UtilClass.SERVICE_OPERATION_MODE_NAME:
-
-            case UtilClass.TRANING_N_ACTIVITY_OPERATION_MODE_NAME:
-            case UtilClass.OTHER_OPERATION_MODE_NAME:
-//                btnDynamicData.setEnabled(true);
-
-
-                break;
-
-
-        }
-    }
 
 
     private void buttonSetListener() {
@@ -680,23 +559,11 @@ public class MainActivity extends BaseActivity  {
         });
 
 
-//        btnDynamicData.setOnClickListener(this);
 
-
-    }
-
-    /**
-     * <p>
-     * set all button disable first expect syn & summary report button
-     * </p>
-     */
-    private void setAllButtonDisabled() {
-
-
-//        btnDynamicData.setEnabled(false);
 
 
     }
+
 
     private void viewReference() {
 
@@ -726,29 +593,7 @@ public class MainActivity extends BaseActivity  {
 
     }
 
-/*
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-            case R.id.btnSyncRecord:
-
-
-
-
-                break;
-
-
- *//*           case R.id.btnDynamicData:
-                finish();
-                Intent iDynamicData = new Intent(getApplicationContext(), DynamicTable.class);
-                iDynamicData.putExtra(KEY.COUNTRY_ID, idCountry);
-                startActivity(iDynamicData);
-                break;*//*
-
-        }
-
-    }*/
 
     private void synchronizeData(View v) {
         final AppController globalVariable = (AppController) getApplicationContext();
@@ -1043,8 +888,6 @@ public class MainActivity extends BaseActivity  {
 
 
                 db.addUser(user_id, country_code, login_name, login_pw, first_name, last_name, email, email_verification, user_status, entry_by, entry_date);
-//                Log.d("MOR_12",user_id +  country_code +  login_name +  login_pw +  first_name +  last_name +  email +  email_verification +  user_status +  entry_by +  entry_date);
-
 
                 publishProgress(++progressIncremental);
 
@@ -1184,158 +1027,32 @@ public class MainActivity extends BaseActivity  {
 
 
                 publishProgress(++progressIncremental);
-
-
-                if (!jObj.isNull(Parser.STAFF_FDP_ACCESS_JSON_A)) {
-                    JSONArray staff_fdp_accesses = jObj.getJSONArray(Parser.STAFF_FDP_ACCESS_JSON_A);
-                    size = staff_fdp_accesses.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject staff_fdp_access = staff_fdp_accesses.getJSONObject(i);
-
-                        String StfCode = staff_fdp_access.getString(Parser.STF_CODE);
-                        String AdmCountryCode = staff_fdp_access.getString(Parser.ADM_COUNTRY_CODE);
-                        String FDPCode = staff_fdp_access.getString(Parser.FDP_CODE);
-                        String btnNew = staff_fdp_access.getString(Parser.BTN_NEW);
-                        String btnSave = staff_fdp_access.getString(Parser.BTN_SAVE);
-                        String btnDel = staff_fdp_access.getString(Parser.BTN_DEL);
-
-
-                        db.addStaffFDPAccess(StfCode, AdmCountryCode, FDPCode, btnNew, btnSave, btnDel);
-
-
-                    }
-                }
+                if (!jObj.isNull(Parser.STAFF_FDP_ACCESS_JSON_A))
+                    Parser.stffFdpAccessParser(jObj.getJSONArray(Parser.STAFF_FDP_ACCESS_JSON_A), db);
 
 
                 publishProgress(++progressIncremental);
-
-                if (!jObj.isNull(Parser.FDP_MASTER_JSON_A)) {
-                    JSONArray fdp_masters = jObj.getJSONArray(Parser.FDP_MASTER_JSON_A);
-                    size = fdp_masters.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject fdp_master = fdp_masters.getJSONObject(i);
-
-                        String AdmCountryCode = fdp_master.getString(Parser.ADM_COUNTRY_CODE);
-                        String FDPCode = fdp_master.getString(Parser.FDP_CODE);
-                        String FDPName = fdp_master.getString(Parser.FDP_NAME);
-                        String FDPCatCode = fdp_master.getString(Parser.FDP_CAT_CODE);
-                        String WHCode = fdp_master.getString(Parser.WH_CODE);
-                        String LayR1Code = fdp_master.getString(Parser.LAY_R_1_CODE);
-                        String LayR2Code = fdp_master.getString(Parser.LAY_R_2_CODE);
-
-
-                        db.addFDPMaster(AdmCountryCode, FDPCode, FDPName, FDPCatCode, WHCode, LayR1Code, LayR2Code);
-
-
-                    }
-                }
+                if (!jObj.isNull(Parser.FDP_MASTER_JSON_A))
+                    Parser.stffFdpMasterParser(jObj.getJSONArray(Parser.FDP_MASTER_JSON_A), db);
 
 
                 publishProgress(++progressIncremental);
+                if (!jObj.isNull(Parser.LUP_SRV_OPTION_LIST))
+                    Parser.lupSrvOptionListParser(jObj.getJSONArray(Parser.LUP_SRV_OPTION_LIST), db);
 
-                if (!jObj.isNull("distbasic_table")) {
-                    JSONArray distbasic_table = jObj.getJSONArray("distbasic_table");
-                    size = distbasic_table.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject distbasic = distbasic_table.getJSONObject(i);
-                        // DistributionSaveDataModel data = new DistributionSaveDataModel();
-
-                        String AdmCountryCode = distbasic.getString(Parser.ADM_COUNTRY_CODE);
-                        String AdmDonorCode = distbasic.getString(Parser.ADM_DONOR_CODE);
-                        String AdmAwardCode = distbasic.getString(Parser.ADM_AWARD_CODE);
-                        String ProgCode = distbasic.getString(Parser.PROG_CODE);
-                        String OpCode = distbasic.getString("OpCode");
-                        String SrvOpMonthCode = distbasic.getString("SrvOpMonthCode");
-                        String DisOpMonthCode = distbasic.getString("DisOpMonthCode");
-                        String FDPCode = distbasic.getString(Parser.FDP_CODE);
-                        String DistFlag = distbasic.getString("DistFlag");
-                        ///   String FoodFlag = distbasic.getString("FoodFlag");
-                        String OrgCode = distbasic.getString("OrgCode");
-                        String Distributor = distbasic.getString("Distributor");
-                        String DistributionDate = distbasic.getString("DistributionDate");
-                        String DeliveryDate = distbasic.getString("DeliveryDate");
-                        String Status = distbasic.getString("Status");
-                        String PreparedBy = distbasic.getString("PreparedBy");
-                        String VerifiedBy = distbasic.getString("VerifiedBy");
-                        String ApproveBy = distbasic.getString("ApproveBy");
-
-
-                        //data.setDistStatus(distribution_ext_tableData.getString(DIST_STATUS);
-
-                        db.addInDistributionNPlaneTable(AdmCountryCode, AdmDonorCode, AdmAwardCode, ProgCode,
-                                OpCode, SrvOpMonthCode, DisOpMonthCode, FDPCode, DistFlag, OrgCode, Distributor,
-                                DistributionDate, DeliveryDate, Status, PreparedBy, VerifiedBy, ApproveBy);
-
-
-                    }
-                }
+                publishProgress(++progressIncremental);
+                if (!jObj.isNull("vo_itm_table"))
+                    Parser.vo_itm_tableParser(jObj.getJSONArray("vo_itm_table"), db);
 
 
                 publishProgress(++progressIncremental);
+                if (!jObj.isNull(Parser.VO_ITM_MEAS_TABLE_JSON_A))
+                    Parser.vo_itm_MassTableParser(jObj.getJSONArray(Parser.VO_ITM_MEAS_TABLE_JSON_A), db);
 
 
-                if (!jObj.isNull(Parser.LUP_SRV_OPTION_LIST)) {
-                    JSONArray lup_srv_option_listDatas = jObj.getJSONArray(Parser.LUP_SRV_OPTION_LIST);
-                    size = lup_srv_option_listDatas.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject lup_srv_option_listData = lup_srv_option_listDatas.getJSONObject(i);
-
-                        String countryCode = lup_srv_option_listData.getString(Parser.ADM_COUNTRY_CODE);
-
-                        String programCode = lup_srv_option_listData.getString(Parser.PROG_CODE);
-                        String serviceCode = lup_srv_option_listData.getString(Parser.SRV_CODE);
-                        String LUPOptionCode = lup_srv_option_listData.getString(Parser.LUP_OPTION_CODE);
-                        String LUPOptionName = lup_srv_option_listData.getString(Parser.LUP_OPTION_NAME);
 
 
-                        db.addInLupSrvOptionListFromOnline(countryCode, programCode, serviceCode, LUPOptionCode, LUPOptionName);
 
-                        //  Log.d(TAG, "In Reg Mem Card Request Table: AdmCountryCode : " + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : "
-                        //        + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode+ " HHID : " + HHID);
-                    }
-                }
-
-                publishProgress(++progressIncremental);
-
-
-                if (!jObj.isNull("vo_itm_table")) {
-                    JSONArray vo_itm_tableDatas = jObj.getJSONArray("vo_itm_table");
-                    size = vo_itm_tableDatas.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject vo_itm_tableData = vo_itm_tableDatas.getJSONObject(i);
-                        //AGR_DataModel data = new AGR_DataModel();
-                        String CatCode = vo_itm_tableData.getString("CatCode");
-                        String ItmCode = vo_itm_tableData.getString("ItmCode");
-                        String ItmName = vo_itm_tableData.getString("ItmName");
-
-
-                        db.addVoucherItemTableFromOnline(CatCode, ItmCode, ItmName);
-
-//                        Log.d(TAG, "In Voucher item table : CatCode : " + CatCode + " ItmCode : " + ItmCode + " ItmName : " + ItmName);
-
-                    }
-                }
-
-
-                publishProgress(++progressIncremental);
-
-                if (!jObj.isNull(Parser.VO_ITM_MEAS_TABLE_JSON_A)) {
-                    JSONArray vo_itm_meas_tableDatas = jObj.getJSONArray(Parser.VO_ITM_MEAS_TABLE_JSON_A);
-                    size = vo_itm_meas_tableDatas.length();
-                    for (int i = 0; i < size; i++) {
-                        JSONObject vo_itm_meas_tableData = vo_itm_meas_tableDatas.getJSONObject(i);
-                        //AGR_DataModel data = new AGR_DataModel();
-                        String MeasRCode = vo_itm_meas_tableData.getString("MeasRCode");
-                        String UnitMeas = vo_itm_meas_tableData.getString("UnitMeas");
-                        String MeasTitle = vo_itm_meas_tableData.getString("MeasTitle");
-
-
-                        db.addVoucherItemMeasFromOnline(MeasRCode, UnitMeas, MeasTitle);
-
-//                        Log.d(TAG, "In Voucher item table : MeasRCode : " + MeasRCode + " UnitMeas : " + UnitMeas + " MeasTitle : " + MeasTitle);
-
-                    }
-                }
 
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull("vo_country_prog_itm")) {
@@ -1357,7 +1074,7 @@ public class MainActivity extends BaseActivity  {
                     String Currency;
                     for (int i = 0; i < size; i++) {
                         JSONObject vo_country_prog_itmData = vo_country_prog_itmDatas.getJSONObject(i);
-                        //AGR_DataModel data = new AGR_DataModel();
+
                         AdmCountryCode = vo_country_prog_itmData.getString("AdmCountryCode");
                         AdmDonorCode = vo_country_prog_itmData.getString("AdmDonorCode");
                         AdmAwardCode = vo_country_prog_itmData.getString("AdmAwardCode");
@@ -1394,10 +1111,7 @@ public class MainActivity extends BaseActivity  {
 
 
                         db.addLUP_GPS_TableFromOnline(GrpCode, SubGrpCode, AttributeCode, LookUpCode, LookUpName);
-                       /* Log.d("NIR2", "addLUP_GPS_TableFromOnline : GrpCode : " + GrpCode + " SubGrpCode : "
-                                + SubGrpCode + " AttributeCode : " + AttributeCode
-                                + " LookUpCode : " + LookUpCode + " LookUpName : " + LookUpName
-                        );*/
+
 
                     }
                 }
@@ -1441,12 +1155,7 @@ public class MainActivity extends BaseActivity  {
                         String AttPhoto = gps_location_attributes_Data.getString("AttPhoto");
 
                         db.addGPSLocationAttributesFromOnline(AdmCountryCode, GrpCode, SubGrpCode, LocationCode, AttributeCode, AttributeValue, AttPhoto);
-                     /*   Log.d("NIR2", "addGPS_SubGroupAttributesFromOnline : AdmCountryCode : " + AdmCountryCode
-                                + " GrpCode : " + GrpCode + " SubGrpCode : " + SubGrpCode
-                                + " LocationCode : " + LocationCode + " AttributeCode : " + AttributeCode
 
-                                + " AttributeValue : " + AttributeValue
-                        );*/
 
                     }
                 }
@@ -1517,10 +1226,7 @@ public class MainActivity extends BaseActivity  {
                         String LayR3ListCode = Lup_reg_n_add_lookup.getString("LayR3ListCode");
                         String LayR4ListCode = Lup_reg_n_add_lookup.getString("LayR4ListCode");
 
-/*
-                        Log.d("InTest", "AdmCountryCode:" + AdmCountryCode + "RegNAddLookupCode" + RegNAddLookupCode
-                                + "RegNAddLookup: " + RegNAddLookup + "LayR1ListCode : " + LayR1ListCode + "LayR2ListCode:" + LayR2ListCode
-                                + " LayR3ListCode: " + LayR3ListCode + "LayR4ListCode:" + LayR4ListCode);*/
+
                         db.addLUP_RegNAddLookup(AdmCountryCode, RegNAddLookupCode, RegNAddLookup, LayR1ListCode, LayR2ListCode, LayR3ListCode, LayR4ListCode);
 
                     }
@@ -1555,7 +1261,7 @@ public class MainActivity extends BaseActivity  {
                         String OrgNCode = org_n_code_Data.getString("OrgNCode");
                         String OrgNName = org_n_code_Data.getString("OrgNName");
                         String OrgNShortName = org_n_code_Data.getString("OrgNShortName");
-//                        Log.d(TAG, "OrgNName:" + OrgNName + "OrgNShortName:" + OrgNShortName);
+
                         db.insertIntoProgOrgN(OrgNCode, OrgNName, OrgNShortName);
                     }
                 }

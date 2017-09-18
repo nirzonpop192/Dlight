@@ -21,8 +21,8 @@ public class CameraUtils {
     public static final int CAMERA_REQUEST_5 = 50;
 
     public static final int CAPTURED_IMAGE = 0;
-    public static final int DELETE_IMAGE = 1;
-    public static final int CANCEL = 2;
+//    public static final int DELETE_IMAGE = 1;
+    public static final int CANCEL = 1;
 
     /**
      * @param context invoking context

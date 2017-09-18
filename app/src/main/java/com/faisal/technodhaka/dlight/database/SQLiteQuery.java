@@ -1,12 +1,9 @@
-package com.faisal.technodhaka.dlight.manager.sqlsyntax;
-
-import android.util.Log;
+package com.faisal.technodhaka.dlight.database;
 
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
 
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 
 
@@ -25,7 +22,7 @@ import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActi
 import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.LOOKUP_LIST;
 import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.ORGANIZATION_LIST;
 import static com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity.SERVICE_SITE;
-import static com.faisal.technodhaka.dlight.manager.SQLiteHandler.*;
+import static com.faisal.technodhaka.dlight.database.SQLiteHandler.*;
 
 /**
  * @author FAISAL MOHAMMAD on 1/17/2016.
@@ -96,26 +93,12 @@ public class SQLiteQuery {
     }
 
 
-
-
-
     public static String editTaParticipantsListTable_sql(String cCode, String eventCode, String partId, String atdnDate) {
         return ADM_COUNTRY_CODE_COL + " = '" + cCode + "'" +
                 " AND " + EVENT_CODE_COL + " = '" + eventCode + "'" +
                 " AND " + PART_ID_COL + " = '" + partId + "' " +
                 " AND " + ATDN_DATE_COL + " = '" + atdnDate + "' ";
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public static String getSavePermissionSelectQuery(String tableName, String columnName, String country, String district, String upzella, String unit, String village) {
@@ -130,7 +113,6 @@ public class SQLiteQuery {
                 " AND " + LAY_R3_LIST_CODE_COL + " = '" + unit + "' " +
                 " AND " + LAY_R4_LIST_CODE_COL + " = '" + village + "' ";
     }
-
 
 
     private static String dbo_Get_OpMonthEndDate(String cCode, String donorCode, String awardCode, String opCode, String opMonthCode) {
@@ -153,7 +135,6 @@ public class SQLiteQuery {
                 " AND " + OPERATION_CODE_COL + "='" + opCode + "'" +
                 " AND " + OP_MONTH_CODE_COL + "='" + opMonthCode + "'";
     }
-
 
 
     public static String dbo_Get_dayDifference(String cCode, String donorCode, String awardCode,
@@ -209,19 +190,6 @@ public class SQLiteQuery {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static String getAddressQuery(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode) {
         return " WHERE "
                 + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' AND "
@@ -235,10 +203,6 @@ public class SQLiteQuery {
          +" FROM "+SQLiteHandler.LUP_REGN_ADDRESS_LOOKUP_TABLE
          */
     }
-
-
-
-
 
 
     public static String getVillageNameWHERECondition(String countryCode, String districtCode, String upazillaCode, String unitCode, String villageCode) {
@@ -313,12 +277,6 @@ public class SQLiteQuery {
     }
 
 
-
-
-
-
-
-
     public static String getGraduationDefaultActiveReason_Select_Query(String prrogramCode, String serviceCode) {
         return "SELECT " + SQLiteHandler.GRD_CODE_COL + " FROM " + SQLiteHandler.REG_N_LUP_GRADUATION_TABLE +
                 " WHERE  " + ADM_PROG_CODE_COL + " = '" + prrogramCode + "'"
@@ -330,42 +288,9 @@ public class SQLiteQuery {
 
 
 
-
-
-    public static String checkDataExitsQueryInRegN_FFA_TableSQL(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
-        return "SELECT * FROM " + SQLiteHandler.REG_N_FFA_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " = '" + memberID + "' ";
-    }
-
-
 // havet use it
 
 
-    public static String getAssignDataIfExitsInRegNFFA_table_sql(String countryCode, String districtCode, String upzellaCode, String unitCode, String villageCode, String houseHoldId, String memberID) {
-        return " SELECT " + SQLiteHandler.CHILD_HEADED_COL
-                + " , " + SQLiteHandler.ELDERLY_HEADED_COL
-                + " , " + SQLiteHandler.CHRONICALLY_ILL_COL
-                + " , " + SQLiteHandler.FEMALE_HEADED_COL
-                + " , " + SQLiteHandler.CROP_FAILURE_COL
-                + " , " + SQLiteHandler.CHILDREN_REC_SUPP_FEED_N_COL
-                + " , " + SQLiteHandler.WILLINGNESS_COL + "  "
-
-                + " FROM " + SQLiteHandler.REG_N_FFA_TABLE
-
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + countryCode + "' "
-                + " AND " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " = '" + districtCode + "' "
-                + " AND " + LAY_R2_LIST_CODE_COL + " = '" + upzellaCode + "' "
-                + " AND " + LAY_R3_LIST_CODE_COL + " = '" + unitCode + "'"
-                + " AND " + LAY_R4_LIST_CODE_COL + " = '" + villageCode + "' "
-                + " AND " + HHID_COL + " = '" + houseHoldId + "' "
-                + " AND " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " = '" + memberID + "' ";
-    }
 
 
 
@@ -530,7 +455,6 @@ public class SQLiteQuery {
     }
 
 
-
     public static String getSrvExtendedItemSummaryList_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String programCode) {
 
 
@@ -562,7 +486,6 @@ public class SQLiteQuery {
                 + " GROUP BY " + SERVICE_EXTENDED_TABLE + "." + VOUCHER_ITEM_SPEC_COL;
 
     }
-
 
 
     public static String getTotal_Service_Itemize_AttendanceSummary_SelectQuery(String cCode, String donorCode, String awardCord, String opMCode, String prgCode/*, String srvCode*/, String vouItSpec) {
@@ -628,19 +551,7 @@ public class SQLiteQuery {
                 " AND " + SERVICE_TABLE_SERVICE_SL_COL + " = '" + slNo + "' ";
 
 
-
-
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public static String getServiceDateRange_selectQuery(String cCode, String srvOpMonthCode) {
@@ -655,8 +566,6 @@ public class SQLiteQuery {
                 + " AND " + SQLiteHandler.OPERATION_CODE_COL + " = '2'"
                 + " AND " + OP_MONTH_CODE_COL + " = '" + srvOpMonthCode + "'";
     }
-
-
 
 
     public static String checkAdmCountryProgramsVoucherFlag_sql(String cCode, String donorCode, String awardCode, String progCode) {
@@ -684,8 +593,6 @@ public class SQLiteQuery {
                 + " WHERE " + VOUCHER_ITEM__MEAS_TABLE + "." + MEAS_R_CODE_COL + " = " + measRCode;
 
     }
-
-
 
 
     public static String getDistExtentedItemName(final String cCode, final String donorCode, final String awardCode, final String opMCode, final String programCode) {
@@ -814,11 +721,6 @@ public class SQLiteQuery {
                 " WHERE cg." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
                 " GROUP BY cgc." + GROUP_CAT_CODE_COL + ", cg." + GROUP_CODE_COL;*/
     }
-
-
-
-
-
 
 
     public static String loadOrganization_sql(final String cCode, final String donorCode, final String awardCode) {
@@ -1871,8 +1773,6 @@ public class SQLiteQuery {
     }
 
     /**
-     *
-     *
      * @param cCode      country Code
      * @param grpCode    group Code
      * @param subGrpCode Sub group Code
@@ -1889,7 +1789,6 @@ public class SQLiteQuery {
     /**
      * the sql used only Map Activity
      *
-     *
      * @param cCode country code
      * @return location name, groupCode + subGroupCode + locationCode
      */
@@ -1903,7 +1802,6 @@ public class SQLiteQuery {
 
     /**
      * this method sql to load Service Name and code to Criteria spinner in
-     *
      *
      * @param awardCode   award Code
      * @param donorCode   donor Code
@@ -1951,7 +1849,6 @@ public class SQLiteQuery {
                 + " ||''|| v." + LAY_R3_LIST_CODE_COL
                 + " ||''|| v." + LAY_R4_LIST_CODE_COL + " ";
     }
-
 
 
     public static String getSelectedVillageList_sql() {
@@ -2092,16 +1989,11 @@ public class SQLiteQuery {
     }
 
 
-
-
     public static String getDTA_Table_sql(String dtBasic, String dtQCode) {
         return "SELECT * FROM " + DT_A_TABLE +
                 " WHERE " + DT_BASIC_COL + "= '" + dtBasic + "'" +
                 " AND " + DTQ_CODE_COL + "= '" + dtQCode + "'";
     }
-
-
-
 
 
     public static String loadCountry_sql(String operationModeName) {
@@ -2148,7 +2040,6 @@ public class SQLiteQuery {
     }
 
 
-
     public static String editLiberiaMemberData_sql(String str_c_code, String str_district, String str_upazilla, String str_union, String str_village, String hhID, String str_hhMemID) {
         return ADM_COUNTRY_CODE_COL + " = '" + str_c_code + "' "
                 + " AND " + LAY_R1_LIST_CODE_COL + " = '" + str_district + "' "
@@ -2181,15 +2072,7 @@ public class SQLiteQuery {
                 " GROUP BY " + SERVICE_MASTER_TABLE + "." + SERVICE_MASTER_SERVICE_SHORT_NAME_COL;
     }
 
-    public static String edtAssignAgerIn_Elderley_sql(AssignDataModel data) {
-        return ADM_COUNTRY_CODE_COL + " = '" + data.getCountryCode() + "'" +
-                " AND " + LAY_R1_LIST_CODE_COL + " = '" + data.getDistrictCode() + "'" +
-                " AND " + LAY_R2_LIST_CODE_COL + " = '" + data.getUpazillaCode() + "'" +
-                " AND " + LAY_R3_LIST_CODE_COL + " = '" + data.getUnitCode() + "'" +
-                " AND " + LAY_R4_LIST_CODE_COL + " = '" + data.getVillageCode() + "'" +
-                " AND " + HHID_COL + " = '" + data.getHh_id() + "'" +
-                " AND " + MEM_ID_COL + " = '" + data.getMemId() + "'  ";
-    }
+
 
     public static String getServiceDetailsForMember_sql(String cCode, String donorCode, String awardCord,
                                                         String districCode, String upCode, String unCode,
@@ -2257,8 +2140,6 @@ public class SQLiteQuery {
     }
 
 
-
-
     public static String getSubGroupSpecificLatLongCoordinates_sql(String cCode, String grpCode,
                                                                    String subGrpCode) {
         return " SELECT "
@@ -2275,8 +2156,6 @@ public class SQLiteQuery {
     }
 
     /**
-     *
-     *
      * @param cCode     country code
      * @param staffCode staff id
      * @return query String
@@ -2341,5 +2220,21 @@ public class SQLiteQuery {
                 " and VOCPI." + ADM_DONOR_CODE_COL + " = '" + donorCode + "'" +
                 " and VOCPI." + ADM_AWARD_CODE_COL + " = '" + awardCode + "'" +
                 " and VOCPI." + ADM_SRV_CODE_COL + " = '" + srvCode + "'";
+    }
+
+    public static String loadDtBasic_sql(String cCode, String staffId) {
+
+        return "SELECT dtB." +DT_BASIC_COL  + "  " +
+                " , dtB." +  DT_TITLE_COL+ " " +
+
+                "  FROM " + DT_COUNTRY_PROGRAM_TABLE + " AS dtCPgr  " +
+                " LEFT JOIN " + DT_BASIC_TABLE + "  AS dtB  " +
+                " ON dtB." + DT_BASIC_COL + " = dtCpgr." + DT_BASIC_COL + "   " +
+
+                "  INNER JOIN " + DT_ENU_TABLE + " AS dtEnu ON " +
+                " dtEnu." + DT_BASIC_COL + " = dtCPgr." + DT_BASIC_COL +
+                " WHERE dtCPgr." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' "
+                + " AND dtEnu." + DT_STF_CODE_COL + " = '" + staffId + "' ";
+
     }
 }//end of class

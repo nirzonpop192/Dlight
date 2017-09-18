@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
-import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLiteQuery;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteQuery;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
 
 import java.util.ArrayList;

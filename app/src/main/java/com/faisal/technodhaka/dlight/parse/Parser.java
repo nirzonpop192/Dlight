@@ -3,11 +3,9 @@ package com.faisal.technodhaka.dlight.parse;
 import android.util.Base64;
 import android.util.Log;
 
-import com.faisal.technodhaka.dlight.data_model.AGR_DataModel;
 import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
-import com.faisal.technodhaka.dlight.data_model.CTDataModel;
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -402,8 +400,6 @@ public class Parser extends Parse {
     }
 
 
-
-
     public static void RegNMemProGrpParser(String jsonString, SQLiteHandler sqlH) {
 
 
@@ -467,8 +463,6 @@ public class Parser extends Parse {
     }
 
 
-
-
     public static void GpsLocationContentParser(String jsonString, SQLiteHandler sqlH) {
         try {
 
@@ -525,9 +519,6 @@ public class Parser extends Parse {
                     sqlH.insertIntoGPSLocationContentTable(AdmCountryCode, GrpCode, SubGrpCode, LocationCode, ContentCode, imageByteArray, Remarks, EntryBy, EntryDate);
 
 
-
-
-
                 }
             }
 
@@ -571,10 +562,6 @@ public class Parser extends Parse {
             }
         }
     }
-
-
-
-
 
 
     public static void staff_master_DataParser(JSONArray reg_m_assign_prog_srvs, SQLiteHandler sqlH) {
@@ -1064,6 +1051,37 @@ public class Parser extends Parse {
 
     }
 
+/*    public static void CommunityGroupParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+
+        String AdmCountryCode, GrpCode, SubGrpCode, LocationCode, AttributeCode, AttributeValue, AttPhoto;
+
+        for (int i = 0; i < size; i++) {
+            try {
+
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+
+                 AdmCountryCode = jsonObject.getString("AdmCountryCode");
+                 GrpCode = jsonObject.getString("GrpCode");
+                 SubGrpCode = jsonObject.getString("SubGrpCode");
+                 LocationCode = jsonObject.getString("LocationCode");
+                 AttributeCode = jsonObject.getString("AttributeCode");
+                 AttributeValue = jsonObject.getString("AttributeValue");
+                 AttPhoto = jsonObject.getString("AttPhoto");
+
+                sqlH.addGPSLocationAttributesFromOnline(AdmCountryCode, GrpCode, SubGrpCode, LocationCode, AttributeCode, AttributeValue, AttPhoto);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }                                                                                           // end of for
+
+    }*/
+
     public static void lupCommunityAnimalParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
         int size = jsonArrayData.length();
@@ -1323,9 +1341,6 @@ public class Parser extends Parse {
         }
 
     }
-
-
-
 
 
     public static void admCountryAwardParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
@@ -1957,6 +1972,140 @@ public class Parser extends Parse {
         }
     }
 
+    public static void stffFdpAccessParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+        String StfCode, AdmCountryCode, FDPCode, btnNew, btnSave, btnDel;
+        Log.d(TAG, " Staff FdpAccess size :" + size);
+
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+                StfCode = jsonObject.getString(Parser.STF_CODE);
+                AdmCountryCode = jsonObject.getString(Parser.ADM_COUNTRY_CODE);
+                FDPCode = jsonObject.getString(Parser.FDP_CODE);
+                btnNew = jsonObject.getString(Parser.BTN_NEW);
+                btnSave = jsonObject.getString(Parser.BTN_SAVE);
+                btnDel = jsonObject.getString(Parser.BTN_DEL);
+
+
+                sqlH.addStaffFDPAccess(StfCode, AdmCountryCode, FDPCode, btnNew, btnSave, btnDel);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void stffFdpMasterParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+        String AdmCountryCode, FDPCode, FDPName, FDPCatCode, WHCode, LayR1Code, LayR2Code;
+        Log.d(TAG, " Staff FdpMaster size :" + size);
+
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+                AdmCountryCode = jsonObject.getString(Parser.ADM_COUNTRY_CODE);
+                FDPCode = jsonObject.getString(Parser.FDP_CODE);
+                FDPName = jsonObject.getString(Parser.FDP_NAME);
+                FDPCatCode = jsonObject.getString(Parser.FDP_CAT_CODE);
+                WHCode = jsonObject.getString(Parser.WH_CODE);
+                LayR1Code = jsonObject.getString(Parser.LAY_R_1_CODE);
+                LayR2Code = jsonObject.getString(Parser.LAY_R_2_CODE);
+
+
+                sqlH.addFDPMaster(AdmCountryCode, FDPCode, FDPName, FDPCatCode, WHCode, LayR1Code, LayR2Code);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void lupSrvOptionListParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+        String countryCode, programCode, serviceCode, LUPOptionCode, LUPOptionName;
+        Log.d(TAG, " Staff FdpMaster size :" + size);
+
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+                countryCode = jsonObject.getString(Parser.ADM_COUNTRY_CODE);
+                programCode = jsonObject.getString(Parser.PROG_CODE);
+                serviceCode = jsonObject.getString(Parser.SRV_CODE);
+                LUPOptionCode = jsonObject.getString(Parser.LUP_OPTION_CODE);
+                LUPOptionName = jsonObject.getString(Parser.LUP_OPTION_NAME);
+
+
+                sqlH.addInLupSrvOptionListFromOnline(countryCode, programCode, serviceCode, LUPOptionCode, LUPOptionName);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void vo_itm_tableParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+        String CatCode, ItmCode, ItmName;
+        Log.d(TAG, " vo itm table size :" + size);
+
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+                CatCode = jsonObject.getString("CatCode");
+                ItmCode = jsonObject.getString("ItmCode");
+                ItmName = jsonObject.getString("ItmName");
+                sqlH.addVoucherItemTableFromOnline(CatCode, ItmCode, ItmName);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void vo_itm_MassTableParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
+
+        int size = jsonArrayData.length();
+
+        String MeasRCode, UnitMeas, MeasTitle;
+        Log.d(TAG, " vo itm table size :" + size);
+
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
+
+                MeasRCode = jsonObject.getString("MeasRCode");
+                UnitMeas = jsonObject.getString("UnitMeas");
+                MeasTitle = jsonObject.getString("MeasTitle");
+
+
+                sqlH.addVoucherItemMeasFromOnline(MeasRCode, UnitMeas, MeasTitle);
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Exception : " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     public static void staff_srv_center_accessParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
         int size = jsonArrayData.length();
@@ -1980,7 +2129,6 @@ public class Parser extends Parse {
             }
         }
     }
-
 
 
     public static void admCountryProgramParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
@@ -2039,7 +2187,6 @@ public class Parser extends Parse {
                 sqlH.addServiceCenter(AdmCountryCode, SrvCenterCode, SrvCenterName, FDPCode);
 
 
-
             } catch (Exception e) {
                 Log.e(TAG, "Exception : " + e);
                 e.printStackTrace();
@@ -2047,7 +2194,6 @@ public class Parser extends Parse {
         }
 
     }
-
 
 
 }// end of the class

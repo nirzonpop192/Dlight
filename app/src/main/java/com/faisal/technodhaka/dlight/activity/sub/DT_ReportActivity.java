@@ -21,7 +21,7 @@ import  com.faisal.technodhaka.dlight.controller.SessionManager;
 import  com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
 import  com.faisal.technodhaka.dlight.data_model.SurveyModel;
 import  com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
-import  com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import  com.faisal.technodhaka.dlight.utils.CalculationPadding;
 import  com.faisal.technodhaka.dlight.utils.KEY;
 import  com.faisal.technodhaka.dlight.views.adapters.ReportViewPagerAdapter;

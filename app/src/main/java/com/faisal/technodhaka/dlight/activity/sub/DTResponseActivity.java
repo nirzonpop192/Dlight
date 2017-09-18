@@ -14,16 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.activity.DynamicTable;
+import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
-import com.faisal.technodhaka.dlight.manager.SQLiteHandler;
+import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.KEY;
 import com.faisal.technodhaka.dlight.views.adapters.DynamicTableQusDataModelAdapter;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
@@ -39,10 +41,11 @@ import java.util.Locale;
 
 public class DTResponseActivity extends BaseActivity {
 
-    private Spinner spTableName, spDtMonth;
+    //    private Spinner spTableName,
+    private Spinner spDtMonth;
     private Spinner spAward;
     private Spinner spProgram;
-    private TextView tvActivityTitle;
+    private TextView tvActivityTitle, tv_pageTitle;
     private TextView tvDate;
     private Calendar calendar = Calendar.getInstance();
     private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -55,12 +58,13 @@ public class DTResponseActivity extends BaseActivity {
     private String strTable;
     private String idProgram;
     private String strProgram;
-    // private ListView lv_DT_QList;
-    private Button btn_goToQustion, btn_BackToQustion;
+    private ListView lv_QuestionSet;
+    private Button btn_goToQuestion, btn_BackToQustion;
     private AssignDataModel.DynamicDataIndexDataModel dyIndex;
     DynamicTableQusDataModelAdapter adapter = null;
     private String idMonth;
     private String strMonth;
+    private AppConfig ac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +79,16 @@ public class DTResponseActivity extends BaseActivity {
         strTable = dyIndex.getDtTittle();
         idProgram = dyIndex.getProgramCode();
         strProgram = dyIndex.getProgramName();
-        tvActivityTitle.setText(dyIndex.getPrgActivityTitle());
+        tvActivityTitle.setText(dyIndex.getDtTittle());
+        tv_pageTitle.setText(strTable);
+//        loadTable(dyIndex.getcCode());
 
-        loadTable(dyIndex.getcCode());
+
+        loadAward(dyIndex.getcCode());
+        /**
+         * Do not delete # loadDT_questionView method
+         */
+        loadDT_questionView(dyIndex.getDtBasicCode());
         /**
          * get Current Date by System
          * and set Into tv
@@ -98,32 +109,38 @@ public class DTResponseActivity extends BaseActivity {
                 setDate();
             }
         });
-        btn_goToQustion.setOnClickListener(new View.OnClickListener() {
+        btn_goToQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!idMonth.equals("00")) {
-                    String regDate = tvDate.getText().toString();
-                    HashMap<String, String> dateRange = sqlH.getDynamicTableDateRange(dyIndex.getcCode(), idMonth);
-                    String start_date = dateRange.get("sdate");
-                    String end_date = dateRange.get("edate");
 
-                    if (regDate.length() > 0 && start_date != null && end_date != null) {
-                        try {
-                            if (!getValidDateRange(regDate, start_date, end_date,false)) {
+                if (!ac.DEV_ENVIRONMENT) {
+                    if (!idMonth.equals("00")) {
+                        String regDate = tvDate.getText().toString();
+                        HashMap<String, String> dateRange = sqlH.getDynamicTableDateRange(dyIndex.getcCode(), idMonth);
+                        String start_date = dateRange.get("sdate");
+                        String end_date = dateRange.get("edate");
 
-//                            dialog.showErrorDialog(mContext, "Registration date is not within the valid range. Save attempt denied.");
-                                Toast.makeText(mContext, "date is not within the valid range", Toast.LENGTH_SHORT).show();
-                            } else {
-                                GoToDT_QuestionPage();
+                        if (regDate.length() > 0 && start_date != null && end_date != null) {
+                            try {
+                                if (!getValidDateRange(regDate, start_date, end_date, false)) {
+
+
+                                    Toast.makeText(mContext, "date is not within the valid range", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    GoToDT_QuestionPage();
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
                         }
+                    } else {
+                        Toast.makeText(mContext, "Select Month", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(mContext, "Select Month", Toast.LENGTH_SHORT).show();
+                    GoToDT_QuestionPage();
                 }
+
 
             }
         });
@@ -166,26 +183,28 @@ public class DTResponseActivity extends BaseActivity {
 
     private void viewReference() {
 
-        spTableName = (Spinner) findViewById(R.id.sp_dtResponse_table_name);
+//        spTableName = (Spinner) findViewById(R.id.sp_dtResponse_table_name);
         spAward = (Spinner) findViewById(R.id.sp_dtResponse_award);
         spProgram = (Spinner) findViewById(R.id.sp_dtResponse_program);
         spDtMonth = (Spinner) findViewById(R.id.sp_dtMonth);
         tvActivityTitle = (TextView) findViewById(R.id.tv_dtResponse_activity_title);
         tvDate = (TextView) findViewById(R.id.txt_dtResponse_date);
-//        lv_DT_QList = (ListView) findViewById(R.id.lv_DTQList);
-        btn_goToQustion = (Button) findViewById(R.id.btnHomeFooter);
+
+        btn_goToQuestion = (Button) findViewById(R.id.btnHomeFooter);
         btn_BackToQustion = (Button) findViewById(R.id.btnRegisterFooter);
+        lv_QuestionSet = (ListView) findViewById(R.id.lv_question_set);
+        tv_pageTitle = (TextView) findViewById(R.id.tv_pageTitle);
 
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void addIconGoToQustionButton() {
+    private void addIconGoToQuestionButton() {
 
 
-        btn_goToQustion.setText("");
+        btn_goToQuestion.setText("");
         Drawable imageHome = getResources().getDrawable(R.drawable.goto_forward);
-        btn_goToQustion.setCompoundDrawablesRelativeWithIntrinsicBounds(imageHome, null, null, null);
-        setPaddingButton(mContext, imageHome, btn_goToQustion);
+        btn_goToQuestion.setCompoundDrawablesRelativeWithIntrinsicBounds(imageHome, null, null, null);
+        setPaddingButton(mContext, imageHome, btn_goToQuestion);
 
 
     }
@@ -212,11 +231,12 @@ public class DTResponseActivity extends BaseActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        addIconGoToQustionButton();
+        addIconGoToQuestionButton();
         addIconBackButton();
     }
 
 
+/*
     private void loadTable(final String cCode) {
 
         int position = 0;
@@ -244,9 +264,11 @@ public class DTResponseActivity extends BaseActivity {
             }
 
             spTableName.setSelection(position);
-            /**
+            */
+/**
              * disable spinner
-             */
+             *//*
+
             spTableName.setEnabled(false);
         }
 
@@ -257,9 +279,11 @@ public class DTResponseActivity extends BaseActivity {
                 strTable = ((SpinnerHelper) spTableName.getSelectedItem()).getValue();
                 idTable = ((SpinnerHelper) spTableName.getSelectedItem()).getId();
                 loadAward(cCode);
-                /**
+                */
+/**
                  * Do not delete # loadDT_questionView method
-                 */
+                 *//*
+
                 loadDT_questionView(idTable);
 
             }
@@ -272,6 +296,7 @@ public class DTResponseActivity extends BaseActivity {
 
     } // end Load Spinner
 
+*/
 
     /**
      * LOAD :: Award
@@ -386,7 +411,7 @@ public class DTResponseActivity extends BaseActivity {
 
 
     private void loadDtMonth(final String cCode, String opCode) {
-        SpinnerLoader.loadDtMonthLoader(mContext,sqlH,spDtMonth, cCode,opCode,idMonth,strMonth);
+        SpinnerLoader.loadDtMonthLoader(mContext, sqlH, spDtMonth, cCode, opCode, idMonth, strMonth);
 
 
         spDtMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -436,14 +461,12 @@ public class DTResponseActivity extends BaseActivity {
             adapter = new DynamicTableQusDataModelAdapter((Activity) mContext, dataArray);
         }
 
-        if (adapter != null) {
+        if (adapter != null) {                                                                      // safety block
             if (adapter.getCount() != 0) {
                 adapter.notifyDataSetChanged();
-//   /** hide the list View */    lv_DT_QList.setAdapter(adapter);
-            } /*else {
-                new ADNotificationManager().showInfromDialog(mContext, "NO Data", "No data Found");
+                lv_QuestionSet.setAdapter(adapter);
 
-            }*/
+            }
 
         }
 

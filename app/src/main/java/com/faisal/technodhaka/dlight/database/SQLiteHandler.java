@@ -1,4 +1,4 @@
-package com.faisal.technodhaka.dlight.manager;
+package com.faisal.technodhaka.dlight.database;
 
 /**
  * This class is the Base Handler of all SQL operation
@@ -22,48 +22,24 @@ import android.widget.ImageView;
 
 
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
-import com.faisal.technodhaka.dlight.data_model.AGR_DataModel;
-import com.faisal.technodhaka.dlight.data_model.AssignDDR_FFA_DataModel;
-import com.faisal.technodhaka.dlight.data_model.CTDataModel;
 import com.faisal.technodhaka.dlight.data_model.DTQResModeDataModel;
 import com.faisal.technodhaka.dlight.data_model.DTResponseTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.DT_ATableDataModel;
-import com.faisal.technodhaka.dlight.data_model.FDPItem;
-import com.faisal.technodhaka.dlight.data_model.GPS_LocationAttributeDataModel;
+
 import com.faisal.technodhaka.dlight.data_model.GPS_LocationDataModel;
 import com.faisal.technodhaka.dlight.data_model.GPS_SubGroupAttributeDataModel;
 import com.faisal.technodhaka.dlight.data_model.LayRCodes;
-import com.faisal.technodhaka.dlight.data_model.LupTaParticipentCategories;
-import com.faisal.technodhaka.dlight.data_model.Lup_gpsListDataModel;
 import com.faisal.technodhaka.dlight.data_model.ProgramMasterDM;
-
-import com.faisal.technodhaka.dlight.data_model.TAPosParticipants;
-
-import com.faisal.technodhaka.dlight.data_model.TaCategoriesDataModel;
 
 import com.faisal.technodhaka.dlight.data_model.TemOpMonth;
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.CommunityGroupDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.DistributionGridDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.DistributionSaveDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.GraduationGridDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.TaSummary;
-import com.faisal.technodhaka.dlight.data_model.adapters.TrainigActivBeneficiaryDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.TrainingNActivityIndexDataModel;
-import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLServerSyntaxGenerator;
-import com.faisal.technodhaka.dlight.manager.sqlsyntax.SQLiteQuery;
-import com.faisal.technodhaka.dlight.manager.sqlsyntax.Schema;
+import com.faisal.technodhaka.dlight.manager.SyncDatabase;
 import com.faisal.technodhaka.dlight.utils.FileUtils;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
-
-import com.faisal.technodhaka.dlight.views.adapters.ListDataModel;
-
-
-import com.faisal.technodhaka.dlight.views.adapters.SummaryIdListInGroupDataModel;
-import com.faisal.technodhaka.dlight.views.adapters.SummaryModel;
 
 
 import com.faisal.technodhaka.dlight.views.helper.LocationHelper;
@@ -90,9 +66,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
-    public static final String DATABASE_NAME = "PCI.db";
+    public static final String DATABASE_NAME = "Elite.db";
 
-    public static final String EXTERNAL_DATABASE_NAME = "PCI_ex";
+    public static final String EXTERNAL_DATABASE_NAME = "Elite_ex";
     // Android meta data table
     public static final String SQLITE_SEQUENCE = "SQLITE_SEQUENCE";
     public static final String TABLE_NAME = "NAME";
@@ -208,22 +184,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 //    public static final String SERVICE_SPECIFIC_TABLE = "SrvSpecific";
 
     public static final String LAST_SYNC_TYRACE_TABLE = "LastSyncTrace";
-    public static final String REG_N_FFA_TABLE = "RegN_FFA";
-    public static final String REG_N_WE_TABLE = "RegN_WE";
+
     public static final String DTA_SKIP_TABLE = "DTASkipTable";
-/*    public static final String TA_MASTER_TABLE = "TAMaster";
-    public static final String TA_CATEGORY_TABLE = "TACategory";
-    public static final String TA_EVENT_TOPIC_TABLE = "TAEventTopic";
-    public static final String TA_GROUP_TABLE = "TAGroup";
-    public static final String TA_SUB_GROUP_TABLE = "TASubGroup";
-    public static final String TA_PARTICIPANTS_LIST_TABLE = "TAParticipantsList";
-    public static final String TA_PART_ORG_N_TABLE = "TAPartOrgN";
-    public static final String TA_POS_PARTICIPANTS_TABLE = "TAPosParticipants";
-    public static final String TA_TOPIC_CHILD_TABLE = "TATopicChild";
-    public static final String TA_TOPIC_MASTER_TABLE = "TATopicMaster";*/
+
     public static final String LUP_TA_PATICIPANT_CAT_TABLE = "LUP_TAParticipantCat";
 
-    public static final String DIST_N_PLAN_BASIC_TABLE = "DistNPlanBasic";
+
     public static final String LUP_REGN_ADDRESS_LOOKUP_TABLE = "LUP_RegNAddLookup";
     public static final String COMMUNITY_GRP_DETAIL_TABLE = "CommunityGrpDetail";
     public static final String DTGEO_LIST_LEVEL_TABLE = "DTGeoListLevel";
@@ -288,33 +254,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String EVENT_CODE_COL = "EventCode";
     public static final String EVENT_NAME_COL = "EventName";
     public static final String TA_GROUP_COL = "TAGroup";
-    public static final String TA_SUB_GROUP_COL = "TASubGroup";
-    public static final String TA_SUB_TITLE_COL = "TASubTitle";
-    public static final String VENUE_NAME_COL = "VenueName";
-    public static final String VENUE_ADDRESS_COL = "VenueAddress";
-    public static final String TOTAL_DAYS_COL = "TotalDays";
-    public static final String HOURS_PER_DAY_COL = "HoursPerDay";
-    public static final String TA_CAT_CODE_COL = "TACatCode";
-    public static final String TA_CAT_NAME_COL = "TACatName";
+
     public static final String PART_CAT_TITLE_COL = "PartCatTitle";
-    public static final String SRC_BEN_COL = "SrcBen";
-    public static final String TOPIC_MASTER_CODE_COL = "TopicMasterCode";
-    public static final String TOPIC_TITLE_COL = "TopicTitle";
-    public static final String TOPIC_CHILD_CODE_COL = "TopicChildCode";
-    public static final String TOPIC_SUB_TITLE_COL = "TopicSubTitle";
-    public static final String TOPIC_GROUP_COL = "TAGroup";
-    public static final String TOPIC_GROUP_TITLE_COL = "TAGroupTitle";
+
     public static final String PART_ID_COL = "PartID";
-    public static final String ID_CATEGORY_COL = "IDCategory";
-    public static final String PART_NAME_COL = "PartName";
-    public static final String PART_ORG_N_CODE_COL = "PartOrgNCode";
-    public static final String PART_ORG_N_NAME_COL = "PartOrgNName";
+
     public static final String PART_CAT_CODE_COL = "PartCatCode";
-    public static final String POS_CODE_COL = "PosCode";
-    public static final String AM_SESSION_COL = "AMSession";
-    public static final String PM_SESSION_COL = "PMSession";
+
     public static final String ATDN_DATE_COL = "AtdnDate";
-    public static final String POS_TITLE_COL = "PosTitle";
+
 
     public static final String FREQUENCY_COL = "Frequency";
     public static final String PROG_ACTIVITY_CODE_COL = "ProgActivityCode";
@@ -373,16 +321,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String PROJECT_TITLE = "ProjectTitle";
 
 
-    public static final String UPZELLA_TABLE_CUSTOM_QUERY = "UpazellaTableCustomQuery";
 
-    // Specific Assigne Table
-/*    public static final String REG_N_LM_TABLE = "RegN_LM";
-    public static final String REG_N_PW_TABLE = "RegN_PW";
-    public static final String REG_N_CU2_TABLE = "RegN_CU2";
-    public static final String REG_N_CA2_TABLE = "RegN_CA2";
-    public static final String REG_N_AGR_TABLE = "RegN_ARG";
-    public static final String REG_N_CT_TABLE = "RegN_CT";
-    public static final String REG_N_VUL_TABLE = "RegN_VUL";*/
 
     public static final String LUP_SRV_OPTION_LIST_TABLE = "LUP_SrvOptionList";
     public static final String LUP_GPS_LIST_TABLE = "GPSLUPList";
@@ -415,13 +354,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String USER_EMAIL_VERIFICATION = "UsrEmailVerification";
     public static final String USER_STATUS = "UsrStatus";
 
-    public static final String LTP_2_HECTRES_COL = "LTp2Hectres";
-    public static final String LT_3_FOOD_STOCK_COL = "LT3mFoodStock";
-    public static final String NO_MAJOR_COMMON_LIVE_STOCK_COL = "NoMajorCommonLiveStock";
-    public static final String RECEIVE_NO_FORMAL_WAGES_COL = "ReceiveNoFormalWages";
-    public static final String NO_IGA_COL = "NoIGA";
-    public static final String RELY_PICE_EORK_COL = "RelyPiecework";
-
 
     // COUNTRY
     public static final String ID_COL = "ID";
@@ -443,16 +375,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Registration by Shuvo
     public static final String LAY_R1_LIST_CODE = "LayR1ListCode";
-    public static final String REGISTRATION_TABLE_UPZILLA_CODE_COL = "LayR2ListCode";
-    public static final String REGISTRATION_TABLE_UNION_CODE_COL = "LayR3ListCode";
-    public static final String REGISTRATION_TABLE_VILLAGE_CODE_COL = "LayR4ListCode";
-    public static final String REGISTRATION_TABLE_HHID = "HHID";   ///// pId
-    public static final String REGISTRATION_TABLE_HH_HEAD_NAME = "HHHeadName";
-    public static final String REGISTRATION_TABLE_HH_HEAD_SEX = "HHHeadSex";
-    public static final String REGISTRATION_TABLE_GPS_LAT = "GPSLat";
-    public static final String REGISTRATION_TABLE_GPS_LONG = "GPSLong";
-    public static final String REGISTRATION_TABLE_REGN_ADDRESS_LOOKUP_CODE_COL = "RegNAddLookupCode ";
-    public static final String REGISTRATION_TABLE_HOUSE_HOLD_TYPE_CODE_COL = "HHCat";
 
     // Upazilla
     public static final String FDP_MASTER_LAY_R2_LIST_CODE_COL = "LayR2Code";
@@ -472,12 +394,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     //-------------- REGISTRATION-------
     public static final String ADM_COUNTRY_CODE_COL = "AdmCountryCode";
-    public static final String PID_COL = "RegistrationID";
-    // public static final String PNAME_COL = "PersonName";
-    public static final String SEX_COL = "MemSex";
-    public static final String TA_PARTICIPANTS_LIST_TABLE_SEX_COL = "Sex";
-    public static final String REG_DATE_COL = "RegNDate";
-    public static final String VSLA_GROUP = "VSLAGroup";
+
+
     public static final String REGN_ADDRESS_LOOKUP_CODE_COL = "RegNAddLookupCode";
     public static final String REGN_ADDRESS_LOOKUP_NAME_COL = "RegNAddLookup";
 
@@ -485,78 +403,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     public static final String LATITUDE_COL = "Latd";
     public static final String LONGITUDE_COL = "Long";
-    public static final String HH_SIZE = "HHSize";
-    public static final String AG_LAND = "AGLand";
-    public static final String V_STATUS = "VStatus";
-    public static final String M_STATUS = "MStatus";
+
     public static final String ENTRY_BY = "EntryBy";
     public static final String ENTRY_DATE = "EntryDate";
     public static final String RELATION_CODE = "HHRelationCode";
     public static final String RELATION_NAME = "RelationName";
-    public static final String HOUSE_HOLD_TYPE_CODE_COL = "HHHeadCat";
-    public static final String LT2YRS_M_COL = "LT2yrsM";
-    public static final String LT2YRS_F_COL = "LT2yrsF";
-    public static final String M_2TO5YRS_COL = "M2to5yrs";
-    public static final String F_2TO5YRS_COL = "F2to5yrs";
-    public static final String M_6TO12YRS_COL = "M6to12yrs";
-    public static final String F_6TO12YRS_COL = "F6to12yrs";
-    public static final String M_13TO17YRS_COL = "M13to17yrs";
-    public static final String F_13TO17YRS_COL = "F13to17yrs";
-    public static final String ORPHN_LT18YRS_M_COL = "Orphn_LT18yrsM";
-    public static final String ORPHN_LT18YRS_F_COL = "Orphn_LT18yrsF";
-    public static final String ADLT_18TO59_M_COL = "Adlt_18to59M";
-    public static final String ADLT_18TO59_F_COL = "Adlt_18to59F";
-    public static final String ELD_60P_M_COL = "Eld_60pM";
-    public static final String ELD_60P_F_COL = "Eld_60pF";
-    public static final String PLW_NO_COL = "PLW";
-    public static final String CHRO_ILL_NO_COL = "ChronicallyIll";
-    public static final String DECEASED_CONTRACT_EBOLA_COL = "LivingDeceasedContractEbola";
-    public static final String EXTRA_CHILD_CAUSE_EBOLA_COL = "ExtraChildBecauseEbola";
-    public static final String EXTRA_ELDERLY_CAUSE_EBOLA_COL = "ExtraElderlyPersonBecauseEbola";
-    public static final String EXTRA_CHRONICALLY_ILL_CAUSE_EBOLA_COL = "ExtraChronicallyIllDisabledPersonBecauseEbola";
-    public static final String BRF_COUNT_CATTLE_COL = "BRFCntCattle";
-    public static final String BRF_VALUE_CATTLE_COL = "BRFValCattle";
-    public static final String AFT_COUNT_CATTLE_COL = "AFTCntCattle";
-    public static final String AFT_VALUE_CATTLE_COL = "AFTValCattle";
-    public static final String BRF_COUNT_SGOATS_COL = "BRFCntSheepGoats";
-    public static final String BRF_VALUE_SGOATS_COL = "BRFValSheepGoats";
-    public static final String AFT_COUNT_SGOATS_COL = "AFTCntSheepGoats";
-    public static final String AFT_VALUE_SGOATS_COL = "AFTValSheepGoats";
-    public static final String BRF_COUNT_POULTRY_COL = "BRFCntPoultry";
-    public static final String BRF_VALUE_POULTRY_COL = "BRFValPoultry";
-    public static final String AFT_COUNT_POULTRY_COL = "AFTCntPoultry";
-    public static final String AFT_VALUE_POULTRY_COL = "AFTValPoultry";
-    public static final String BRF_COUNT_OTHER_COL = "BRFCntOther";
-    public static final String BRF_VALUE_OTHER_COL = "BRFValOther";
-    public static final String AFT_COUNT_OTHER_COL = "AFTCntOther";
-    public static final String AFT_VALUE_OTHER_COL = "AFTValOther";
-    public static final String BRF_ACRE_CULTIVABLE_COL = "BRFAcreCultivable";
-    public static final String BRF_VALUE_CULTIVABLE_COL = "BRFValCultivable";
-    public static final String AFT_ACRE_CULTIVABLE_COL = "AFTAcreCultivable";
-    public static final String AFT_VALUE_CULTIVABLE_COL = "AFTValCultivable";
-    public static final String BRF_ACRE_NON_CULTIVABLE_COL = "BRFAcreNonCultivable";
-    public static final String BRF_VAL_NON_CULTIVABLE_COL = "BRFValNonCultivable";
-    public static final String AFT_ACRE_NON_CULTIVABLE = "AFTAcreNonCultivable";
-    public static final String AFT_VAL_NON_CULTIVABLE = "AFTValNonCultivable";
-    public static final String BRF_ACRE_ORCHARDS = "BRFAcreOrchards";
-    public static final String BRF_VAL_ORCHARDS = "BRFValOrchards";
-    public static final String AFT_ACRE_ORCHARDS = "AFTAcreOrchards";
-    public static final String AFT_VAL_ORCHARDS = "AFTValOrchards";
-    public static final String BRF_VAL_CROP = "BRFValCrop";
-    public static final String AFT_VAL_CROP = "AFTValCrop";
-    public static final String BRF_VAL_LIVESTOCK = "BRFValLivestock";
-    public static final String AFT_VAL_LIVESTOCK = "AFTValLivestock";
-    public static final String BRF_VAL_SMALL_BUSINESS = "BRFValSmallBusiness";
-    public static final String AFT_VAL_SMALL_BUSINESS = "AFTValSmallBusiness";
-    public static final String BRF_VAL_EMPLOYMENT = "BRFValEmployment";
-    public static final String AFT_VAL_EMPLOYMENT = "AFTValEmployment";
-    public static final String BRF_VAL_REMITTANCES = "BRFValRemittances";
-    public static final String AFT_VAL_REMITTANCES = "AFTValRemittances";
-    public static final String BRF_CNT_WAGEENR = "BRFCntWageEnr";
-    public static final String AFT_CNT_WAGEENR = "AFTCntWageEnr";
-    public static final String GPS_LONG_SWAP = "GPSLongSwap";
+
     public static final String SYNC_COL = "SyncStatus";
-    public static final String W_RANK_COL = "WRank";
+
 
 
     public static final String LAST_SYNC_TIME_COL = "LastSyncTime";
@@ -568,52 +422,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String MEM_ID_COL = "MemID";
     public static final String REG_N_ASSIGN_PROG_SRV_HH_MEM_ID = "MemID";
     public static final String HH_MEM_ID = "HHMemID";
-    public static final String MEM_NAME_COL = "MemName";
-    public static final String RELATION_COL = "HHRelation";
-    public static final String LMP_DATE = "LMPDate";
-    public static final String CHILD_DOB = "ChildDOB";
-    public static final String ELDERLY = "Elderly";
-    public static final String DISABLE = "Disabled";
-    public static final String MEM_AGE = "MemAge";
-    public static final String BIRTH_YEAR_COL = "BirthYear";
-    public static final String MARITAL_STATUS_COL = "MaritalStatus";
-    public static final String CONTACT_NO_COL = "ContactNo";
-    public static final String MEMBER_OTHER_ID_COL = "MemOtherID";
-    public static final String MEM_NAME_FIRST_COL = "MemName_First";
-    public static final String MEM_NAME_MIDDLE_COL = "MemName_Middle";
-    public static final String MEM_NAME_LAST_COL = "MemName_Last";
-    public static final String PHOTO_COL = "Photo";
-    public static final String TYPE_ID_COL = "Type_ID";
-    public static final String ID_NO_COL = "ID_NO";
-    public static final String V_BSC_MEM_1_NAME_FIRST_COL = "V_BSCMemName1_First";
-    public static final String V_BSC_MEM_1_NAME_MIDDLE_COL = "V_BSCMemName1_Middle";
-    public static final String V_BSC_MEM_1_NAME_LAST_COL = "V_BSCMemName1_Last";
-    public static final String V_BSC_MEM_1_TITLE_COL = "V_BSCMem1_TitlePosition";
-
-    public static final String V_BSC_MEM_2_NAME_FIRST_COL = "V_BSCMemName2_First";
-    public static final String V_BSC_MEM_2_NAME_MIDDLE_COL = "V_BSCMemName2_Middle";
-    public static final String V_BSC_MEM_2_NAME_LAST_COL = "V_BSCMemName2_Last";
-    public static final String V_BSC_MEM_2_TITLE_COL = "V_BSCMem2_TitlePosition";
-
-    public static final String PROXY_DESIGNATION_COL = "Proxy_Designation";
-    public static final String PROXY_NAME_FIRST_COL = "Proxy_Name_First";
-    public static final String PROXY_NAME_MIDDLE_COL = "Proxy_Name_Middle";
-    public static final String PROXY_NAME_LAST_COL = "Proxy_Name_Last";
-
-    public static final String PROXY_BIRTH_YEAR_COL = "Proxy_BirthYear";
-    public static final String PROXY_PHOTO_COL = "Proxy_Photo";
-    public static final String PROXY_TYPE_ID_COL = "Proxy_Type_ID";
-    public static final String PROXY_ID_NO_COL = "Proxy_ID_NO";
-    public static final String PROXY_BSC_MEM_1_NAME_FIRST_COL = "P_BSCMemName1_First";
-    public static final String PROXY_BSC_MEM_1_NAME_MIDDLE_COL = "P_BSCMemName1_Middle";
-    public static final String PROXY_BSC_MEM_1_NAME_LAST_COL = "P_BSCMemName1_Last";
-    public static final String PROXY_BSC_MEM_1_TITLE_COL = "P_BSCMem1_TitlePosition";
-
-    public static final String PROXY_BSC_MEM_2_NAME_FIRST_COL = "P_BSCMemName2_First";
-    public static final String PROXY_BSC_MEM_2_NAME_MIDDLE_COL = "P_BSCMemName2_Middle";
-    public static final String PROXY_BSC_MEM_2_NAME_LAST_COL = "P_BSCMemName2_Last";
-    public static final String PROXY_BSC_MEM_2_TITLE_COL = "P_BSCMem2_TitlePosition";
-    public static final String MEM_TYPE_FLAG = "MemTypeFlag";
 
 
     /**
@@ -642,11 +450,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String SRV_CODE_COL = "SrvCode";
     public static final String OPERATION_CODE_COL = "OpCode";
     public static final String OP_MONTH_CODE_COL = "OpMonthCode";
-    public static final String SERVICE_SL_COL = "ServiceSL";
+
     public static final String SERVICE_TABLE_SERVICE_SL_COL = "SrvSL";
-    public static final String SERVICE_DT_COL = "ServiceDT";
+
     public static final String SERVICE_TABLE_SERVICE_DT_COL = "SrvDT";
-    //    public static final String SERVICE_STATUS_COL = "ServiceStatus";
+
     public static final String SRV_STATUS_COL = "SrvStatus";
     public static final String WORK_DAY_COL = "WD";
     /**
@@ -691,14 +499,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // ADDED BY POP COLUMN FOR REG_N_ASSIGN_PROG_SRV_TABLE  TABLE
 
-    public static final String REG_N_DAT_COL = "RegNDate";
-    public static final String GRD_CODE_COL = "GRDCode";
-    public static final String GRD_DATE_COL = "GRDDate";
-    public static final String SRV_MIN_DATE_COL = "SrvMin";
-    public static final String SRV_MAX_DATE_COL = "SrvMax";
 
-    public static final String REG_N_STATUS_COL = "RegNStatus";
-    public static final String GRD_STATUS_COL = "GRDStatus";
+    public static final String GRD_CODE_COL = "GRDCode";
+
 
 
     // ADDED BY POP COLUMN FOR GRADUATION  TABLE
@@ -758,43 +561,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String STATUS = "Status";
 
 
-    public static final String LM_DATE_COL = "LMDOB";
-    public static final String GRDCODE_COL = "GRDCode";
-    public static final String LMGRDDATE_COL = "LMGRDDate";
-    public static final String CHILD_NAME_COL = "ChildName";
-    public static final String CHILD_SEX_COL = "ChildSex";
-
-
-
-
 
     public static final String SERVICE_CENTER_CODE_COL = "SrvCenterCode";
     public static final String SERVICE_CENTER_NAME_COL = "SrvCenterName";
-    public static final String SERVICE_CENTER_ADDRESS_COL = "SrvCenterAddress";
-    public static final String SERVICE_CENTER_CAT_COL = "SrvCenterCatCode";
-    //  public static final String FDP_CODE_COL = "FDPcode";
-    //public static final String SERVICE_CENTER_ADDRESS_COL ="SrvCenterAddress";
+
 
     // special condition constant
     public static final String SERVICE_SUMMARY_CRITERIA_QUERY = "serviceSummaryCriteria";
-    public static final String GRADUATION_PROGRAM_QUERY = "graduationProgramQuery";
 
-    // / ADDED BY POP COLUMN FOR REG_N_PW  TABLE
-
-
-    public static final String PW_GRD_DATE_COL = "PWGRDDate";
-    public static final String LMP_DATE_COL = "LMPDate";
-
-    // ADDED BY POP COLUMN FOR REG_N_CA2  TABLE
-
-    public static final String CA2_GRD_DATE_COL = "CA2GRDDate";
-    public static final String CA2DOB_DATE_COL = "CA2DOB";
-
-    // ADDED BY POP COLUMN FOR REG_N_CU2  TABLE
-
-
-    public static final String CU2_GRD_DATE_COL = "CU2GRDDate";
-    public static final String CU2DOB_DATE_COL = "CU2DOB";
 
 
     // ADDED BY POP COLUMN FOR STAFF_GEO_INFO_ACCESS_TABLE
@@ -844,19 +618,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String DELIVERY_BY_COL = "DeliveredBy";
     public static final String DELIVERY_STATUS_COL = "DelStatus";
 
-    // COLOUMN FOR REGN_CT TABLE
 
-
-    public static final String C11_CT_PR = "C11_CT_PR";
-    public static final String C21_CT_PR = "C21_CT_PR";
-    public static final String C31_CT_PR = "C31_CT_PR";
-    public static final String C32_CT_PR = "C32_CT_PR";
-    public static final String C33_CT_PR = "C33_CT_PR";
-    public static final String C34_CT_PR = "C34_CT_PR";
-    public static final String C35_CT_PR = "C35_CT_PR";
-    public static final String C36_CT_PR = "C36_CT_PR";
-    public static final String C37_CT_PR = "C37_CT_PR";
-    public static final String C38_CT_PR = "C38_CT_PR";
 
 
     public static final String STAFF_FDP_ACCESS_TABLE = "StaffFDPAccess";
@@ -866,14 +628,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String FDA_CATEGORIES_CODE_COL = "FDPCatCode";
     public static final String WH_CODE_COL = "WHCode";
 
-    // RegN_ARG Column
-    public static final String ELDERLY_YN_COL = "ElderlyYN";
-    public static final String LAND_SIZE_COL = "LandSize";
-    public static final String DEPEND_ON_GANYU_COL = "DependOnGanyu";
-    public static final String WILLINGNESS_COL = "Willingness";
-    public static final String WINTER_CULTIVATION_COL = "WinterCultivation";
-    public static final String VULNERABLE_HH_COL = "VulnerableHH";
-    public static final String PLANTING_VALUE_CHAIN_CROP_COL = "PlantingValueChainCrop";
+
     // RegN_vul Column
     public static final String Disabled_YN_COL = "DisabledYN";
 
@@ -881,15 +636,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String LUP_OPTION_CODE_COL = "LUPOptionCode";
     public static final String LUP_OPTION_NAME_COL = "LUPOptionName";
 
-    ////////////////SPECIAL QURY----------
-//    public static final String VILLAGE_TABLE_QUERY_FROM_REG = "villageQuery";
-    public static final String VILLAGE_TABLE_QUERY_FOR_RECORDS = "villageQueryForRecords";
 
 
-//    public static final String DISTRIBUTION_TABLE = "DistTable";
+
     public static final String DISTRIBUTION_STATUS_COL = "DistStatus";
-    public static final String MEM_ID_15_D_COL = "ID";
-    public static final String DIST_DATE_COL = "DistDate";
+
     public static final String DIST_DT_COL = "DistDT";
 
     public static final String DIST_FLAG_COL = "DistFlag";
@@ -1326,9 +1077,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_MEM_PROG_GRP_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + COMMUNITY_GROUP_CATEGORY_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + GPS_LOCATION_CONTENT_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_FFA_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_WE_TABLE);
-        db.execSQL(DROP_TABLE_IF_EXISTS + DIST_N_PLAN_BASIC_TABLE);
+
         db.execSQL(DROP_TABLE_IF_EXISTS + COMMUNITY_GRP_DETAIL_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + PROGRAM_ORGANIZATION_NAME_TABLE);
         db.execSQL(DROP_TABLE_IF_EXISTS + PROGRAM_ORGANIZATION_ROLE_TABLE);
@@ -1442,9 +1191,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL(Schema.sqlCreate_Gps_Location_Content_Table());
         // TODO: 11/13/2016  redesign  last sync time
         db.execSQL(Schema.createTableLastSyncTime());
-        db.execSQL(Schema.createTableRegN_FFA());
-        db.execSQL(Schema.createTableRegN_WE());
-        db.execSQL(Schema.sqlCreateDistNPlanBasic());
+
         db.execSQL(Schema.createTableLUP_RegNAddLookup());
         db.execSQL(Schema.createTableCommunityGrpDetail());
         db.execSQL(Schema.createTableProgOrgNRole());
@@ -1567,9 +1314,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_MEM_PROG_GRP_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + COMMUNITY_GROUP_CATEGORY_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + GPS_LOCATION_CONTENT_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_FFA_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + REG_N_WE_TABLE);
-            db.execSQL(DROP_TABLE_IF_EXISTS + DIST_N_PLAN_BASIC_TABLE);
+
             db.execSQL(DROP_TABLE_IF_EXISTS + COMMUNITY_GRP_DETAIL_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + PROGRAM_ORGANIZATION_NAME_TABLE);
             db.execSQL(DROP_TABLE_IF_EXISTS + PROGRAM_ORGANIZATION_ROLE_TABLE);
@@ -1765,9 +1510,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.delete(REG_N_MEM_PROG_GRP_TABLE, null, null);
             db.delete(COMMUNITY_GROUP_CATEGORY_TABLE, null, null);
             db.delete(GPS_LOCATION_CONTENT_TABLE, null, null);
-            db.delete(REG_N_FFA_TABLE, null, null);
-            db.delete(REG_N_WE_TABLE, null, null);
-            db.delete(DIST_N_PLAN_BASIC_TABLE, null, null);
+
             db.delete(COMMUNITY_GRP_DETAIL_TABLE, null, null);
             db.delete(PROGRAM_ORGANIZATION_NAME_TABLE, null, null);
             db.delete(PROGRAM_ORGANIZATION_ROLE_TABLE, null, null);
@@ -2182,61 +1925,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-    public boolean getDistIsprepare(String AdmCountryCode, String AdmDonorCode, String AdmAwardCode, String ProgCode,
-                                    String OpCode, String SrvOpMonthCode, String DisOpMonthCode, String FDPCode) {
 
 
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        String sql = "SELECT *  FROM " + DIST_N_PLAN_BASIC_TABLE
-                + " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + AdmCountryCode + "' "
-                + " AND " + ADM_DONOR_CODE_COL + " = '" + AdmDonorCode + "' "
-                + " AND " + ADM_AWARD_CODE_COL + " = '" + AdmAwardCode + "' "
-                + " AND " + PROG_CODE_COL + " = '" + ProgCode + "' "
-                + " AND " + OPERATION_CODE_COL + " = '" + OpCode + "' "
-                + " AND " + SRV_OP_MONTH_CODE_COL + " = '" + SrvOpMonthCode + "' "
-                + " AND " + DIST_OP_MONTH_CODE_COL + " = '" + DisOpMonthCode + "' "
-                + " AND " + FDP_CODE_COL + " = '" + FDPCode + "' ";
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.getCount() > 0) {
-            cursor.close();
-            db.close();
-            return true;
-        } else
-            return false;
-    }
-
-    public void addInDistributionNPlaneTable(String AdmCountryCode, String AdmDonorCode, String AdmAwardCode, String ProgCode,
-                                             String OpCode, String SrvOpMonthCode, String DisOpMonthCode, String FDPCode
-            , String DistFlag, String OrgCode, String Distributor, String DistributionDate, String DeliveryDate, String Status, String PreparedBy, String VerifiedBy, String ApproveBy) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-
-        values.put(ADM_COUNTRY_CODE_COL, AdmCountryCode);
-        values.put(ADM_DONOR_CODE_COL, AdmDonorCode);
-        values.put(ADM_AWARD_CODE_COL, AdmAwardCode);
-        values.put(PROG_CODE_COL, ProgCode);
-        values.put(OPERATION_CODE_COL, OpCode);
-        values.put(SRV_OP_MONTH_CODE_COL, SrvOpMonthCode);
-        values.put(DIST_OP_MONTH_CODE_COL, DisOpMonthCode);
-        values.put(FDP_CODE_COL, FDPCode);
-        values.put(DIST_FLAG_COL, DistFlag);
-        values.put(ORG_CODE_COL, OrgCode);
-        values.put(DISTRIBUTOR_COL, Distributor);
-        values.put(DISTRIBUTION_DATE_COL, DistributionDate);
-        values.put(DELIVERY_DATE_COL, DeliveryDate);
-        values.put(STATUS, Status);
-        values.put(PREPARED_BY_COL, PreparedBy);
-        values.put(VERIFIED_BY_COL, VerifiedBy);
-        values.put(APPROVED_BY_COL, ApproveBy);
-
-        long id = db.insert(DIST_N_PLAN_BASIC_TABLE, null, values);
-        db.close();
-//        Log.d(TAG, "Distribution Extended table   added: " + id);
-
-
-    }
 
 
 
@@ -3265,7 +2956,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         ArrayList<DTQTableDataModel> list = new ArrayList<DTQTableDataModel>();
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM " + DTQ_TABLE +
-                " WHERE " + DT_BASIC_COL + "= '" + dtBasicCode + "'";
+                " WHERE " + DT_BASIC_COL + "= '" + dtBasicCode + "'" +
+                " ORDER BY "+QSEQ_SCOL;
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -4327,33 +4019,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
                 break;
 
-           /* case VILLAGE_TABLE_QUERY_FOR_RECORDS:
-                selectQuery = "SELECT " + " v." + ADM_COUNTRY_CODE_COL + " || '' ||  v." + LAY_R_LIST_CODE_COL + " || '' || v." + LAY_R2_LIST_CODE_COL + " || '' || v." +
-                        LAY_R3_LIST_CODE_COL + " || '' || v." + LAY_R4_LIST_CODE_COL + " AS v_code," +
-                        " v." + LAY_R4_LIST_NAME_COL + " AS Vill_Name " +
-                     *//*   " COUNT("+PID_COL+") AS records"*//*" FROM " + GEO_LAY_R4_LIST_TABLE + " AS v" +
-                        " LEFT JOIN " + REG_N_HH_TABLE + " AS r" +
-                        " ON r." + ADM_COUNTRY_CODE_COL + "=v." + ADM_COUNTRY_CODE_COL + " AND " +
-                        "r." + LAY_R_LIST_NAME_COL + "=v." + LAY_R_LIST_CODE_COL + " AND " +
-                        "r." + LAY_R2_LIST_NAME_COL + "=v." + LAY_R2_LIST_CODE_COL + " AND " +
-                        "r." + LAY_R3_LIST_NAME + "=v." + LAY_R3_LIST_CODE_COL + " AND " +
-                        "r." + LAY_R4_LIST_NAME_COL + "=v." + LAY_R4_LIST_CODE_COL +
 
-                        " WHERE v." + ADM_COUNTRY_CODE_COL + "='" + cCode + "'" + *//** send the no of village for selected country added by Faisal Mohammad*//*
-                        "  GROUP BY v." + ADM_COUNTRY_CODE_COL + ",v." + LAY_R_LIST_CODE_COL + ",v." + LAY_R2_LIST_CODE_COL + ",v." + LAY_R3_LIST_CODE_COL + ",v." + LAY_R4_LIST_CODE_COL;
-
-                selectLabel += getLayerLabel(cCode, "4");
-                break;*/
             case LUP_REGNH_HEAD_CATEGORY_TABLE:
                 selectQuery = "SELECT " + HH_HEAD_CAT_CODE_COL + " , " + CATEGORY_NAME_COL + " FROM " + table_name + criteria;
                 selectLabel = "Select House Hold Type";
                 break;
 
-            case REG_N_LUP_GRADUATION_TABLE:
-                selectQuery = "SELECT " + GRD_CODE_COL + " , " + GRD_TITLE_COL + " FROM " + table_name + criteria;
-                Log.d("nafiz", selectQuery);
-                selectLabel = "Select Reason";
-                break;
+
             case SRV_CENTER_TABLE:
                 selectQuery = "SELECT " + SERVICE_CENTER_CODE_COL + " , " +
                         SERVICE_CENTER_NAME_COL + " FROM " + table_name + criteria;
@@ -4364,16 +4036,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                         REPORT_LABLE_COL + " FROM " + table_name + criteria;
                 selectLabel = "Select Card Type ";
                 break;
-            case LUP_REGN_CARD_PRINT_REASON_TABLE: //@date:2015-11-04
-                selectQuery = "SELECT " + CARD_PRINT_REASON_CODE_COL + " , " +
-                        CARD_PRINT_REASON_TITLE_COL + " FROM " + table_name + criteria;
-                selectLabel = "Select Reason";
-                break;
-            // to get Upzella Code & District Code
-            case UPZELLA_TABLE_CUSTOM_QUERY:
-                selectQuery = "SELECT " + GEO_LAY_R2_LIST_TABLE + "." + LAY_R_LIST_CODE_COL + " || " + GEO_LAY_R2_LIST_TABLE + "." + LAY_R2_LIST_CODE_COL + ", " + GEO_LAY_R2_LIST_TABLE + "." + LAY_R2_LIST_NAME_COL + " FROM " + GEO_LAY_R2_LIST_TABLE + criteria;
-                selectLabel += getLayerLabel(cCode, "2");
-                break;
+
+
+
             case STAFF_FDP_ACCESS_TABLE:
                 selectQuery = "SELECT " + FDP_MASTER_TABLE + "." + FDP_CODE_COL + " AS " + FDP_CODE_COL + " , "
                         + FDP_MASTER_TABLE + "." + FDP_NAME_COL + " AS " + FDP_NAME_COL +
@@ -5064,24 +4729,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return selectedVillage;
     }
 
-    public ArrayList<FDPItem> getSelectedFDPList() {
-        ArrayList<FDPItem> selectedFDP = new ArrayList<FDPItem>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + ADM_COUNTRY_CODE_COL + " , " + FDP_CODE_COL
-                + "  , " + FDP_NAME_COL + " FROM " + SELECTED_FDP_TABLE;
-        Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            do {
-                FDPItem fdp = new FDPItem();
-                fdp.setAdmCountryCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                fdp.setFDPCode(cursor.getString(cursor.getColumnIndex(FDP_CODE_COL)));
-                fdp.setFDPName(cursor.getString(cursor.getColumnIndex(FDP_NAME_COL)));
-//                Log.d(TAG, " setLayRCode :" + fdp.getFDPCode());
-                selectedFDP.add(fdp);
-            } while (cursor.moveToNext());
-        }
-        return selectedFDP;
-    }
 
 
 
