@@ -6,7 +6,6 @@ import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import static com.faisal.technodhaka.dlight.database.SQLiteHandler.*;
 
 
-
 /**
  * Created by Faisal on 2/18/2016.
  * This Class Contain The Schema
@@ -108,13 +107,6 @@ public class Schema {
     }
 
 
-
-
-
-
-
-
-
     // Valid Date
     public static String sqlCreateDateRange() {
         return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.VALID_DATE_RANGE
@@ -179,7 +171,7 @@ public class Schema {
 
     public static String sqlCreateHouseHoldCategoryTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + LUP_REGNH_HEAD_CATEGORY_TABLE + " ( "
-              //  + ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
+                //  + ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(20), "
                 + HH_HEAD_CAT_CODE_COL + " VARCHAR(20), "
                 + CATEGORY_NAME_COL + " VARCHAR(120) ) "
@@ -222,13 +214,6 @@ public class Schema {
     }
 
 
-
-
-
-
-
-
-
     public static String sqlCreateServiceCenterTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + SRV_CENTER_TABLE + " ( "
                 + ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
@@ -269,10 +254,6 @@ public class Schema {
     }
 
 
-
-
-
-
     public static String sqlCreateStaffFDPAccessTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + STAFF_FDP_ACCESS_TABLE + " ( "
                 + STAFF_CODE + " VARCHAR(5) , "
@@ -297,7 +278,6 @@ public class Schema {
     }
 
 
-
     public static String sqlCreateUploadTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + UPLOAD_SYNTAX_TABLE + " ( "
                 + ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
@@ -314,8 +294,6 @@ public class Schema {
                 " , " + PORTABLE_DEVICE_ID_COL + " TEXT " +
                 ")";
     }
-
-
 
 
     public static String sqlCreateADM_CountryProgram() {
@@ -411,10 +389,7 @@ public class Schema {
     }
 
 
-
-
     /**
-     *
      * create Service Master table
      * AdmServiceMaster_Schema schema
      * remarks-
@@ -431,7 +406,6 @@ public class Schema {
     }
 
     /**
-     *
      * create Program Master table
      * AdmProgramMaster_Schema schema
      */
@@ -461,12 +435,9 @@ public class Schema {
     }
 
 
-
-
     /**
      * Service Table Schema
      */
-
 
 
     // Creating RegNHHMember Schema
@@ -489,8 +460,6 @@ public class Schema {
                 + SQLiteHandler.LUP_OPTION_NAME_COL + " VARCHAR(4) "
                 + " )";
     }
-
-
 
 
     // create Vul table schema
@@ -572,7 +541,7 @@ public class Schema {
                 + ENTRY_BY + " VARCHAR(5), "
                 + ENTRY_DATE + " VARCHAR(20) "
                 + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL
-                + " , " + ADM_AWARD_CODE_COL +" "
+                + " , " + ADM_AWARD_CODE_COL + " "
                 + " , " + LAY_R1_LIST_CODE_COL + " , " + LAY_R2_LIST_CODE_COL + " "
                 + " , " + LAY_R3_LIST_CODE_COL + " , " + LAY_R4_LIST_CODE_COL + " "
                 + " , " + HHID_COL + " , " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " "
@@ -583,8 +552,6 @@ public class Schema {
 
 
     }
-
-
 
 
     public static String sqlCreateSelectedVillage_Table() {
@@ -767,9 +734,6 @@ public class Schema {
     }
 
 
-
-
-
     public static String sqlCreateLUP_CommunityAnimalList_Table() {
 
         return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.LUP_COMMUNITY_ANIMAL_TABLE + " ("
@@ -912,8 +876,6 @@ public class Schema {
                 + LAST_SYNC_TIME_COL + " TEXT "
                 + " ) ";
     }
-
-
 
 
     public static String createTableLUP_RegNAddLookup() {
@@ -1296,10 +1258,6 @@ public class Schema {
                 + " ) ";
 
     }
-
-
-
-
 
 
     public static String crateLUP_TAParticipantCat() {

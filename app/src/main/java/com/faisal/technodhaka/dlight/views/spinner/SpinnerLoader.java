@@ -6,6 +6,7 @@ import android.widget.Spinner;
 
 import com.faisal.technodhaka.dlight.R;
 
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
@@ -134,7 +135,11 @@ public class SpinnerLoader {
      * @param strSpinner spinner T7ext
      * @param mDTQ       Dynamic Table Question
      */
-    public static void loadDynamicSpinnerListLoader(Context context, SQLiteHandler sqlH, Spinner dt_spinner, String cCode, String resLupText, String strSpinner, DTQTableDataModel mDTQ, AssignDataModel.DynamicDataIndexDataModel dyBasic) {
+    public static void loadDynamicSpinnerListLoader(Context context, SQLiteHandler sqlH,
+                                                    Spinner dt_spinner, String cCode,
+                                                    String resLupText, String strSpinner,
+                                                    DTQTableDataModel mDTQ,
+                                                    DynamicDataIndexDataModel dyBasic) {
 
         int position = 0;
         List<SpinnerHelper> list = new ArrayList<SpinnerHelper>();

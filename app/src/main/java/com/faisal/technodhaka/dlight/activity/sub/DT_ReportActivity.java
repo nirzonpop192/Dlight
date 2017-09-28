@@ -19,6 +19,7 @@ import android.widget.TextView;
 import  com.faisal.technodhaka.dlight.R;
 import  com.faisal.technodhaka.dlight.controller.SessionManager;
 import  com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import  com.faisal.technodhaka.dlight.data_model.SurveyModel;
 import  com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
@@ -37,7 +38,7 @@ public class DT_ReportActivity extends AppCompatActivity {
     private RelativeLayout rlIndicator;
     private ViewPager viewPager;
 
-    private AssignDataModel.DynamicDataIndexDataModel data;
+    private DynamicDataIndexDataModel data;
     private SQLiteHandler sqlH;
     private ReportViewPagerAdapter adapter;
 
@@ -165,7 +166,9 @@ public class DT_ReportActivity extends AppCompatActivity {
 
 
     private void generateSurveyList() {
-        ArrayList<Integer> surveyList = sqlH.getSurveyList(data.getDtBasicCode(), data.getcCode(), data.getDonorCode(), data.getAwardCode(), data.getProgramCode(), session.getStaffId());
+
+        ArrayList<Integer> surveyList = sqlH.getSurveyList(data.getDtBasicCode());
+
         surveyModels = new ArrayList<>();
         for (int surveyNum : surveyList) {
             SurveyModel surveyModel = new SurveyModel();

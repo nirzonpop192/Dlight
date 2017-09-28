@@ -310,56 +310,6 @@ public class ADNotificationManager {
         alertDialog.show();
 
     }
-/**
- * Experiment but failed
- */
-//    private boolean confirmationFlag;
-//
-//    public boolean isConfirmationFlag() {
-//        return confirmationFlag;
-//    }
-//
-//    public void setConfirmationFlag(boolean confirmationFlag) {
-//        this.confirmationFlag = confirmationFlag;
-//    }
-//
-//    public boolean continueConfirmationDialog(Context context) {
-//
-//        setConfirmationFlag(false);
-//
-//        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context);
-//
-//
-//        alertDialog.setTitle("Continue !!");
-//
-//        String massage;
-//
-//
-//        massage = "Do you want to continue ?";
-//        // On pressing Settings button
-//        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                setConfirmationFlag(false);
-//
-//            }
-//        });
-//
-//
-//        // Setting Dialog Message
-//        alertDialog.setMessage(massage);
-//
-//        // on pressing cancel button
-//        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//                setConfirmationFlag(false);
-//            }
-//        });
-//
-//        // Showing Alert Message
-//        alertDialog.show();
-//        return isConfirmationFlag();
-//
-//    }
+
 
 }

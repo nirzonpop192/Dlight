@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.activity.DynamicTable;
 import com.faisal.technodhaka.dlight.controller.AppConfig;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
@@ -60,7 +61,7 @@ public class DTResponseActivity extends BaseActivity {
     private String strProgram;
     private ListView lv_QuestionSet;
     private Button btn_goToQuestion, btn_BackToQustion;
-    private AssignDataModel.DynamicDataIndexDataModel dyIndex;
+    private DynamicDataIndexDataModel dyIndex;
     DynamicTableQusDataModelAdapter adapter = null;
     private String idMonth;
     private String strMonth;

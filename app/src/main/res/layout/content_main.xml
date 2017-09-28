@@ -57,6 +57,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -96,197 +97,52 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".55"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:weightSum="1">
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="left"
-                    android:text="Chart"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart"
+        android:layout_width="400dp"
+        android:layout_height="500dp"
+        android:layout_below="@+id/ll_1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/btnSyncRecord"
+            style="@style/btn_sync"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight=".55"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/sync"
+            android:drawableStart="@drawable/sync"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="  SYNC"
+            android:textSize="15sp" />
 
+        <Button
+            android:id="@+id/btnLogout"
+            style="@style/btn_logout"
+            android:layout_marginLeft="3dp"
+            android:layout_weight=".45"
+            android:drawableLeft="@drawable/logout"
+            android:gravity="center_vertical"
+            android:paddingLeft="92dp"
+            android:text="  Logout"
 
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight=".45"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:text="apk_on_device"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:text="device_id"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_deviceId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="xxxxxx_xxxxxxxx" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:text="version_name"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="log_in_version_lable" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-
-                    android:gravity="center_horizontal"
-                    android:text="labe_op_mode"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_operation_mode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_horizontal"
-                    android:text="" />
-
-
-                <TextView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_horizontal"
-                    android:text="label_geo_data"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_horizontal"
-                    android:text="label_last_sync"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_last_sync"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_horizontal"
-                    android:text="N/A" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_horizontal"
-                    android:text="Sync Required"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_sync_required"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_horizontal"
-                    android:text="" />
-
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <Button
-                android:id="@+id/btnSyncRecord"
-                style="@style/btn_sync"
-                android:layout_marginEnd="4dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight=".55"
-                android:background="@color/colorPrimary"
-                android:drawableLeft="@drawable/sync"
-                android:drawableStart="@drawable/sync"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="  SYNC"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/btnLogout"
-                style="@style/btn_logout"
-                android:layout_marginLeft="3dp"
-                android:layout_weight=".45"
-                android:drawableLeft="@drawable/logout"
-                android:gravity="center_vertical"
-                android:paddingLeft="92dp"
-                android:text="  Logout"
-
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
+            android:textSize="15sp" />
 
     </LinearLayout>
 

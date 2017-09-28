@@ -39,7 +39,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.faisal.technodhaka.dlight.R;
+import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.AppController;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.fragments.ChartFragment;
 import com.faisal.technodhaka.dlight.fragments.HomeFragment;
@@ -58,12 +60,19 @@ import com.faisal.technodhaka.dlight.version.VersionStateChangeReceiver;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
 import com.faisal.technodhaka.dlight.views.notifications.AlertDialogManager;
 import com.faisal.technodhaka.dlight.views.spinner.SpinnerLoader;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -94,7 +103,7 @@ public class MainActivity extends BaseActivity {
     private Button btnLogout;
 
     private Button btnSyncRec;
-    private SQLiteHandler sqlH;
+    //private SQLiteHandler sqlH;
     private Spinner spCountry;
     private String idCountry;
     private String strCountry;
@@ -104,7 +113,7 @@ public class MainActivity extends BaseActivity {
 
     private ProgressDialog progressDialog;
 
-    private TextView tvLastSync, tvSyncRequired, tvOperationMode, tvDeviceId;
+    //    private TextView tvLastSync, tvSyncRequired, tvOperationMode, tvDeviceId;
     private Context mContext;
 
     private int progressIncremental;
@@ -119,7 +128,7 @@ public class MainActivity extends BaseActivity {
     // urls to load navigation header background image
     // and profile image
     private static final String urlNavHeaderBg = "https://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
+    //    private static final String URL_PROFILE_IMG = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
@@ -145,16 +154,108 @@ public class MainActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        intil();
+
+        if (db.selectUploadSyntextRowCount() > 0) {
+//            tvSyncRequired.setText(Y);
+            btnSyncRec.setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+//            tvSyncRequired.setText(N);
+            btnSyncRec.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_HOME;
+            loadHomeFragment();
+        }
+
+
+
+
+
+        SharedPreferences settings;
+
+        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        boolean isFirstRun = settings.getBoolean(IS_APP_FIRST_RUN, false);
+
+
+        txtName.setText(getUserName());
+//        tvLastSync.setText(db.getLastSyncStatus());
+
+
+        // Logout button click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
+
+
+        buttonSetListener();
+        /** when the MainActivity run for first time  The JSon Data inject to the
+         * SQLite database from text file
+         */
+        if (isFirstRun) {
+            SharedPreferences.Editor editor;
+            settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            editor = settings.edit();
+            new Inject_All_DataIntoSQLite().execute();
+            editor.putBoolean(IS_APP_FIRST_RUN, false);
+            editor.apply();
+        }
+        loadCountry();
+
+        List<DynamicDataIndexDataModel> dataList = db.getDynamicTableIndexList("0002", "", session.getStaffId());
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+
+        int i = 1;
+        ArrayList<String> labels = new ArrayList<String>();
+        for (DynamicDataIndexDataModel model : dataList) {
+
+            labels.add(model.getDtShortName());
+
+            entries.add(new BarEntry(i, db.getSurveyTotalNumber(model.getDtBasicCode())));
+            i++;
+
+        }
+
+        BarDataSet dataSet = new BarDataSet(entries, "# of Calls");
+
+
+        BarChart mChart = (BarChart) findViewById(R.id.chart);
+        BarData data = new BarData(dataSet);
+// add labels
+        mChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        mChart.setDrawBarShadow(false);
+        mChart.setDrawValueAboveBar(false);
+        mChart.getDescription().setEnabled(false);
+
+
+        mChart.setData(data);
+
+
+/**
+ * apk automatic update process
+ */
+//        callBroadCastReceiverToCheck();
+
+
+    }                                                                                               // end of onCreate
+
+    private void intil() {
+        viewReference();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mHandler = new Handler();
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         // Navigation view header
         navHeader = navigationView.getHeaderView(0);
@@ -174,16 +275,10 @@ public class MainActivity extends BaseActivity {
         // initializing navigation menu
         setUpNavigationView();
 
-        if (savedInstanceState == null) {
-            navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
-            loadHomeFragment();
-        }
-
         main_activity = this;
         mContext = this;
         spCountry = (Spinner) findViewById(R.id.spDCountry);// add the spinner
-        sqlH = new SQLiteHandler(this); //  it should be other wise it will show null point Exception
+
 
 
         db = new SQLiteHandler(getApplicationContext());                                            // SqLite database handler
@@ -191,51 +286,8 @@ public class MainActivity extends BaseActivity {
 
         cd = new ConnectionDetector(getApplicationContext());                                        // connection manager
 
-        viewReference();                                                                            // find View by ID for all Views
+    }
 
-
-        SharedPreferences settings;
-
-        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        boolean isFirstRun = settings.getBoolean(IS_APP_FIRST_RUN, false);
-
-       /* showOperationModelLabel(settings);*/
-        txtName.setText(getUserName());
-        tvLastSync.setText(db.getLastSyncStatus());
-
-
-        String deviceId = UtilClass.getDeviceId(mContext);                                      // get mac address
-
-        tvDeviceId.setText(deviceId);
-
-
-        // Logout button click event
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                logoutUser();
-            }
-        });
-
-
-        buttonSetListener();
-        // when the MainActivity run for first time  The JSon Data inject to the
-        // SQLite database from text file
-        if (isFirstRun) {
-            SharedPreferences.Editor editor;
-            settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-            editor = settings.edit();
-            new Inject_All_DataIntoSQLite().execute();
-            editor.putBoolean(IS_APP_FIRST_RUN, false);
-            editor.apply();
-        }
-        loadCountry();
-
-        callBroadCastReceiverToCheck();
-
-
-    }                                                                                               // end of onCreate
 
     /***
      * Load navigation menu header information
@@ -254,7 +306,7 @@ public class MainActivity extends BaseActivity {
                 .into(imgNavHeaderBg);
 
         // Loading profile image
-        Glide.with(this).load(urlProfileImg)
+        Glide.with(this).load(AppConfig.URL_PROFILE_IMG)
                 .crossFade()
                 .thumbnail(0.5f)
                 .bitmapTransform(new CircleTransform(this))
@@ -374,22 +426,22 @@ public class MainActivity extends BaseActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_photos:
+             /*       case R.id.nav_photos:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_PHOTOS;
                         break;
                     case R.id.nav_movies:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_MOVIES;
-                        break;
-                    case R.id.nav_notifications:
+                        break;*/
+            /*        case R.id.nav_notifications:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
-                        break;
-                    case R.id.nav_settings:
+                        break;*/
+               /*     case R.id.nav_settings:
                         navItemIndex = SETTING_FRAGMENT;
                         CURRENT_TAG = TAG_SETTINGS;
-                        break;
+                        break;*/
 
                /*     case R.id.nav_chart:
                         navItemIndex = 5;
@@ -542,9 +594,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
-
-
     private void buttonSetListener() {
 
 
@@ -559,40 +608,33 @@ public class MainActivity extends BaseActivity {
         });
 
 
-
-
-
     }
 
 
     private void viewReference() {
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         txtName = (TextView) findViewById(R.id.user_name);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         //
-        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
-        tvSyncRequired = (TextView) findViewById(R.id.tv_sync_required);
+/*        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
+        tvSyncRequired = (TextView) findViewById(R.id.tv_sync_required);*/
 
         btnSyncRec = (Button) findViewById(R.id.btnSyncRecord);
 
-        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
+/*        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
 
 //        btnDynamicData = (Button) findViewById(R.id.btnDynamicData);
         tvOperationMode = (TextView) findViewById(R.id.tv_operation_mode);
 
-        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);
+        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);*/
 
-
-        if (db.selectUploadSyntextRowCount() > 0) {
-            tvSyncRequired.setText(Y);
-        } else {
-            tvSyncRequired.setText(N);
-        }
 
     }
-
 
 
     private void synchronizeData(View v) {
@@ -623,11 +665,13 @@ public class MainActivity extends BaseActivity {
                 String SyncDate = date.format(now);
                 db.insertIntoLastSyncTraceStatus(getUserID(), getUserName(), SyncDate);
 
-                tvSyncRequired.setText(N);
+//                tvSyncRequired.setText(N);
                 if (db.getLastSyncStatus().equals("")) {
-                    tvLastSync.setText("N/A");
+//                    tvLastSync.setText("N/A");
+                    btnSyncRec.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 } else {
-                    tvLastSync.setText(db.getLastSyncStatus());
+//                    tvLastSync.setText(db.getLastSyncStatus());
+                    btnSyncRec.setBackgroundColor(getResources().getColor(R.color.green));
                 }
 
             } else {
@@ -673,10 +717,10 @@ public class MainActivity extends BaseActivity {
      */
     private void loadCountry() {
 
-        int operationMode = sqlH.getDeviceOperationModeCode();
+        int operationMode = db.getDeviceOperationModeCode();
 
 
-        SpinnerLoader.loadCountryLoader(mContext, sqlH, spCountry, operationMode, idCountry, strCountry);
+        SpinnerLoader.loadCountryLoader(mContext, db, spCountry, operationMode, idCountry, strCountry);
         spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1048,10 +1092,6 @@ public class MainActivity extends BaseActivity {
                 publishProgress(++progressIncremental);
                 if (!jObj.isNull(Parser.VO_ITM_MEAS_TABLE_JSON_A))
                     Parser.vo_itm_MassTableParser(jObj.getJSONArray(Parser.VO_ITM_MEAS_TABLE_JSON_A), db);
-
-
-
-
 
 
                 publishProgress(++progressIncremental);

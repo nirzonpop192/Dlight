@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.faisal.technodhaka.dlight.R;
-import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.KEY;
@@ -39,7 +39,7 @@ public class DynamicTable extends BaseActivity {
     private EditText edtDTSearch;
     private String idCountry;
 
-    private DynamicDataIndexAdapter adapter = null;
+    private DynamicDataIndexAdapter mAdapter = null;
     private static ProgressDialog pDialog;
 
     @Override
@@ -154,10 +154,10 @@ public class DynamicTable extends BaseActivity {
             super.onPostExecute(s);
             hideProgressBar();
 
-            if (adapter != null && adapter.getCount() > 0) {
-                if (adapter.getCount() != 0) {
-                    adapter.notifyDataSetChanged();
-                    listView.setAdapter(adapter);
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                if (mAdapter.getCount() != 0) {
+                    mAdapter.notifyDataSetChanged();
+                    listView.setAdapter(mAdapter);
                 } else {
                     new ADNotificationManager().showInfromDialog(mContext, "NO Data", "No data Found");
                 }
@@ -190,17 +190,17 @@ public class DynamicTable extends BaseActivity {
      */
 
     private void loadDynamicIndex(final String cCode, final String dtName) {
-        List<AssignDataModel.DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName, session.getStaffId());
-        ArrayList<AssignDataModel.DynamicDataIndexDataModel> dataArray = new ArrayList<AssignDataModel.DynamicDataIndexDataModel>();
+        List<DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName, session.getStaffId());
+        ArrayList<DynamicDataIndexDataModel> dataArray = new ArrayList<DynamicDataIndexDataModel>();
 
         if (dataList.size() != 0) {
             dataArray.clear();
 
-            for (AssignDataModel.DynamicDataIndexDataModel data : dataList) {
+            for (DynamicDataIndexDataModel data : dataList) {
                 dataArray.add(data);                                                                 //add contacts data in arrayList
             }
 
-            adapter = new DynamicDataIndexAdapter((Activity) mContext, dataArray);                  //Assign the Adapter in list
+            mAdapter = new DynamicDataIndexAdapter((Activity) mContext, dataArray);                  //Assign the Adapter in list
         }
 
     }

@@ -27,10 +27,10 @@ import com.faisal.technodhaka.dlight.data_model.DTResponseTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.DT_ATableDataModel;
 
-import com.faisal.technodhaka.dlight.data_model.GPS_LocationDataModel;
-import com.faisal.technodhaka.dlight.data_model.GPS_SubGroupAttributeDataModel;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
+
 import com.faisal.technodhaka.dlight.data_model.LayRCodes;
-import com.faisal.technodhaka.dlight.data_model.ProgramMasterDM;
+
 
 import com.faisal.technodhaka.dlight.data_model.TemOpMonth;
 import com.faisal.technodhaka.dlight.data_model.VillageItem;
@@ -54,7 +54,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 
 public class SQLiteHandler extends SQLiteOpenHelper {
@@ -115,7 +114,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String GEO_LAY_R3_LIST_TABLE = "GeoLayR3List";
     public static final String GEO_LAY_R4_LIST_TABLE = "GeoLayR4List";
     public static final String VILLAGE_TABLE_FOR_ASSIGN = "VillageForQuery"; // THIS KEY USE FOR QUERY IN ASSIGN
-//    public static final String REG_N_HH_TABLE = "RegNHHTable";
+    //    public static final String REG_N_HH_TABLE = "RegNHHTable";
 //    public static final String REGISTRATION_MEMBER_TABLE = "RegNHHMem";
     public static final String LUP_REG_NHH_RELATION_TABLE = "LUP_RegNHHRelation";
 
@@ -126,7 +125,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String ADM_DONOR_TABLE = "AdmDonor";
     public static final String ADM_PROGRAM_MASTER_TABLE = "AdmProgramMaster";
     public static final String SERVICE_MASTER_TABLE = "AdmServiceMaster";
-//    public static final String REG_N_ASSIGN_PROG_SRV_TABLE = "RegNAssignProgSrv";
+    //    public static final String REG_N_ASSIGN_PROG_SRV_TABLE = "RegNAssignProgSrv";
     public static final String GPS_GROUP_TABLE = "GPSGroupTable";
     public static final String GPS_SUB_GROUP_TABLE = "GPSSubGroupTable";
     public static final String GPS_LOCATION_TABLE = "GPSLocationTable";
@@ -156,7 +155,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String VOUCHER_ITEM__MEAS_TABLE = "VOItmMeas";
     public static final String VOUCHER_COUNTRY_PROGRAM_ITEM_TABLE = "VOCountryProgItm";
     public static final String SERVICE_EXTENDED_TABLE = "SrvExtendedTable";
-//    public static final String DISTRIBUTION_EXTENDED_TABLE = "DistExtendedTable";
+    //    public static final String DISTRIBUTION_EXTENDED_TABLE = "DistExtendedTable";
     public static final String SELECTED_VILLAGE_TABLE = "SelectedVillage";
     public static final String SELECTED_COUNTRY_TABLE = "SelectedCountry";
     public static final String SELECTED_FDP_TABLE = "SelectedFDP";
@@ -321,8 +320,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String PROJECT_TITLE = "ProjectTitle";
 
 
-
-
     public static final String LUP_SRV_OPTION_LIST_TABLE = "LUP_SrvOptionList";
     public static final String LUP_GPS_LIST_TABLE = "GPSLUPList";
 
@@ -410,7 +407,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String RELATION_NAME = "RelationName";
 
     public static final String SYNC_COL = "SyncStatus";
-
 
 
     public static final String LAST_SYNC_TIME_COL = "LastSyncTime";
@@ -503,7 +499,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String GRD_CODE_COL = "GRDCode";
 
 
-
     // ADDED BY POP COLUMN FOR GRADUATION  TABLE
 
     public static final String GRD_TITLE_COL = "GRDTitle";
@@ -561,14 +556,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String STATUS = "Status";
 
 
-
     public static final String SERVICE_CENTER_CODE_COL = "SrvCenterCode";
     public static final String SERVICE_CENTER_NAME_COL = "SrvCenterName";
 
 
     // special condition constant
     public static final String SERVICE_SUMMARY_CRITERIA_QUERY = "serviceSummaryCriteria";
-
 
 
     // ADDED BY POP COLUMN FOR STAFF_GEO_INFO_ACCESS_TABLE
@@ -619,8 +612,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String DELIVERY_STATUS_COL = "DelStatus";
 
 
-
-
     public static final String STAFF_FDP_ACCESS_TABLE = "StaffFDPAccess";
     public static final String FDP_MASTER_TABLE = "FDPMaster";
     public static final String FDP_CODE_COL = "FDPCode";
@@ -635,8 +626,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // LUP_SrvOptionList TABLE COLUMN
     public static final String LUP_OPTION_CODE_COL = "LUPOptionCode";
     public static final String LUP_OPTION_NAME_COL = "LUPOptionName";
-
-
 
 
     public static final String DISTRIBUTION_STATUS_COL = "DistStatus";
@@ -1535,11 +1524,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
     /**
      * @param cCode       Country Code
      * @param grpCode     Group Code
@@ -1904,35 +1888,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * @since : 2015-09-18
      */
@@ -1969,14 +1924,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
     public boolean getSavePermissionForHHEntries(String cCode, String districtCode, String upzellaCode, String unitCode, String vCode) {
         SQLiteDatabase db = this.getReadableDatabase();
         String savePermission = "";
@@ -1995,9 +1942,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // simplefli version
         return savePermission.equals("1");
     }
-
-
-
 
 
     public void addStaffGeoAccessInfo(String staffCode, String cCode, String donorCode, String awardCode, String layrListCode/*, String districtCode, String upzellaCode, String unitCode, String vCode*/, String btnNew, String btnSave, String btnDel, String btnpepr, String btnAprv, String btnRevw, String btnVrfy, String btnDtrain) {
@@ -2202,42 +2146,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-    public ArrayList<GPS_SubGroupAttributeDataModel> getGpsSubGroupAttributes(String groupCode, String subGroupCode) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<GPS_SubGroupAttributeDataModel> alist = new ArrayList<GPS_SubGroupAttributeDataModel>();
-
-        String selectQuery = "SELECT "
-                + ATTRIBUTE_CODE_COL
-                + " , " + ATTRIBUTE_TITLE_COL
-                + " , " + DATA_TYPE_COL
-                + " , " + GPS_SUB_GROUP_ATTRIBUTES_TABLE_LOOK_UP_CODE_COL
-                + " FROM " + GPS_SUB_GROUP_ATTRIBUTES_TABLE
-                + " WHERE " + GROUP_CODE_COL + " = '" + groupCode + "' "
-                + " AND " + SUB_GROUP_CODE_COL + " = '" + subGroupCode + "' ";
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                GPS_SubGroupAttributeDataModel data = new GPS_SubGroupAttributeDataModel();
-                data.setGroupCode(groupCode);
-                data.setSubGroupCode(subGroupCode);
-                data.setAttributeCode(cursor.getString(0));
-                data.setAttributeTitle(cursor.getString(1));
-                data.setDataType(cursor.getString(2));
-                data.setLookUpCode(cursor.getString(3));
-
-                alist.add(data);
-
-            } while (cursor.moveToNext());
-
-            cursor.close();
-            db.close();
-        }
-        return alist;
-    }
-
-
-
-
 
     /**
      * @param query sql syntax
@@ -2254,7 +2162,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return id;
 
     }
-
 
 
     public long insertIntoUploadPhysicalTable(String query, int sequence) {
@@ -2276,14 +2183,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(SYNC_COL, 1);
         return db.update(UPLOAD_SYNTAX_TABLE, values, ID_COL + " = ? ", new String[]{String.valueOf(id)});
-//        Log.d(TAG, "inserted into Upload Table id:" + updateId);
-//        return updateId;
 
     }
 
     /**
      * Used in Synchronize data in MainActivity
-     * <p>
+     * <p/>
      * for sql Query data
      */
     public ArrayList<dataUploadDB> getUploadSyntaxData() {
@@ -2305,7 +2210,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 dataUploadDB data = new dataUploadDB();
                 data._id = cursor.getString(cursor.getColumnIndex(ID_COL));
                 data._syntax = new String(cursor.getBlob(cursor.getColumnIndex(SQL_QUERY_SYNTAX)));
-//                data._syntax =cursor.getString(cursor.getColumnIndex(SQL_QUERY_SYNTAX));
+
                 allData.add(data);
 
             } while (cursor.moveToNext());
@@ -2315,14 +2220,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
         return allData;
     }
-
-
-
-
-
-
-
-
 
 
     public String getAwardGraduation(String cCode, String donorCode, String awardCode) {
@@ -2350,11 +2247,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return grdDate;
     }
-
-
-
-
-
 
 
     public void addInLupSrvOptionListFromOnline(String countryCode, String progCode, String srvCode, String optionCode, String optionName) {
@@ -2526,11 +2418,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
     public void addCommunityGroup(String cCode, String donorCode, String awardCode, String progCode, String grpCode,
                                   String grpName, String grpCatCode, String layR1Code, String layR2Code, String layR3Code, String srvCenterCode
             , String entryBy, String entryDate) {
@@ -2558,7 +2445,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-
 
 
     /**
@@ -2667,32 +2553,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private boolean isAlpha(String nameORid) {
         return nameORid.matches("[a-zA-Z]+");
     }
-
-
-
-
-
-
 
 
     public int getNextDTResponseSequence(String dtBasic, String cCode, String donorCode, String awardCode, String prgCode, String entryBy) {
@@ -2730,7 +2593,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     public int getSurveyNumber(String dtBasic, String cCode, String donorCode, String awardCode, String prgCode, String entryBy) {
         int surveyNumber;
-        ArrayList<Integer> surveyList = getSurveyList(dtBasic, cCode, donorCode, awardCode, prgCode, entryBy);
+        ArrayList<Integer> surveyList = getSurveyList(dtBasic);
 
 
         if (surveyList.size() > 0) {
@@ -2741,10 +2604,26 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Integer> getSurveyList(String dtBasic, String cCode, String donorCode, String awardCode, String prgCode, String entryBy) {
+    public int getSurveyTotalNumber(String dtBasic) {
+        int totalSurveyNumber =0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT count(*)  AS surveyNo FROM " +
+                "(SELECT " + DT_R_SEQ_COL + " " +
+                " FROM " + DT_SURVEY_TABLE + " WHERE " + DT_BASIC_COL + " = '" + dtBasic + "' Group BY " + DT_R_SEQ_COL +
+                " ) tbl";
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            totalSurveyNumber= Integer.parseInt(cursor.getString(0));
+            cursor.close();
+        }
+        return totalSurveyNumber;
+    }
+
+    public ArrayList<Integer> getSurveyList(String dtBasic) {
         SQLiteDatabase db = this.getReadableDatabase();
         int tem = -1;
-        String sql = " Select DISTINCT " + DT_SURVEY_NUM + " from " + DT_SURVEY_TABLE + " " +
+        String sql = " Select DISTINCT " + DT_SURVEY_NUM + " FROM " + DT_SURVEY_TABLE + " " +
                 " WHERE " + DT_BASIC_COL + " = '" + dtBasic + "' ";
         Cursor cursor = db.rawQuery(sql, null);
         ArrayList<Integer> surveyList = new ArrayList<>();
@@ -2904,7 +2783,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * <p>The DTA Table store the Default Value of All Dynamic View's default value </p>
      *
-     *
      * @param dtBasic Basic Code
      * @param dtQCode Question Code
      * @return list of the default View's answer
@@ -2957,7 +2835,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM " + DTQ_TABLE +
                 " WHERE " + DT_BASIC_COL + "= '" + dtBasicCode + "'" +
-                " ORDER BY "+QSEQ_SCOL;
+                " ORDER BY " + QSEQ_SCOL;
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -2991,9 +2869,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * @return DT index list
      */
 
-    public ArrayList<AssignDataModel.DynamicDataIndexDataModel> getDynamicTableIndexList(final String cCode, String dtTitleSearch, final String staffId) {
+    public ArrayList<DynamicDataIndexDataModel> getDynamicTableIndexList(final String cCode, String dtTitleSearch, final String staffId) {
 
-        ArrayList<AssignDataModel.DynamicDataIndexDataModel> list = new ArrayList<AssignDataModel.DynamicDataIndexDataModel>();
+        ArrayList<DynamicDataIndexDataModel> list = new ArrayList<DynamicDataIndexDataModel>();
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = SQLiteQuery.getDynamicTableIndexList_sql(cCode, dtTitleSearch, staffId);
 
@@ -3002,7 +2880,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                AssignDataModel.DynamicDataIndexDataModel data = new AssignDataModel.DynamicDataIndexDataModel();
+                DynamicDataIndexDataModel data = new DynamicDataIndexDataModel();
                 data.setDtTittle(cursor.getString(0));
                 data.setDtBasicCode(cursor.getString(1));
                 data.setAwardName(cursor.getString(2));
@@ -3030,9 +2908,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
     }
-
-
-
 
 
     /**
@@ -3136,7 +3011,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
     /**
      * @date : 2016-02-07
      * check the data exists in Every Table
@@ -3163,17 +3037,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return false;
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public boolean ifExistsInRegNmemProgGroup(String cCode, String donorCode, String awardCode, String disttCode, String upCode
@@ -3212,11 +3075,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
     /**
      * @since 2015-10-02
      */
@@ -3243,7 +3101,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * 2015-11-23
      * Faisal Mohammad
-     * <p>
+     * <p/>
      * get default Exit Reason for Graduation
      */
     public String getGRDDefaultActiveReason(String progCode, String srvCode) {
@@ -3302,7 +3160,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Inserting Row
         long id = db.insert(SERVICE_MASTER_TABLE, null, values);
         db.close();                                                                                     // Closing database connection
-
 
 
     }
@@ -3389,54 +3246,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 
 
-    /**
-     * @param cCode        Country Code
-     * @param groupCode    Group  Code
-     * @param subGroupCode Sub Group Code
-     *                     <p>This Method return the GPS Coordinates , it's title  and Location Code, which latitude  and lonitude are not null</p>
-     * @return An array of GPS Location
-     */
-
-    public ArrayList<GPS_LocationDataModel> getSubGroupSpecificLatLongCoordinates(String cCode,
-                                                                                  String groupCode,
-                                                                                  String subGroupCode) {
-
-        ArrayList<GPS_LocationDataModel> gpsList = new ArrayList<GPS_LocationDataModel>();
-
-
-        String sql = SQLiteQuery.getSubGroupSpecificLatLongCoordinates_sql(cCode, groupCode, subGroupCode);
-
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-
-
-        if (cursor.moveToFirst()) {
-
-            do {
-                GPS_LocationDataModel data = new GPS_LocationDataModel();
-                data.setAdmCountryCode(cCode);
-                data.setGroupCode(groupCode);
-                data.setSubGroupCode(subGroupCode);
-                data.setLocationCode(cursor.getString(0));
-                data.setLocationName(cursor.getString(1));
-                data.setLat(cursor.getString(2));
-                data.setLng(cursor.getString(3));
-
-
-                gpsList.add(data);                                                                  // add to the list
-            } while (cursor.moveToNext());
-
-            cursor.close();
-            db.close();
-
-
-        }
-
-
-        return gpsList;
-    }
-
     public String get_ProgSrvDefaultDays(String cCode, String donorCode, String awardCode, String progCode, String srvCode, String flag) {
         String getDefaultDays = "";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -3490,13 +3299,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
     public String getDate(String cCode, String MinOrMax) {
         String date = "";
         String sql = "";
@@ -3529,15 +3331,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
     /**
      * Getting All Recodr from Registration member And Registration And ProgramAssngService  table
      * IT IS CALLED IN MW_RegisterViewRecord
      * IT SHOW ALL THE RECORD IN SERVICE Activity
      */
-
 
 
     public String getVoucherReferenceNumberCol(String cCode, String layR1code,
@@ -3582,9 +3380,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
     public void deleteFromServiceExtendedTable(String cCode, String discode, String upCode, String unCode, String vCode,
                                                String hhId, String memId, String donorCode, String awardCode, String programCode, String serviceCode, String opMonthCode/*, String voItmSpec*/) {
 
@@ -3611,14 +3406,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-
-
-
-
-
-
-
-
 
 
     public String getComunityGroupNameFromServiceTable(String cCode, String donorCode, String awardCode,
@@ -3717,24 +3504,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public String get_VOUnitCost(String cCode, String donorCode, String awardCode, String progCode, String srvCode, String vOItmSpec) {
         SQLiteDatabase db = this.getReadableDatabase();
         String cost = "";
@@ -3759,9 +3528,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
     public String getAutoIncrementID(String tableName) {
 
         String query = "SELECT * FROM " + SQLITE_SEQUENCE + " WHERE " + TABLE_NAME + "='" + tableName + "'";
@@ -3780,8 +3546,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return next_id;
     }
-
-
 
 
     private String getPadding(int id_len, String next_id) {
@@ -4038,7 +3802,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 break;
 
 
-
             case STAFF_FDP_ACCESS_TABLE:
                 selectQuery = "SELECT " + FDP_MASTER_TABLE + "." + FDP_CODE_COL + " AS " + FDP_CODE_COL + " , "
                         + FDP_MASTER_TABLE + "." + FDP_NAME_COL + " AS " + FDP_NAME_COL +
@@ -4238,8 +4001,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
         return relationName;
     }
-
-
 
 
     /**
@@ -4534,10 +4295,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
     /**
      * This method save the Service Data
      *
@@ -4618,18 +4375,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-
-
     /** HERE REGISTRATION CRUDE OPERATION*/
 
     /**
      * Storing Registration Data into database
      */
-
-
-
-
 
 
     /**
@@ -4651,11 +4401,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return monthName;
 
     }
-
-
-
-
-
 
 
     public String getSelectedCountryCode() {
@@ -4728,8 +4473,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
         return selectedVillage;
     }
-
-
 
 
     // Check Local Login
@@ -4881,8 +4624,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
         return deviceOperationModeCode;
     }
-
-
 
 
     /**
@@ -5178,9 +4919,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return result;
     }
-
-
-
 
 
     public String selectCountryCode() {
@@ -5623,7 +5361,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             mSyntaxGenerator.setOpMode(opMode);
             mSyntaxGenerator.setOpMonthCode(opMonthCode);
             mSyntaxGenerator.setDataType(dataType);
-            //   mSyntaxGenerator.setCompleteness("N");
+               mSyntaxGenerator.setCompleteness("Y");
 
             mSyntaxGenerator.setUFILE(imageString);
             row = insertIntoUploadTable(mSyntaxGenerator.insertIntoDTResponseTable());
@@ -6306,7 +6044,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(VOUCHER_FLAG, voucher);*/
 
 
-
         db.insert(TEMPORARY_COUNTRY_PROGRAM_TABLE, null, values);                                   // Inserting Row
         db.close(); // Closing database connection
 
@@ -6314,46 +6051,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
 
-
-    public List<ProgramMasterDM> getProgramListNames(String cCode) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        List<ProgramMasterDM> list = new ArrayList<ProgramMasterDM>();
-
-        String sql = "SELECT " + ADM_COUNTRY_CODE_COL +
-                ", " + ADM_DONOR_CODE_COL +
-                ", " + ADM_AWARD_CODE_COL +
-                ", " + ADM_PROG_CODE_COL +
-                ", " + PROGRAM_NAME_COL +
-                ", " + PROGRAM_SHORT_NAME_COL +
-                " FROM " + TEMPORARY_COUNTRY_PROGRAM_TABLE + "" +
-
-
-                " WHERE " + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' ";
-
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            do {
-
-
-                ProgramMasterDM progData = new ProgramMasterDM();
-                progData.setAdmCountryCode(cursor.getString(cursor.getColumnIndex(ADM_COUNTRY_CODE_COL)));
-                progData.setAdmProgCode(cursor.getString(cursor.getColumnIndex(ADM_DONOR_CODE_COL)));
-                progData.setAdmAwardCode(cursor.getString(cursor.getColumnIndex(ADM_AWARD_CODE_COL)));
-                progData.setAdmDonorCode(cursor.getString(cursor.getColumnIndex(ADM_PROG_CODE_COL)));
-                progData.setProgName(cursor.getString(cursor.getColumnIndex(PROGRAM_NAME_COL)));
-                progData.setProgShortName(cursor.getString(cursor.getColumnIndex(PROGRAM_SHORT_NAME_COL)));
-
-                list.add(progData);
-
-
-            } while (cursor.moveToNext());
-            cursor.close();
-            db.close();
-        }
-        return list;
-
-    }
 
     public void addTemporaryOpMonth(String cCode, String donorCode, String awardCode, String opCode, String opMonthCode, String mLable, String usasDate, String usaeDate, String status) {
         SQLiteDatabase db = this.getWritableDatabase();

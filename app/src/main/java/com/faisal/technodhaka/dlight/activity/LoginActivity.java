@@ -425,7 +425,13 @@ public class LoginActivity extends BaseActivity {
                                     pDialog.setCancelable(false);
                                     pDialog.setMessage("Downloading  data .");
                                     pDialog.show();
-                                    checkCountrySelection(user_name, password, "4");
+
+                                    JSONArray jaary = new JSONArray();
+                                    checkLogin(user_name, password, jaary, "4"); // checking online
+
+                                    editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
+                                    editor.commit();
+//                                    checkCountrySelection(user_name, password, "4");
                                                // for selecting operation Mood
                                 }
 
@@ -558,10 +564,7 @@ public class LoginActivity extends BaseActivity {
 
 //                            Log.d("CHAPA", "jeson to string :" + jaary.toString());
                             /** for Other  MOde*/
-                            checkLogin(user_name, password, jaary, "4"); // checking online
 
-                            editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
-                            editor.commit();
 
                         } else {
                             selectedCountryList.clear();
@@ -731,10 +734,10 @@ public class LoginActivity extends BaseActivity {
     public void checkLogin(final String user_name, final String password, final JSONArray selectedVilJArry, final String operationMode) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
-        pDialog = new ProgressDialog(mContext);
+    /*    pDialog = new ProgressDialog(mContext);
         pDialog.setCancelable(false);
-        pDialog.setMessage("Downloading  data .");
-        pDialog.show();
+        pDialog.setMessage("Downloading  data 1.");
+        pDialog.show();*/
 
         StringRequest strReq = new StringRequest(Method.POST,
                 AppConfig.API_LINK, new Response.Listener<String>() {
@@ -752,7 +755,7 @@ public class LoginActivity extends BaseActivity {
                 boolean error = !errorResult.equals("false");
                 if (!error) {
 
-                    Log.d("TAG", "Before downLoad RegNHouseHold 6" + "  user_name:" + user_name + " password :" + password + " selectedVilJArry:" + selectedVilJArry + "operationMode:" + operationMode);
+
                     downLoadDynamicData(user_name, password, selectedVilJArry, operationMode);
 
 
@@ -762,7 +765,8 @@ public class LoginActivity extends BaseActivity {
                     String errorMsg = response.substring(response.indexOf("error_msg") + 11);
                     Toast.makeText(getApplicationContext(),
                             errorMsg, Toast.LENGTH_LONG).show();
-
+                    if (pDialog.isShowing())
+                        pDialog.dismiss();
                 }
 
 
@@ -822,6 +826,8 @@ public class LoginActivity extends BaseActivity {
                 boolean error = !errorResult.equals("false");                                       // If Json String  get False than it return false
 
                 if (!error) {
+
+
 
                     downLoadEnuTable(user_Name, pass_word);                                        // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
 
@@ -898,11 +904,11 @@ public class LoginActivity extends BaseActivity {
                 boolean error = !errorResult.equals("false");                                       //If Json String  get False than it return false
 
                 if (!error) {                                                                       // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
-
-                    setLogin(true);                                                                     // login success
                     /**
                      *  Launch main activity
                      */
+
+                    setLogin(true);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     setUserID(user_Name);
                     setUserPassword(pass_word);
@@ -910,6 +916,8 @@ public class LoginActivity extends BaseActivity {
                     editor.commit();
                     finish();
                     startActivity(intent);
+                                                                                       // login success
+
                 } else {
                     // Error in login. Invalid UserName or Password
                     String errorMsg = response.substring(response.indexOf("error_msg") + 11);

@@ -3,6 +3,7 @@ package com.faisal.technodhaka.dlight.database;
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseRecordingActivity;
 
 import com.faisal.technodhaka.dlight.data_model.DTSurveyTableDataModel;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 
@@ -1058,7 +1059,9 @@ public class SQLiteQuery {
      * @param lup_TableName look up table Name
      * @return dynamic query
      */
-    public static String loadDynamicSpinnerListLoader_sql(String cCode, String resLupText, String lup_TableName, AssignDataModel.DynamicDataIndexDataModel dyBasic) {
+    public static String loadDynamicSpinnerListLoader_sql(String cCode, String resLupText,
+                                                          String lup_TableName,
+                                                          DynamicDataIndexDataModel dyBasic) {
         String udf = "";
 
         switch (resLupText) {

@@ -52,6 +52,7 @@ import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.data_model.DTQResModeDataModel;
 import com.faisal.technodhaka.dlight.data_model.DTResponseTableDataModel;
 import com.faisal.technodhaka.dlight.data_model.DT_ATableDataModel;
+import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.data_model.FreezeDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.DTQTableDataModel;
@@ -143,7 +144,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
      * mContext Class System Context variable
      */
     private final Context mContext = DTResponseRecordingActivity.this;
-    private AssignDataModel.DynamicDataIndexDataModel dyIndex;
+    private DynamicDataIndexDataModel dyIndex;
     private int totalQuestion;
 
     /**
