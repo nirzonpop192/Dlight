@@ -179,9 +179,11 @@ public class SpinnerLoader {
      * @param idMonth   op month code
      * @param strMonth  op month name
      */
-    public static void loadDtMonthLoader(Context context, SQLiteHandler sqlH, Spinner spDtMonth, String cCode, String opCode, String idMonth, String strMonth) {
+    public static void loadDtMonthLoader(Context context, SQLiteHandler sqlH, Spinner spDtMonth,
+                                         String cCode, String opCode, String idMonth,
+                                         String strMonth,String donorCode,String awardCode) {
         int position = 0;
-        String criteria = SQLiteQuery.loadDtMonth_sql(cCode, opCode, "");
+        String criteria = SQLiteQuery.loadDtMonth_sql(cCode, opCode, "",donorCode,awardCode);
         List<SpinnerHelper> listProgram = sqlH.getListAndID(SQLiteHandler.CUSTOM_QUERY, criteria, null, false);
         /**         *  remove select value         */
         listProgram.remove(0);

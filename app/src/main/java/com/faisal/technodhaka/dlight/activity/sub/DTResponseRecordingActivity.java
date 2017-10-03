@@ -150,7 +150,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
     /**
      * text view where  question v appear
      */
-    private TextView tv_DtQuestion;
+    private TextView tv_DtQuestion, tv_Title;
     private Button btnNextQues;
     private Button btnHome;
     private DTQTableDataModel mDTQTable;
@@ -359,6 +359,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
      * Refer the all the necessary view in java object
      */
     private void viewReference() {
+        tv_Title = (TextView) findViewById(R.id.dt_ResponseTitle);
         tv_DtQuestion = (TextView) findViewById(R.id.tv_DtQuestion);
         btnHome = (Button) findViewById(R.id.btnHomeFooter);
         btnNextQues = (Button) findViewById(R.id.btn_dt_next);
@@ -405,6 +406,8 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         Intent intent = getIntent();
         dyIndex = intent.getParcelableExtra(KEY.DYNAMIC_INDEX_DATA_OBJECT_KEY);
         totalQuestion = intent.getIntExtra(KEY.DYNAMIC_T_QUES_SIZE, 0);
+
+        tv_Title.setText(dyIndex.getDtTittle());
 
         /**
          * check incomplete data to delete
@@ -578,7 +581,6 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         alertDialog.setTitle("Freeze");
 
 
-        // String massage;
         if (freeze) {
 
 
@@ -1337,7 +1339,10 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         String DataType = dtATable.getDataType();
 
 
-        DTAValue = dtATable.getDt_AValue() == null || dtATable.getDt_AValue().equals("null") || dtATable.getDt_AValue().length() == 0 ? ansValue : dtATable.getDt_AValue();
+        if (mDTQResMode.getDtResponseValueControl().equals(TEXT_BOX))
+            DTAValue = ansValue;
+        else
+            DTAValue = dtATable.getDt_AValue() == null || dtATable.getDt_AValue().equals("null") || dtATable.getDt_AValue().length() == 0 ? ansValue : dtATable.getDt_AValue();
 
         /**
          *  get data freeze data         *
@@ -1365,8 +1370,6 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
             long uploadSyntaxId = sqlH.addIntoDTResponseTable(DTBasic, AdmCountryCode, AdmDonorCode, AdmAwardCode, AdmProgCode, DTEnuID, DTQCode, DTACode, String.valueOf(DTRSeq), DTAValue, ProgActivityCode, DTTimeString, OpMode, OpMonthCode, DataType, imageString, true);
             sqlH.addIntoDTSurveyTable(DTBasic, AdmCountryCode, AdmDonorCode, AdmAwardCode, AdmProgCode, DTEnuID, DTQCode, DTACode, String.valueOf(DTRSeq), DTAValue, ProgActivityCode, DTTimeString, OpMode, OpMonthCode, DataType, DTQText, surveyNumber, imageString, mResponseController, mDTQResMode.getDtQResLupText(), dtATable.getDt_ALabel(), uploadSyntaxId);
 
-//            Log.i(TAG, "DTBasic :" + DTBasic + " AdmCountryCode: " + AdmCountryCode + " AdmDonorCode: " + AdmDonorCode + " AdmAwardCode: " + AdmAwardCode + " AdmProgCode:" + AdmProgCode + " DTEnuID: " + DTEnuID + " DTQCode: " + DTQCode + " DTACode: " + DTACode + " DTRSeq: " + String.valueOf(DTRSeq) + " DTAValue:" + DTAValue
-//                    + " ProgActivityCode :" + ProgActivityCode + " DTTimeString:" + DTTimeString + " OpMode: " + OpMode + "OpMonthCode :" + OpMonthCode + " DataType: " + DataType + " imageString :" + imageString);
         }
 
 
@@ -2359,7 +2362,9 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
             String label = List_DtATable.get(i).getDt_ALabel();
             TableRow row = new TableRow(this);
             row.setId(i);
-            LinearLayout.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
             row.setLayoutParams(layoutParams);
             CheckBox checkBox = new CheckBox(this);
             checkBox.setOnCheckedChangeListener(DTResponseRecordingActivity.this);
@@ -2382,9 +2387,12 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 
             /**
              * This snippets work for Check Box Well  but not for the radio button
-             * todo aad index after set DTRespose Sequn {@link #saveOnResponseTable(String, DT_ATableDataModel)}
+             * todo aad index after set DTResponse Sequn {@link #saveOnResponseTable(String, DT_ATableDataModel)}
              */
-            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(), List_DtATable.get(i).getDt_ACode(), mDTRSeq);
+            DTResponseTableDataModel loadAns = sqlH.getDTResponseTableData(dyIndex.getDtBasicCode(),
+                    dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(),
+                    dyIndex.getProgramCode(), getStaffID(), mDTQTable.getDtQCode(),
+                    List_DtATable.get(i).getDt_ACode(), mDTRSeq);
             if (loadAns != null) {
                 checkBox.setChecked(true);
                 String value = loadAns.getDtaValue();

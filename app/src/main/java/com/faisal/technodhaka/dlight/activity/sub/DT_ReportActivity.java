@@ -229,8 +229,20 @@ public class DT_ReportActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 tvSurveyNumber.setText(adapter.getPageTitle(position));
                 currentPosition = position;
-                // setOpMonthCode
-                String temp = "Month  : " + sqlH.getDtResponseMonthName(data.getcCode(), adapter.getSurveyModels(currentPosition).getDtSurveyTableDataModels().get(0).getOpMonthCode());
+
+
+
+                String temp = "Month  : " + sqlH.getDtResponseMonthName(data.getcCode(),
+                        adapter.getSurveyModels(currentPosition).
+                                getDtSurveyTableDataModels().get(0).getOpMode(),
+                        adapter.getSurveyModels(currentPosition).
+                                getDtSurveyTableDataModels().get(0).getOpMonthCode(),
+                        adapter.getSurveyModels(currentPosition).
+                                getDtSurveyTableDataModels().get(0).getDonorCode(),
+                        adapter.getSurveyModels(currentPosition).
+                                getDtSurveyTableDataModels().get(0).getAwardCode()
+                        );
+
                 tvDTMonthTitle.setText(temp);
             }
 

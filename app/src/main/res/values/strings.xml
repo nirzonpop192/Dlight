@@ -47,4 +47,5 @@
     <string name="welcome">Welcome</string>
     <string name="fullname">fullName</string>
     <string name="country">country</string>
+    <string name="my_survey">My Survey</string>
 </resources>

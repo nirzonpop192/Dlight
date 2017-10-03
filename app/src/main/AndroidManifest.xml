@@ -44,7 +44,7 @@
         <activity android:name=".activity.sub.DTResponseActivity" />
         <activity android:name=".activity.sub.DT_ReportActivity" />
         <activity android:name=".activity.sub.DTResponseRecordingActivity" />
-        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.about.AboutUsActivity" />
         <activity android:name=".activity.PrivacyPolicyActivity" />
         <activity android:name=".activity.ChartActivity"></activity>
     </application>

@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
 import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
+import com.faisal.technodhaka.dlight.database.SQLiteQuery;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
@@ -45,7 +46,8 @@ public class ChartActivity extends BaseActivity {
 
         loadDtBasic();
 
-        List<DynamicDataIndexDataModel> dataModels = sqlH.getDynamicTableIndexList("0002", "", session.getStaffId());
+        List<DynamicDataIndexDataModel> dataModels = sqlH.getDynamicTableIndexList("0002", "",
+                session.getStaffId(), SQLiteQuery.NO_LIMIT);
 
 
 

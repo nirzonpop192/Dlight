@@ -237,68 +237,6 @@ public class DTResponseActivity extends BaseActivity {
     }
 
 
-/*
-    private void loadTable(final String cCode) {
-
-        int position = 0;
-        String sql = "SELECT " + "dtCPgr." + SQLiteHandler.DT_BASIC_COL + " AS dtBasicCode  " +
-                " , " + "dtB." + SQLiteHandler.DT_TITLE_COL + "  " +
-                "  FROM " + SQLiteHandler.DT_COUNTRY_PROGRAM_TABLE + " AS dtCPgr  " +
-                " LEFT JOIN " + SQLiteHandler.DT_BASIC_TABLE + "  as dtB  " +
-                " ON dtB." + SQLiteHandler.DT_BASIC_COL + " = dtCpgr." + SQLiteHandler.DT_BASIC_COL + "   " +
-                " WHERE dtCPgr." + SQLiteHandler.ADM_COUNTRY_CODE_COL + " = '" + cCode + "' ";
-
-
-        List<SpinnerHelper> listProgram = sqlH.getListAndID(SQLiteHandler.CUSTOM_QUERY, sql, null, false);
-        ArrayAdapter<SpinnerHelper> dataAdapter = new ArrayAdapter<SpinnerHelper>(this, R.layout.spinner_layout, listProgram);
-        dataAdapter.setDropDownViewResource(R.layout.spinner_layout);
-
-        spTableName.setAdapter(dataAdapter);
-
-
-        if (idTable != null) {
-            for (int i = 0; i < spTableName.getCount(); i++) {
-                String table = spTableName.getItemAtPosition(i).toString();
-                if (table.equals(strTable)) {
-                    position = i;
-                }
-            }
-
-            spTableName.setSelection(position);
-            */
-/**
-             * disable spinner
-             *//*
-
-            spTableName.setEnabled(false);
-        }
-
-
-        spTableName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                strTable = ((SpinnerHelper) spTableName.getSelectedItem()).getValue();
-                idTable = ((SpinnerHelper) spTableName.getSelectedItem()).getId();
-                loadAward(cCode);
-                */
-/**
-                 * Do not delete # loadDT_questionView method
-                 *//*
-
-                loadDT_questionView(idTable);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    } // end Load Spinner
-
-*/
-
     /**
      * LOAD :: Award
      */
@@ -399,7 +337,7 @@ public class DTResponseActivity extends BaseActivity {
                 strProgram = ((SpinnerHelper) spProgram.getSelectedItem()).getValue();
                 idProgram = ((SpinnerHelper) spProgram.getSelectedItem()).getId();
 
-                loadDtMonth(cCode, dyIndex.getOpMode());
+                loadDtMonth(cCode, dyIndex.getOpMode(), idDonor, idAward);
             }
 
             @Override
@@ -411,8 +349,9 @@ public class DTResponseActivity extends BaseActivity {
     } // end Load Spinner
 
 
-    private void loadDtMonth(final String cCode, String opCode) {
-        SpinnerLoader.loadDtMonthLoader(mContext, sqlH, spDtMonth, cCode, opCode, idMonth, strMonth);
+    private void loadDtMonth(final String cCode, String opCode, String donorCode, String awardCode) {
+        SpinnerLoader.loadDtMonthLoader(mContext, sqlH, spDtMonth, cCode, opCode, idMonth, strMonth,
+                donorCode, awardCode);
 
 
         spDtMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

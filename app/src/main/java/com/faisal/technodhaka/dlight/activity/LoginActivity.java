@@ -78,23 +78,19 @@ public class LoginActivity extends BaseActivity {
     public static final String ENU_TABLE = "enu_table";
 
 
-
     /**
      * function to verify login details & select 2 village
      */
-    List<VillageItem> villageNameList = new ArrayList<VillageItem>();
+
     List<AdmCountryDataModel> countryNameList = new ArrayList<AdmCountryDataModel>();
     Dialog mdialog;
     ArrayList<VillageItem> aL_itemsSelected = new ArrayList<VillageItem>();
     ArrayList<AdmCountryDataModel> aCountryL_itemsSelected = new ArrayList<AdmCountryDataModel>();
     ArrayList<VillageItem> selectedVillageList = new ArrayList<VillageItem>();
     ArrayList<AdmCountryDataModel> selectedCountryList = new ArrayList<AdmCountryDataModel>();
-    boolean[] itemChecked;
-    boolean[] itemCheckedOpearationMode;
 
-    String[] villageNameStringArray;
+
     String[] countryNameStringArray;
-    private final String[] operationModeStringArray = {REGISTRATION_OPERATION_MODE_NAME, DISTRIBUTION_OPERATION_MODE_NAME, SERVICE_OPERATION_MODE_NAME, OTHER_OPERATION_MODE_NAME, TRANING_N_ACTIVITY_OPERATION_MODE_NAME};
 
 
     // Login Button
@@ -127,15 +123,11 @@ public class LoginActivity extends BaseActivity {
     private Button btnExit;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
-//    private Button btnClean;
+    //    private Button btnClean;
     String strCountryMode = "";
 
 
-
     private TextView tvDeviceId;
-
-
-
 
 
     @Override
@@ -170,19 +162,12 @@ public class LoginActivity extends BaseActivity {
         createDeviceIDFile();
 
 
-
-
-
         String macAddress = UtilClass.getDeviceId(mContext);                                      // get mac address
 
 //        tvDeviceId.setText(macAddress);
 
 
-
-
     }
-
-
 
 
     private void hideProgressBar() {
@@ -253,7 +238,7 @@ public class LoginActivity extends BaseActivity {
         inputUsername = (EditText) findViewById(R.id.user_name);
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-       btnExit = (Button) findViewById(R.id.btnExit);
+        btnExit = (Button) findViewById(R.id.btnExit);
 //        btnClean = (Button) findViewById(R.id.btnClean);
 //        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);
 
@@ -377,15 +362,7 @@ public class LoginActivity extends BaseActivity {
 
                 String user_name = "";
                 String password = "";
-                // in developments mode
-               /* if (ac.DEV_ENVIRONMENT) {
-                    user_name = "nkalam";
-                    password = "p3";
-                } else {
-                    user_name = inputUsername.getText().toString().trim();
-                    password = inputPassword.getText().toString().trim();
-                }
-*/
+
 
                 user_name = inputUsername.getText().toString().trim();
                 password = inputPassword.getText().toString().trim();
@@ -431,8 +408,6 @@ public class LoginActivity extends BaseActivity {
 
                                     editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
                                     editor.commit();
-//                                    checkCountrySelection(user_name, password, "4");
-                                               // for selecting operation Mood
                                 }
 
 
@@ -466,17 +441,6 @@ public class LoginActivity extends BaseActivity {
 
 
 
-
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-       /* boolean syncMode = settings.getBoolean(UtilClass.SYNC_MODE_KEY, true);
-        if (!syncMode)
-            btnClean.setEnabled(false);*/
-    }
-
     private void gotoHomePage() {
         setLogin(true);        // login success
 
@@ -502,123 +466,6 @@ public class LoginActivity extends BaseActivity {
     public void onBackPressed() {
 //        super.onBackPressed();
     }
-
-
-
-
-
-    public void checkCountrySelection(final String user_name, final String password, final String operationMode) {
-        String tag_string_req = "req_country";
-
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                /***                 * Clear the Cache memory                 */
-
-                AppController.getInstance().getRequestQueue().getCache().clear();
-
-
-                hideDialog();   //                                          hide the Dialog bar
-
-                String CountryNo = "0";
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // Check for error node in json
-                    if (!error) {
-
-                        int size = 0;
-
-                        if (!jObj.isNull(Parser.COUNTRIE_NO)) {
-
-                            JSONArray jsonArray = jObj.getJSONArray(Parser.COUNTRIE_NO);
-
-                            size = jsonArray.length();
-                            for (int i = 0; i < size; i++) {
-                                JSONObject vil = jsonArray.getJSONObject(i);
-                                CountryNo = vil.getString("CountryNo");
-
-                            }
-                        }
-
-
-                        if (!jObj.isNull(Parser.COUNTRIES_JSON_A)) {
-                            countryNameList.clear();
-                            countryNameList = Parser.AdmCountryParser(jObj.getJSONArray(Parser.COUNTRIES_JSON_A));
-                        }
-
-
-                        hideDialog();
-                        /**
-                         *  if user haa 1 country assigned
-                         */
-
-                        if (CountryNo.equals("1")) {
-
-
-                            JSONArray jaary = new JSONArray();
-
-
-//                            Log.d("CHAPA", "jeson to string :" + jaary.toString());
-                            /** for Other  MOde*/
-
-
-                        } else {
-                            selectedCountryList.clear();
-                            getCountryAlert(user_name, password, UtilClass.OTHER_OPERATION_MODE);
-                        }
-
-
-                    } else {
-                        // Error in login. Invalid UserName or Password
-                        hideDialog();
-                        String errorMsg = response.substring(response.indexOf("error_msg") + 11);
-                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-                hideDialog();
-                showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("key", "PhEUT5R251");
-                params.put("task", "is_down_load_village_name");
-                params.put("user_name", user_name);
-                params.put("password", password);
-                params.put("operation_mode", operationMode);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-
 
 
     public List<AdmCountryDataModel> insertCountryNameListToSArray() {
@@ -659,7 +506,7 @@ public class LoginActivity extends BaseActivity {
                      */
                     selectedVillageList.clear();
                     selectedCountryList.clear();
-                    
+
                     if (!strCountryMode.equals("")) {
 
                         for (int i = 0; i < countryNameStringArray.length; i++) {
@@ -718,10 +565,6 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-
-
-
-
     private void refreshTheActivity() {
         finish();
         startActivity(getIntent());
@@ -734,10 +577,7 @@ public class LoginActivity extends BaseActivity {
     public void checkLogin(final String user_name, final String password, final JSONArray selectedVilJArry, final String operationMode) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
-    /*    pDialog = new ProgressDialog(mContext);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Downloading  data 1.");
-        pDialog.show();*/
+
 
         StringRequest strReq = new StringRequest(Method.POST,
                 AppConfig.API_LINK, new Response.Listener<String>() {
@@ -804,7 +644,6 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-
     public void downLoadDynamicData(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
         // Tag used to cancel the request
         String tag_string_req = "req_ass_prog";
@@ -826,7 +665,6 @@ public class LoginActivity extends BaseActivity {
                 boolean error = !errorResult.equals("false");                                       // If Json String  get False than it return false
 
                 if (!error) {
-
 
 
                     downLoadEnuTable(user_Name, pass_word);                                        // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
@@ -916,7 +754,7 @@ public class LoginActivity extends BaseActivity {
                     editor.commit();
                     finish();
                     startActivity(intent);
-                                                                                       // login success
+                    // login success
 
                 } else {
                     // Error in login. Invalid UserName or Password

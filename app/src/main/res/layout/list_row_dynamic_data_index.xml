@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/llRow_1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight=".1"
         android:orientation="vertical">
 
@@ -36,6 +36,15 @@
             android:hint="DTTitle"
             android:textSize="@dimen/dt_index_txt_size_22"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dt_index_row_tv_EntryDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DTTitle"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+          />
 
         <!--<TextView
             android:id="@+id/dt_index_row_tv_AwardName"

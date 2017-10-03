@@ -16,11 +16,12 @@ import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.activity.sub.DTResponseActivity;
 import com.faisal.technodhaka.dlight.activity.sub.DT_ReportActivity;
 import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
-import com.faisal.technodhaka.dlight.data_model.adapters.AssignDataModel;
+
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.utils.KEY;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Faisal on 9/26/2016.
@@ -32,9 +33,9 @@ public class DynamicDataIndexAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private SQLiteHandler sqlH;
 
-    private ArrayList<DynamicDataIndexDataModel> data = new ArrayList<DynamicDataIndexDataModel>();
+    private List<DynamicDataIndexDataModel> data = new ArrayList<>();
 
-    public DynamicDataIndexAdapter(Activity activity, ArrayList<DynamicDataIndexDataModel> data) {
+    public DynamicDataIndexAdapter(Activity activity, List<DynamicDataIndexDataModel> data) {
         this.activity = activity;
         this.data = data;
 
@@ -89,10 +90,7 @@ public class DynamicDataIndexAdapter extends BaseAdapter {
 
         holder.tv_dtTitle.setText(data.getDtTittle());
         holder.tv_dtResSum.setText(String.valueOf(sqlH.getSurveyTotalNumber(data.getDtBasicCode())));
-     /*   holder.tv_awardName.setText("Award Name : " + data.getAwardName());
-        String progName = data.getProgramCode().equals("000") ? " Cross Cutting" : data.getProgramName();
-        holder.tv_progName.setText("Program Name : " + progName);
-        holder.tv_ActivityName.setText("Activity Title  : " + data.getPrgActivityTitle());*/
+        holder.tv_entryDate.setText(data.getEntryDate());
 
 
         holder.iv_Go.setOnClickListener(new View.OnClickListener() {
@@ -138,8 +136,8 @@ public class DynamicDataIndexAdapter extends BaseAdapter {
         holder.tv_dtResSum = (TextView) row.findViewById(R.id.dt_index_res_total_no);
         holder.iv_Go = (ImageView) row.findViewById(R.id.dt_index_row_ibtn_go);
         holder.iv_view = (ImageView) row.findViewById(R.id.dt_index_row_ibtn_view);
-/*            holder.tv_awardName = (TextView) row.findViewById(R.id.dt_index_row_tv_AwardName);
-            holder.tv_progName = (TextView) row.findViewById(R.id.dt_index_row_tv_ProgramName);
+        holder.tv_entryDate = (TextView) row.findViewById(R.id.dt_index_row_tv_EntryDate);
+   /*         holder.tv_progName = (TextView) row.findViewById(R.id.dt_index_row_tv_ProgramName);
             holder.tv_ActivityName = (TextView) row.findViewById(R.id.dt_index_row_tv_ActivityTitle);*/
 
     }
@@ -147,8 +145,8 @@ public class DynamicDataIndexAdapter extends BaseAdapter {
 
     private void changeTextColor(int color) {
         holder.tv_dtTitle.setTextColor(color);
- /*       holder.tv_awardName.setTextColor(color);
-        holder.tv_progName.setTextColor(color);
+
+     /*   holder.tv_progName.setTextColor(color);
         holder.tv_ActivityName.setTextColor(color);*/
     }
 
@@ -156,9 +154,9 @@ public class DynamicDataIndexAdapter extends BaseAdapter {
         LinearLayout llRow;
         TextView tv_dtTitle;
         TextView tv_dtResSum;
-        /*        TextView tv_awardName;
-                TextView tv_progName;
-                TextView tv_ActivityName;*/
+        TextView tv_entryDate;
+        /*       TextView tv_progName;
+               TextView tv_ActivityName;*/
         ImageView iv_Go;
         ImageView iv_view;
     }

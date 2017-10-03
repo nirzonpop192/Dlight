@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.faisal.technodhaka.dlight.R;
@@ -32,15 +33,20 @@ public class DynamicTable extends BaseActivity {
      * list view to show Dynamic table list
      */
     private ListView listView;
-    private Button btnHome, btnDTSearch;
+    private Button btnHome/*, btnDTSearch*/;
     private final Context mContext = DynamicTable.this;
     private SQLiteHandler sqlH;
 
-    private EditText edtDTSearch;
+    //    private EditText edtDTSearch;
     private String idCountry;
 
     private DynamicDataIndexAdapter mAdapter = null;
     private static ProgressDialog pDialog;
+    public int TOTAL_LIST_ITEMS;
+    public int NUM_ITEMS_PAGE = 5;
+    private int noOfBtns;
+    private Button[] btns;
+    private int pageCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +57,103 @@ public class DynamicTable extends BaseActivity {
 
         // get intent
         Intent intent = getIntent();
-       idCountry = intent.getStringExtra(KEY.COUNTRY_ID);
+        idCountry = intent.getStringExtra(KEY.COUNTRY_ID);
 
 
-        // anonymous object
-        new LoadListView(idCountry, "").execute();
+        btnFooter(idCountry, "");
+        loadListViewForFirstTime(idCountry);
 
         setListener();
+    }
+
+    private void loadListViewForFirstTime(String cCode) {
+        loadList(0, cCode, "");
+        CheckBtnBackGroud(0);
+    }
+
+    /**
+     * this block is for checking the number of pages
+     * ====================================================
+     */
+    private int getNumberOfPages(final String cCode, String c) {
+        TOTAL_LIST_ITEMS = sqlH.getDynamicTableTotalNumber(cCode, "", session.getStaffId());
+        int val = TOTAL_LIST_ITEMS % NUM_ITEMS_PAGE;
+        val = val == 0 ? 0 : 1;
+        pageCount = TOTAL_LIST_ITEMS / NUM_ITEMS_PAGE + val;
+        return val;
+    }
+
+    private void btnFooter(final String cCode, String c) {
+        int val = getNumberOfPages(cCode, c);
+
+        noOfBtns = TOTAL_LIST_ITEMS / NUM_ITEMS_PAGE + val;
+
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.btnLay);
+
+        btns = new Button[noOfBtns];
+
+        for (int i = 0; i < noOfBtns; i++) {
+            btns[i] = new Button(this);
+            btns[i].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            btns[i].setText("" + (i + 1));
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(btns[i], lp);
+
+            final int j = i;
+            btns[j].setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    loadList(j, cCode, "");
+                    CheckBtnBackGroud(j);
+                }
+            });
+        }
+
+    }
+
+    /**
+     * Method for Checking Button Backgrounds
+     */
+    private void CheckBtnBackGroud(int index) {
+//        title.setText("Page "+(index+1)+" of "+noOfBtns);
+        for (int i = 0; i < noOfBtns; i++) {
+            if (i == index) {
+                btns[index].setBackgroundDrawable(getResources().getDrawable(R.color.green));
+                btns[i].setTextColor(getResources().getColor(android.R.color.white));
+            } else {
+                btns[i].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                btns[i].setTextColor(getResources().getColor(android.R.color.black));
+            }
+        }
+
+    }
+
+
+    /**
+     * Method for loading data in list view
+     */
+    private void loadList(int number, String cCode, String dtName) {
+        ArrayList<DynamicDataIndexDataModel> sort = new ArrayList<>();
+
+
+        int start = number * NUM_ITEMS_PAGE;
+        List<DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName,
+                session.getStaffId(), start);
+
+
+        if (dataList.size() != 0) {
+
+
+            mAdapter = new DynamicDataIndexAdapter((Activity) mContext, dataList);                  //Assign the Adapter in list
+            mAdapter.notifyDataSetChanged();
+            listView.setAdapter(mAdapter);
+        } else {
+            new ADNotificationManager().showInfromDialog(mContext, "NO Data", "No data Found");
+        }
+
     }
 
     private void setListener() {
@@ -67,29 +163,9 @@ public class DynamicTable extends BaseActivity {
                 goToMainActivity((Activity) mContext);
             }
         });
-        btnDTSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dynamicTableSearch();
-            }
-        });
-    }
-
-    /**
-     * @since :data craft
-     * this method get the specific dynamic table   want to survey .
-     */
-    private void dynamicTableSearch() {
-
-
-        if (edtDTSearch.getText().toString().length() == 0) {                                       //Search button should filter all when there is nothing written in the text box.
-            new LoadListView(idCountry, "").execute();
-
-        } else {
-            new LoadListView(idCountry, edtDTSearch.getText().toString()).execute();
-        }
 
     }
+
 
     private void initialize() {
         viewReference();
@@ -99,8 +175,7 @@ public class DynamicTable extends BaseActivity {
     private void viewReference() {
         listView = (ListView) findViewById(R.id.lvDynamicTableIndex);
         btnHome = (Button) findViewById(R.id.btnHomeFooter);
-        btnDTSearch = (Button) findViewById(R.id.btn_DTSearch);
-        edtDTSearch = (EditText) findViewById(R.id.edt_DTSearch);
+
 
         // button er Gaiyeb korra jonno
         Button button = (Button) findViewById(R.id.btnRegisterFooter);
@@ -108,100 +183,6 @@ public class DynamicTable extends BaseActivity {
     }
 
 
-    /**
-     * calling getWidth() and getHeight() too early:
-     * When  the UI has not been sized and laid out on the screen yet..
-     *
-     * @param hasFocus the value will be true when UI is focus
-     */
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        addIconHomeButton();
-    }
 
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void addIconHomeButton() {
-        btnHome.setText("");
-        Drawable imageHome = getResources().getDrawable(R.drawable.home_b);
-        btnHome.setCompoundDrawablesRelativeWithIntrinsicBounds(imageHome, null, null, null);
-        setPaddingButton(mContext, imageHome, btnHome);
-    }
-
-
-    /**
-     * AsyncTask class
-     */
-    private class LoadListView extends AsyncTask<Void, Integer, String> {
-        private String temcCode;
-        private String temdtTitle;
-
-        public LoadListView(String temcCode, String temdtTitle) {
-            this.temcCode = temcCode;
-            this.temdtTitle = temdtTitle;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            startProgressBar("Data is Loading");
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            hideProgressBar();
-
-            if (mAdapter != null && mAdapter.getCount() > 0) {
-                if (mAdapter.getCount() != 0) {
-                    mAdapter.notifyDataSetChanged();
-                    listView.setAdapter(mAdapter);
-                } else {
-                    new ADNotificationManager().showInfromDialog(mContext, "NO Data", "No data Found");
-                }
-            }
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            loadDynamicIndex(temcCode, temdtTitle);
-            return "success";
-        }
-    }
-
-    private void hideProgressBar() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-    private void startProgressBar(String msg) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage(msg);
-        pDialog.setCancelable(true);
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pDialog.show();
-    }
-
-    /**
-     * @param cCode Country Code
-     *              Add search Option in Dynamic index
-     */
-
-    private void loadDynamicIndex(final String cCode, final String dtName) {
-        List<DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName, session.getStaffId());
-        ArrayList<DynamicDataIndexDataModel> dataArray = new ArrayList<DynamicDataIndexDataModel>();
-
-        if (dataList.size() != 0) {
-            dataArray.clear();
-
-            for (DynamicDataIndexDataModel data : dataList) {
-                dataArray.add(data);                                                                 //add contacts data in arrayList
-            }
-
-            mAdapter = new DynamicDataIndexAdapter((Activity) mContext, dataArray);                  //Assign the Adapter in list
-        }
-
-    }
 }

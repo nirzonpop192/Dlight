@@ -198,13 +198,7 @@ public class Parser extends Parse {
     public static final String USR_LAST_NAME = "UsrLastName";
     public static final String USR_FIRST_NAME = "UsrFirstName";
     public static final String USR_LOG_IN_PW = "UsrLogInPW";
-    public static final String REG_M_ASSIGN_PROG_SRV_JSON_A = "reg_m_assign_prog_srv";
-    private static final String CA_2_DOB = "CA2DOB";
-    private static final String CA_2_GRD_DATE = "CA2GRDDate";
-    private static final String LMGRD_DATE = "LMGRDDate";
-    private static final String LMDOB = "LMDOB";
-    private static final String CU_2_DOB = "CU2DOB";
-    private static final String CU_2_GRD_DATE = "CU2GRDDate";
+
     private static final String LOCATION_CODE = "LocationCode";
     private static final String LOCATION_NAME = "LocationName";
     private static final String LONG = "Long";
@@ -220,106 +214,22 @@ public class Parser extends Parse {
     private static final String SRV_DT = "SrvDT";
     private static final String SRV_STATUS = "SrvStatus";
     private static final String DIST_DT = "DistDT";
-    private static final String GRD_DATE = "GRDDate";
-    private static final String LMP_DATE = "LMPDate";
-    private static final String PWGRD_DATE = "PWGRDDate";
-    private static final String AFT_CNT_WAGE_ENR = "AFTCntWageEnr";
-    private static final String BRF_CNT_WAGE_ENR = "BRFCntWageEnr";
-    private static final String BRF_ACRE_ORCHARDS = "BRFAcreOrchards";
-    private static final String BRF_VAL_ORCHARDS = "BRFValOrchards";
-    private static final String AFT_ACRE_ORCHARDS = "AFTAcreOrchards";
-    private static final String AFT_VAL_ORCHARDS = "AFTValOrchards";
-    private static final String BRF_VAL_EMPLOYMENT = "BRFValEmployment";
-    private static final String AFT_VAL_EMPLOYMENT = "AFTValEmployment";
-    private static final String BRF_VAL_REMITTANCES = "BRFValRemittances";
-    private static final String EXTRA_CHRONICALLY_ILL_DISABLED_PERSON_BECAUSE_EBOLA = "ExtraChronicallyIllDisabledPersonBecauseEbola";
-    private static final String BRF_CNT_CATTLE = "BRFCntCattle";
-    private static final String BRF_VAL_CATTLE = "BRFValCattle";
-    private static final String DISTRICT_NAME = "DistrictName";
-    private static final String UPAZILLA_NAME = "UpazillaName";
-    private static final String UNIT_NAME = "UnitName";
-    public static final String VILLAGE_NAME = "VillageName";
-    private static final String HH_MEM_ID = "HHMemID";
-    private static final String MEM_NAME = "MemName";
-    private static final String MEM_SEX = "MemSex";
-    private static final String HH_RELATION = "HHRelation";
-    private static final String DISABLED = "Disabled";
-    private static final String MEM_AGE = "MemAge";
-    private static final String MARITAL_STATUS = "MaritalStatus";
-    private static final String CONTACT_NO = "ContactNo";
-    private static final String MEM_OTHER_ID = "MemOtherID";
-    private static final String MEM_NAME_FIRST = "MemName_First";
-    private static final String MEM_NAME_MIDDLE = "MemName_Middle";
-    private static final String MEM_NAME_LAST = "MemName_Last";
-    private static final String REGISTRATION_ID = "RegistrationID";
-    private static final String PERSON_NAME = "PersonName";
-    private static final String SEX = "SEX";
-    private static final String HH_SIZE = "HHSize";
-    private static final String LATITUDE = "Latitude";
-    private static final String LONGITUDE = "Longitude";
-    private static final String AG_LAND = "AGLand";
-    private static final String V_STATUS = "VStatus";
-    private static final String M_STATUS = "MStatus";
-    private static final String VSLA_GROUP = "VSLAGroup";
-    private static final String GPS_LONG_SWAP = "GPSLongSwap";
-    private static final String HH_HEAD_CAT = "HHHeadCat";
-    private static final String LT_2_YRS_M = "LT2yrsM";
-    private static final String LT_2_YRS_F = "LT2yrsF";
-    private static final String M_2_TO_5_YRS = "M2to5yrs";
-    private static final String F_2_TO_5_YRS = "F2to5yrs";
-    private static final String M_6_TO_12_YRS = "M6to12yrs";
-    private static final String AFT_CNT_CATTLE = "AFTCntCattle";
-    private static final String F_6_TO_12_YRS = "F6to12yrs";
-    private static final String M_13_TO_17_YRS = "M13to17yrs";
-    private static final String BRF_CNT_OTHER = "BRFCntOther";
-    private static final String BRF_VAL_OTHER = "BRFValOther";
-    private static final String AFT_CNT_OTHER = "AFTCntOther";
-    private static final String AFT_VAL_OTHER = "AFTValOther";
-    private static final String BRF_ACRE_CULTIVABLE = "BRFAcreCultivable";
-    private static final String BRF_VAL_CULTIVABLE = "BRFValCultivable";
-    private static final String F_13_TO_17_YRS = "F13to17yrs";
-    private static final String ORPHN_LT_18_YRS_M = "Orphn_LT18yrsM";
+
     public static final String MONTH_LABEL = "MonthLabel";
     public static final String USA_START_DATE = "UsaStartDate";
     public static final String USA_END_DATE = "UsaEndDate";
-    private static final String ORPHN_LT_18_YRS_F = "Orphn_LT18yrsF";
-    private static final String ADLT_18_TO_59_M = "Adlt_18to59M";
-    private static final String ADLT_18_TO_59_F = "Adlt_18to59F";
-    private static final String ELD_60_P_M = "Eld_60pM";
-    private static final String ELD_60_P_F = "Eld_60pF";
-    private static final String PLW = "PLW";
-    private static final String CHRONICALLY_ILL = "ChronicallyIll";
-    private static final String LIVING_DECEASED_CONTRACT_EBOLA = "LivingDeceasedContractEbola";
-    public static final String REG_N_CT_JSON_A = "reg_n_ct";
-    public static final String C_11_CT_PR = "C11_CT_PR";
-    public static final String C_21_CT_PR = "C21_CT_PR";
-    public static final String C_31_CT_PR = "C31_CT_PR";
-    public static final String C_32_CT_PR = "C32_CT_PR";
-    public static final String C_33_CT_PR = "C33_CT_PR";
-    public static final String C_34_CT_PR = "C34_CT_PR";
-    public static final String C_35_CT_PR = "C35_CT_PR";
-    public static final String C_36_CT_PR = "C36_CT_PR";
-    public static final String C_37_CT_PR = "C37_CT_PR";
-    public static final String C_38_CT_PR = "C38_CT_PR";
-    private static final String EXTRA_ELDERLY_PERSON_BECAUSE_EBOLA = "ExtraElderlyPersonBecauseEbola";
-    private static final String EXTRA_CHILD_BECAUSE_EBOLA = "ExtraChildBecauseEbola";
-    private static final String AFT_VAL_CATTLE = "AFTValCattle";
-    private static final String BRF_CNT_SHEEP_GOATS = "BRFCntSheepGoats";
-    private static final String BRF_VAL_SHEEP_GOATS = "BRFValSheepGoats";
+
     public static final String MULTIPLE_SRV = "MultipleSrv";
-    public static final String DISTRIBUTION_EXT_TABLE_JSON_A = "distribution_ext_table";
+
     public static final String VO_ITM_SPEC = "VOItmSpec";
-    public static final String VO_ITM_UNIT = "VOItmUnit";
-    public static final String VO_REF_NUMBER = "VORefNumber";
-    public static final String VO_ITM_COST = "VOItmCost";
+
     public static final String DEFAULT_FOOD_DAYS = "DefaultFoodDays";
     public static final String DEFAULT_N_FOOD_DAYS = "DefaultNFoodDays";
     public static final String DEFAULT_CASH_DAYS = "DefaultCashDays";
     public static final String DEFAULT_VO_DAYS = "DefaultVODays";
     public static final String SRV_SPECIFIC = "SrvSpecific";
 
-    public static final String DIST_FLAG = "DistFlag";
-    public static final String SRV_OP_MONTH_CODE = "SrvOpMonthCode";
+
     public static final String VO_ITM_MEAS_TABLE_JSON_A = "vo_itm_meas_table";
     public static final String LUP_GPS_TABLE_JSON_A = "lup_gps_table";
     public static final String GPS_SUB_GROUP_ATTRIBUTES_JSON_A = "gps_sub_group_attributes";
@@ -328,207 +238,16 @@ public class Parser extends Parse {
 
     private static final String TAG = Parser.class.getSimpleName();
     public static final String COUNTRY_NO = "CountryNo";
-    public static final String COUNTRIE_NO = "countrie_no";
 
 
-    /**
-     * This method desirizie the JSon data and insert in the  sqlite data base
-     *
-     * @param jsonString A String which is Json format
-     * @param sqlH       SqLite Handler  Object reference
-     */
 
 
-    /**
-     * @param services_table The Json Array
-     * @param sqlH           Database helper
-     */
 
-    public static void SrvTableParser(JSONArray services_table, SQLiteHandler sqlH) {
 
-        String AdmCountryCode, AdmDonorCode, AdmAwardCode, LayR1ListCode, LayR2ListCode, LayR3ListCode, LayR4ListCode, hhID, MemID, ProgCode, SrvCode, OpCode, OpMonthCode, SrvSL, SrvCenterCode, SrvDT, SrvStatus, DistStatus, DistDT, fdpCode, /*GrpCode,*/ WD, DistFlag;
 
 
-        int size;
 
 
-        size = services_table.length();
-        for (int i = 0; i < size; i++) {
-            try {
-                JSONObject service = services_table.getJSONObject(i);
-                AdmCountryCode = service.getString(ADM_COUNTRY_CODE);
-                AdmDonorCode = service.getString(ADM_DONOR_CODE);
-                AdmAwardCode = service.getString(ADM_AWARD_CODE);
-                LayR1ListCode = service.getString(LAY_R_1_LIST_CODE);
-                LayR2ListCode = service.getString(LAY_R_2_LIST_CODE);
-                LayR3ListCode = service.getString(LAY_R_3_LIST_CODE);
-                LayR4ListCode = service.getString(LAY_R_4_LIST_CODE);
-                hhID = service.getString(HHID);
-                MemID = service.getString(MEM_ID);
-                ProgCode = service.getString(PROG_CODE);
-                SrvCode = service.getString(SRV_CODE);
-                OpCode = service.getString(OP_CODE);
-                OpMonthCode = service.getString(OP_MONTH_CODE);
-                SrvSL = service.getString(SRV_SL);
-                SrvCenterCode = service.getString(SRV_CENTER_CODE);
-                SrvDT = service.getString(SRV_DT);
-                SrvStatus = service.getString(SRV_STATUS);
-                DistStatus = service.getString(DIST_STATUS);
-                DistDT = service.getString(DIST_DT);
-                fdpCode = service.getString(FDP_CODE);
-
-                WD = service.getString("WD");
-                DistFlag = service.getString("DistFlag");
-
-                sqlH.addServiceFromOnline(AdmCountryCode, AdmDonorCode, AdmAwardCode, LayR1ListCode,
-                        LayR2ListCode, LayR3ListCode, LayR4ListCode, hhID, MemID, ProgCode, SrvCode,
-                        OpCode, OpMonthCode, SrvSL, SrvCenterCode, SrvDT, SrvStatus, DistStatus,
-                        DistDT, fdpCode, WD, DistFlag/*, GrpCode, "1"*/);
-
-
-              /*  Log.d(TAG, "In Service Table- AdmCountryCode :" + AdmCountryCode + " AdmDonorCode : " + AdmDonorCode + " AdmAwardCode : " + AdmAwardCode + " LayR1ListCode : " + LayR1ListCode + " LayR2ListCode : " + LayR2ListCode + " LayR3ListCode : " + LayR3ListCode + " LayR4ListCode : " + LayR4ListCode + " hhID : " + hhID + " MemID : " + MemID + " ProgCode : " + ProgCode + " SrvCode : " + SrvCode + " OpCode : " + OpCode + " OpMonthCode : " + OpMonthCode +
-                        " SrvSL : " + SrvSL + "SrvDT: " + SrvDT + " SrvStatus : " + SrvStatus + " WD :" + WD);*/
-            } catch (Exception e) {
-                Log.d(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-            Log.d(TAG, "Total Record in Service table " + size);
-
-        }
-
-
-    }
-
-
-    public static void RegNMemProGrpParser(String jsonString, SQLiteHandler sqlH) {
-
-
-        try {
-
-
-            int size;
-
-
-            String AdmCountryCode, AdmDonorCode, AdmAwardCode, LayR1ListCode, LayR2ListCode, LayR3ListCode, LayR4ListCode, hhID, MemID, ProgCode, SrvCode, GrpCode, Active, GrpLayR1ListCode, GrpLayR2ListCode, GrpLayR3ListCode;
-
-            /**             * The total string Convert into JSON object              */
-
-            JSONObject jObj = new JSONObject(jsonString);
-
-
-            // Adding existing members data into local database
-            if (!jObj.isNull("reg_n_mem_prog_grp")) {
-
-                JSONArray reg_n_mem_prog_grps = jObj.getJSONArray("reg_n_mem_prog_grp");
-
-
-                // Adding data into Registration Table
-                size = reg_n_mem_prog_grps.length();
-
-                for (int i = 0; i < size; i++) {
-
-                    JSONObject reg_n_mem_prog_grp = reg_n_mem_prog_grps.getJSONObject(i);
-
-
-                    AdmCountryCode = reg_n_mem_prog_grp.getString("AdmCountryCode");
-                    AdmDonorCode = reg_n_mem_prog_grp.getString("AdmDonorCode");
-                    AdmAwardCode = reg_n_mem_prog_grp.getString("AdmAwardCode");
-                    LayR1ListCode = reg_n_mem_prog_grp.getString("LayR1ListCode");
-                    LayR2ListCode = reg_n_mem_prog_grp.getString("LayR2ListCode");
-                    LayR3ListCode = reg_n_mem_prog_grp.getString("LayR3ListCode");
-                    LayR4ListCode = reg_n_mem_prog_grp.getString("LayR4ListCode");
-                    hhID = reg_n_mem_prog_grp.getString(HHID);
-                    MemID = reg_n_mem_prog_grp.getString("MemID");
-                    ProgCode = reg_n_mem_prog_grp.getString(PROG_CODE);
-                    SrvCode = reg_n_mem_prog_grp.getString(SRV_CODE);
-                    GrpCode = reg_n_mem_prog_grp.getString("GrpCode");
-                    Active = reg_n_mem_prog_grp.getString("Active");
-                    GrpLayR1ListCode = reg_n_mem_prog_grp.getString("GrpLayR1ListCode");
-                    GrpLayR2ListCode = reg_n_mem_prog_grp.getString("GrpLayR2ListCode");
-                    GrpLayR3ListCode = reg_n_mem_prog_grp.getString("GrpLayR3ListCode");
-
-
-                    sqlH.addRegNmemProgGroupFromOnline(AdmCountryCode, AdmDonorCode, AdmAwardCode, LayR1ListCode, LayR2ListCode, LayR3ListCode, LayR4ListCode, hhID, MemID, ProgCode, SrvCode, GrpCode, Active, GrpLayR1ListCode, GrpLayR2ListCode, GrpLayR3ListCode);
-
-
-                }
-            }
-
-
-        } catch (Exception e) {
-            Log.d(TAG, "Expetion : " + e);
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public static void GpsLocationContentParser(String jsonString, SQLiteHandler sqlH) {
-        try {
-
-
-            int size;
-            String AdmCountryCode, GrpCode, SubGrpCode, LocationCode, ContentCode, ImageFileString, Remarks, EntryBy, EntryDate;
-
-
-            /**
-             * The total string Convert into JSON object
-             * */
-
-            JSONObject jObj = new JSONObject(jsonString);
-
-
-            // Adding existing members data into local database
-            if (!jObj.isNull("gps_location_content")) {
-
-                JSONArray gps_location_contents = jObj.getJSONArray("gps_location_content");
-
-
-                // Adding data into Registration Table
-                size = gps_location_contents.length();
-
-                for (int i = 0; i < size; i++) {
-
-                    JSONObject gps_location_content = gps_location_contents.getJSONObject(i);
-
-
-                    AdmCountryCode = gps_location_content.getString("AdmCountryCode");
-                    GrpCode = gps_location_content.getString("GrpCode");
-                    SubGrpCode = gps_location_content.getString("SubGrpCode");
-                    LocationCode = gps_location_content.getString("LocationCode");
-                    ContentCode = gps_location_content.getString("ContentCode");
-                    ImageFileString = gps_location_content.getString("ImageFileString");
-                    Remarks = gps_location_content.getString("Remarks");
-
-                    byte[] imageByteArray;
-
-                    if (ImageFileString.length() > 10) {
-                        String tem = removeNewLineFromImage(ImageFileString);
-                        String base64String = removeSlashFromImage(tem);
-
-
-                        imageByteArray = Base64.decode(base64String, Base64.DEFAULT);
-
-                    } else {
-                        imageByteArray = null;
-                    }
-
-                    EntryBy = "";
-                    EntryDate = "";
-
-                    sqlH.insertIntoGPSLocationContentTable(AdmCountryCode, GrpCode, SubGrpCode, LocationCode, ContentCode, imageByteArray, Remarks, EntryBy, EntryDate);
-
-
-                }
-            }
-
-
-        } catch (Exception e) {
-            Log.d(TAG, "Expetion : " + e);
-            e.printStackTrace();
-        }
-
-    }
 
 
     public static void gpsLocationParse(JSONArray gps_locations, SQLiteHandler sqlH) {
@@ -564,9 +283,6 @@ public class Parser extends Parse {
     }
 
 
-    public static void staff_master_DataParser(JSONArray reg_m_assign_prog_srvs, SQLiteHandler sqlH) {
-
-    }
 
 
     public static void DTA_Parser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
@@ -631,19 +347,12 @@ public class Parser extends Parse {
                 entryBy = jsonObject.getString("EntryBy");
                 usaEntryDate = jsonObject.getString("UsaEntryDate");
 
-           /*     Log.d("NIR_192",
-                        "in DTA table  StfCode :" + dtStfCoe +
-                                " AdmCountryCode :" + admCountryCode +
-                                " DTBasic :" + dtBasicCol +
-                                " btnSave :" + dtBtnSave +
-                                " EntryBy :" + entryBy +
-                                " UsaEntryDate :" + usaEntryDate
-                );*/
+
 
 
                 sqlH.addIntoDtEnuTable(dtStfCoe, admCountryCode, dtBasicCol, dtBtnSave, entryBy, usaEntryDate);
 
-                //  Log.d(TAG, "DT Enu Table index " + i);
+
 
             } catch (Exception e) {
                 Log.e(TAG, "Exception : " + e);
@@ -659,7 +368,8 @@ public class Parser extends Parse {
     public static void DTBasicParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
         int size = jsonArrayData.length();
-        String DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll, DTAutoScrollText, DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName;
+        String DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll, DTAutoScrollText,
+                DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName,EntryDate,EntryBy;
 
 
         for (int i = 0; i < size; i++) {
@@ -678,8 +388,12 @@ public class Parser extends Parse {
                 DTGeoListLevel = jsonObject.getString("DTGeoListLevel");
                 DTOPMode = jsonObject.getString("DTOPMode");
                 DTShortName = jsonObject.getString("DTShortName");
+                EntryBy = jsonObject.getString("EntryBy");
+                EntryDate = jsonObject.getString("EntryDate");
 
-                sqlH.addIntoDTBasic(DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll, DTAutoScrollText, DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName);
+                sqlH.addIntoDTBasic(DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll,
+                        DTAutoScrollText, DTActive, DTCategory, DTGeoListLevel, DTOPMode,
+                        DTShortName,EntryBy,EntryDate);
 
 //                Log.d(TAG, " DTBasic Table");
 
@@ -1051,36 +765,7 @@ public class Parser extends Parse {
 
     }
 
-/*    public static void CommunityGroupParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
-        int size = jsonArrayData.length();
-
-        String AdmCountryCode, GrpCode, SubGrpCode, LocationCode, AttributeCode, AttributeValue, AttPhoto;
-
-        for (int i = 0; i < size; i++) {
-            try {
-
-                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
-
-
-                 AdmCountryCode = jsonObject.getString("AdmCountryCode");
-                 GrpCode = jsonObject.getString("GrpCode");
-                 SubGrpCode = jsonObject.getString("SubGrpCode");
-                 LocationCode = jsonObject.getString("LocationCode");
-                 AttributeCode = jsonObject.getString("AttributeCode");
-                 AttributeValue = jsonObject.getString("AttributeValue");
-                 AttPhoto = jsonObject.getString("AttPhoto");
-
-                sqlH.addGPSLocationAttributesFromOnline(AdmCountryCode, GrpCode, SubGrpCode, LocationCode, AttributeCode, AttributeValue, AttPhoto);
-
-
-            } catch (Exception e) {
-                Log.e(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-        }                                                                                           // end of for
-
-    }*/
 
     public static void lupCommunityAnimalParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
@@ -1329,7 +1014,11 @@ public class Parser extends Parse {
                 EntryDate = "";
 
 
-                sqlH.addIntoGroupDetails(AdmCountryCode, AdmDonorCode, AdmAwardCode, AdmProgCode, GrpCode, OrgCode, StfCode, LandSizeUnderIrrigation, IrrigationSystemUsed, FundSupport, ActiveStatus, RepName, RepPhoneNumber, FormationDate, TypeOfGroup, Status, EntryBy, EntryDate, ProjectNo, ProjectTitle, LayR1Code, LayR2Code, LayR3Code);
+                sqlH.addIntoGroupDetails(AdmCountryCode, AdmDonorCode, AdmAwardCode, AdmProgCode,
+                        GrpCode, OrgCode, StfCode, LandSizeUnderIrrigation, IrrigationSystemUsed,
+                        FundSupport, ActiveStatus, RepName, RepPhoneNumber, FormationDate,
+                        TypeOfGroup, Status, EntryBy, EntryDate, ProjectNo, ProjectTitle,
+                        LayR1Code, LayR2Code, LayR3Code);
 
 
             } catch (Exception e) {
@@ -1363,7 +1052,8 @@ public class Parser extends Parse {
                 AwardStatus = jsonObject.getString(Parser.AWARD_STATUS);
 
 
-                sqlH.insertIntoAdmCountryAward(AdmCountryCode, AdmDonorCode, AdmAwardCode, AwardRefNumber, AwardStartDate, AwardEndDate, AwardShortName, AwardStatus);
+                sqlH.insertIntoAdmCountryAward(AdmCountryCode, AdmDonorCode, AdmAwardCode,
+                        AwardRefNumber, AwardStartDate, AwardEndDate, AwardShortName, AwardStatus);
 
 
             } catch (Exception e) {

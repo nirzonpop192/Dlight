@@ -1,4 +1,4 @@
-package com.faisal.technodhaka.dlight.activity;
+package com.faisal.technodhaka.dlight.activity.about;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

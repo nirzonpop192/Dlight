@@ -35,6 +35,7 @@ public class SQLiteQuery {
 
     private static final String YES = "Y";
     private static final String TAG = SQLiteQuery.class.getSimpleName();
+    public static final int NO_LIMIT = -5;
 
     public static String getUpzillaJoinQuery(String countryCode, String layR1Code) {
         return " JOIN " + SELECTED_VILLAGE_TABLE +
@@ -286,13 +287,7 @@ public class SQLiteQuery {
     }
 
 
-
-
-
 // havet use it
-
-
-
 
 
     public static String get_RegNAssProgSrvRegistrationDateRangeSelectQuery(String cCode) {
@@ -619,108 +614,6 @@ public class SQLiteQuery {
                 + " AND " + SERVICE_EXTENDED_TABLE + "." + OP_MONTH_CODE_COL + " = '" + opMCode + "'  "
                 + " AND " + SQLiteHandler.VOUCHER_COUNTRY_PROGRAM_ITEM_TABLE + "." + ADM_PROG_CODE_COL + " = '" + programCode + "'  "
                 + " GROUP BY " + SERVICE_EXTENDED_TABLE + "." + VOUCHER_ITEM_SPEC_COL;
-    }
-
-    public static String getGroupSummaryList_sql(final String cCode) {
-        return "SELECT " +
-
-                "   cg." + ADM_COUNTRY_CODE_COL + " " +
-                " , cg." + ADM_DONOR_CODE_COL +
-                " , cg." + ADM_AWARD_CODE_COL +
-                " , cg." + ADM_PROG_CODE_COL +
-                " , cgc." + GROUP_CAT_CODE_COL +
-                " , cgc." + GROUP_CAT_SHORT_NAME_COL +
-                " , cg." + GROUP_CODE_COL +
-                " , cg." + GROUP_NAME_COL +
-                " , cg." + GRP_LAY_R3_LIST_CODE_COL +
-                " , ut." + LAY_R3_LIST_NAME +
-                " , srv." + SERVICE_MASTER_SERVICE_SHORT_NAME_COL +
-
-                " , ( select Count(*) from " + REG_N_MEM_PROG_GRP_TABLE + " AS regNgrp "
-                + " WHERE  regNgrp." + ADM_COUNTRY_CODE_COL + " = cg." + ADM_COUNTRY_CODE_COL
-                + " AND  " + "regNgrp." + ADM_DONOR_CODE_COL + " = cg." + ADM_DONOR_CODE_COL
-                + " AND  " + "regNgrp." + ADM_AWARD_CODE_COL + " = cg." + ADM_AWARD_CODE_COL
-                + " AND regNgrp." + PROG_CODE_COL + " = cg." + ADM_PROG_CODE_COL
-                + " AND  " + "regNgrp." + GROUP_CODE_COL + " = cg." + GROUP_CODE_COL
-
-
-                + " )  AS c " +
-
-                " FROM " + COMMUNITY_GROUP_TABLE + "  AS cg " +
-
-                " LEFT JOIN " + REG_N_MEM_PROG_GRP_TABLE + " AS regG " +
-                " ON regG." + ADM_COUNTRY_CODE_COL + " = cg." + ADM_COUNTRY_CODE_COL + " " +
-                " AND regG." + ADM_DONOR_CODE_COL + " = cg." + ADM_DONOR_CODE_COL +
-                " AND regG." + ADM_AWARD_CODE_COL + " = cg." + ADM_AWARD_CODE_COL +
-                " AND regG." + PROG_CODE_COL + " = cg." + ADM_PROG_CODE_COL +
-                " AND regG." + GROUP_CODE_COL + " = cg." + GROUP_CODE_COL +
-
-                " LEFT JOIN " + COMMUNITY_GROUP_CATEGORY_TABLE + " AS cgc " +
-
-                " ON cg." + ADM_COUNTRY_CODE_COL + " = cgc." + ADM_COUNTRY_CODE_COL +
-                " AND cg." + ADM_DONOR_CODE_COL + " = cgc." + ADM_DONOR_CODE_COL +
-                " AND cg." + ADM_AWARD_CODE_COL + " = cgc." + ADM_AWARD_CODE_COL +
-                " AND cg." + ADM_PROG_CODE_COL + " = cgc." + ADM_PROG_CODE_COL +
-                " AND cg." + GROUP_CAT_CODE_COL + " = cgc." + GROUP_CAT_CODE_COL +
-                " LEFT JOIN " + SERVICE_MASTER_TABLE + " AS srv " +
-                " ON cg." + ADM_PROG_CODE_COL + " = srv. " + ADM_PROG_CODE_COL +
-                " INNER JOIN " + SELECTED_VILLAGE_TABLE + " AS sv " +
-                " ON cg." + LAY_R1_CODE_COL + " = sv.DistrictCode " +
-                " AND cg." + GRP_LAY_R2_LIST_CODE_COL + " = sv.UpazillaCode " +
-                " AND cg." + GRP_LAY_R3_LIST_CODE_COL + " = sv.UnitCode " +
-                " AND regG." + SRV_CODE_COL + " = srv." + ADM_SRV_CODE_COL +
-                " INNER JOIN " + GEO_LAY_R3_LIST_TABLE + " AS ut " +
-                " ON ut." + ADM_COUNTRY_CODE_COL + " = cg." + ADM_COUNTRY_CODE_COL +
-                " AND ut." + LAY_R1_LIST_CODE_COL + " = cg." + LAY_R1_CODE_COL +
-                " AND  ut." + LAY_R2_LIST_CODE_COL + " = cg." + GRP_LAY_R2_LIST_CODE_COL +
-                " AND  ut." + LAY_R3_LIST_CODE_COL + " = cg." + GRP_LAY_R2_LIST_CODE_COL +
-
-
-                " WHERE cg." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " GROUP BY cgc." + GROUP_CAT_CODE_COL + ", cg." + GROUP_CODE_COL;
-
-        // OLD QUERY CONFIRM THE NEW ONE THEN DELETE OLD ONE (BELLOW)
-       /* return "SELECT " +
-
-                "   cg." + ADM_COUNTRY_CODE_COL + " " +
-                " , cg." + ADM_DONOR_CODE_COL +
-                " , cg." + ADM_AWARD_CODE_COL +
-                " , cg." + ADM_PROG_CODE_COL +
-                " , cgc." + GROUP_CAT_CODE_COL +
-                " , cgc." + GROUP_CAT_SHORT_NAME_COL +
-                " , cg." + GROUP_CODE_COL +
-                " , cg." + GROUP_NAME_COL +
-                " , srv." + SQLiteHandler.SERVICE_SHORT_NAME_COL +
-
-                " , ( select Count(*) from " + SQLiteHandler.REG_N_MEM_PROG_GRP_TABLE + " AS regNgrp "
-                + " WHERE  regNgrp." + ADM_COUNTRY_CODE_COL + " = cg." + ADM_COUNTRY_CODE_COL
-                + " AND  " + "regNgrp." + ADM_DONOR_CODE_COL + " = cg." + ADM_DONOR_CODE_COL
-                + " AND  " + "regNgrp." + ADM_AWARD_CODE_COL + " = cg." + ADM_AWARD_CODE_COL
-                + " AND regNgrp." + ADM_PROG_CODE_COL + " = cg." + ADM_PROG_CODE_COL
-                + " AND  " + "regNgrp." + GROUP_CODE_COL + " = cg." + GROUP_CODE_COL
-
-
-                + " )  AS c " +
-
-                " FROM " + COMMUNITY_GROUP_TABLE + "  AS cg " +
-
-                " LEFT JOIN " + REG_N_MEM_PROG_GRP_TABLE + " AS regG " +
-                " ON regG." + ADM_COUNTRY_CODE_COL + " = cg." + ADM_COUNTRY_CODE_COL + " " +
-                " AND regG." + ADM_DONOR_CODE_COL + " = cg." + ADM_DONOR_CODE_COL +
-                " AND regG." + ADM_AWARD_CODE_COL + " = cg." + ADM_AWARD_CODE_COL +
-                " AND regG." + ADM_PROG_CODE_COL + " = cg." + ADM_PROG_CODE_COL +
-                " AND regG." + GROUP_CODE_COL + " = cg." + GROUP_CODE_COL +
-                " LEFT JOIN " + COMMUNITY_GROUP_CATEGORY_TABLE + " AS cgc " +
-                " ON cg." + ADM_COUNTRY_CODE_COL + " = cgc." + ADM_COUNTRY_CODE_COL +
-                " AND cg." + ADM_DONOR_CODE_COL + " = cgc." + ADM_DONOR_CODE_COL +
-                " AND cg." + ADM_AWARD_CODE_COL + " = cgc." + ADM_AWARD_CODE_COL +
-                " AND cg." + ADM_PROG_CODE_COL + " = cgc." + ADM_PROG_CODE_COL +
-                " AND cg." + GROUP_CAT_CODE_COL + " = cgc." + GROUP_CAT_CODE_COL +
-                " LEFT JOIN " + SERVICE_MASTER_TABLE + " AS srv " +
-                " ON cg." + ADM_PROG_CODE_COL + " = srv. " + ADM_PROG_CODE_COL +
-                " AND regG." + ADM_SRV_CODE_COL + " = srv." + ADM_SRV_CODE_COL +
-                " WHERE cg." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' " +
-                " GROUP BY cgc." + GROUP_CAT_CODE_COL + ", cg." + GROUP_CODE_COL;*/
     }
 
 
@@ -1656,7 +1549,8 @@ public class SQLiteQuery {
                 + " commGrp." + GROUP_NAME_COL;
     }
 
-    public static String loadDtMonth_sql(String cCode, String opCode, String opMonthCode) {
+    public static String loadDtMonth_sql(String cCode, String opCode, String opMonthCode,
+                                         String donorCode, String awardCode) {
 
         String criteria = "";
         if (opMonthCode.length() > 1)
@@ -1667,7 +1561,9 @@ public class SQLiteQuery {
                 + " WHERE " +
                 ADM_COUNTRY_CODE_COL + " = '" + cCode + "'"
                 + " AND " + STATUS + " = '" + "A" + "' "
-                + " AND " + OPERATION_CODE_COL + " = '5' "
+                + " AND " + OPERATION_CODE_COL + " = '" + opCode + "' "
+                + " AND " + ADM_DONOR_CODE_COL + " = '" + donorCode + "' "
+                + " AND " + ADM_AWARD_CODE_COL + " = '" + awardCode + "' "
                 + criteria
                 + " ORDER BY OpMonthID   DESC ";
     }
@@ -1737,7 +1633,12 @@ public class SQLiteQuery {
 
     }
 
-    public static String getDynamicTableIndexList_sql(String cCode, String dtTitleSearch, String staffId) {
+    public static String getDynamicTableIndexList_sql(String cCode, String dtTitleSearch,
+                                                      String staffId, int number) {
+        String condition = "";
+        if (number != NO_LIMIT)
+            condition = " LIMIT 5 OFFSET " + number;
+
         return "SELECT dtB." + DT_TITLE_COL + "  " +
                 " , dtCPgr." + DT_BASIC_COL + " AS dtBasicCode  " +
                 " , donor." + DONOR_NAME_COL + " || '-' || award." + AWARD_SHORT_NAME_COL + " AS awardName  " +
@@ -1750,7 +1651,9 @@ public class SQLiteQuery {
 
                 " , dtCPgr." + ADM_DONOR_CODE_COL +
                 " , dtCPgr." + PROG_ACTIVITY_CODE_COL +
-                " , dtB." + DT_SHORT_NAME_COL
+                " , dtB." + DT_SHORT_NAME_COL +
+                " , dtB." + ENTRY_BY +
+                " , dtB." + ENTRY_DATE
                 + "  FROM " +
                 DT_COUNTRY_PROGRAM_TABLE + " AS dtCPgr  " +
                 " LEFT JOIN " + DT_BASIC_TABLE + "  AS dtB  " +
@@ -1772,7 +1675,9 @@ public class SQLiteQuery {
                 " dtEnu." + DT_BASIC_COL + " = dtCPgr." + DT_BASIC_COL +
                 " WHERE dtCPgr." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' "
                 + " AND dtEnu." + DT_STF_CODE_COL + " = '" + staffId + "' "
-                + " AND dtB." + DT_TITLE_COL + " LIKE '%" + dtTitleSearch + "%'";
+                + " AND dtB." + DT_TITLE_COL + " LIKE '%" + dtTitleSearch + "%' "
+                + condition;
+
     }
 
     /**
@@ -2076,7 +1981,6 @@ public class SQLiteQuery {
     }
 
 
-
     public static String getServiceDetailsForMember_sql(String cCode, String donorCode, String awardCord,
                                                         String districCode, String upCode, String unCode,
                                                         String vCode, String hhId, String mmId, String opCode,
@@ -2227,8 +2131,8 @@ public class SQLiteQuery {
 
     public static String loadDtBasic_sql(String cCode, String staffId) {
 
-        return "SELECT dtB." +DT_BASIC_COL  + "  " +
-                " , dtB." +  DT_TITLE_COL+ " " +
+        return "SELECT dtB." + DT_BASIC_COL + "  " +
+                " , dtB." + DT_TITLE_COL + " " +
 
                 "  FROM " + DT_COUNTRY_PROGRAM_TABLE + " AS dtCPgr  " +
                 " LEFT JOIN " + DT_BASIC_TABLE + "  AS dtB  " +

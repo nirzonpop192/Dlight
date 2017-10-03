@@ -25,6 +25,8 @@ public  class DynamicDataIndexDataModel implements Parcelable {
     private String OpMonthDate;
     private String programActivityCode;
     private String dtShortName;
+    private String entryBy;
+    private String entryDate;
 
     public DynamicDataIndexDataModel() {
     }
@@ -59,6 +61,8 @@ public  class DynamicDataIndexDataModel implements Parcelable {
         OpMonthDate = in.readString();
         programActivityCode = in.readString();
         dtShortName = in.readString();
+        entryBy = in.readString();
+        entryDate = in.readString();
 
     }
 
@@ -78,6 +82,8 @@ public  class DynamicDataIndexDataModel implements Parcelable {
         dest.writeString(OpMonthDate);
         dest.writeString(programActivityCode);
         dest.writeString(dtShortName);
+        dest.writeString(entryBy);
+        dest.writeString(entryDate);
     }
 
     public String getProgramActivityCode() {
@@ -195,5 +201,21 @@ public  class DynamicDataIndexDataModel implements Parcelable {
 
     public void setPrgActivityTitle(String prgActivityTitle) {
         this.prgActivityTitle = prgActivityTitle;
+    }
+
+    public String getEntryBy() {
+        return entryBy;
+    }
+
+    public void setEntryBy(String entryBy) {
+        this.entryBy = entryBy;
+    }
+
+    public String getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(String entryDate) {
+        this.entryDate = entryDate;
     }
 }

@@ -12,20 +12,8 @@ package com.faisal.technodhaka.dlight.controller;
 public class AppConfig {
 
 
-    /***********************************************************************
-     * UAT
-     * //Windows Server Azure VM Live Server
-     */
-/*    public static final String API_LINK = "http://pciapp.cloudapp.net/datacraft/api/";
-    public static final String API_LINK_ENU = "http://pciapp.cloudapp.net/datacraft/api/index.php?enu";
-    public static final String API_LINK_VER = "http://pciapp.cloudapp.net/datacraft/api/index.php?ver";*/
-    //LIVE LINK
-    //  public static final String API_LINK = "http://pciapp.cloudapp.net/apilive/";
-    /************************************************************************/
-    //LIVE LINK
-/*     public static final String API_LINK = "http://pciapp.cloudapp.net/datacraft/apilive/";
-     public static final String API_LINK_ENU = "http://pciapp.cloudapp.net/datacraft/apilive/index.php?enu";
-     public static final String API_LINK_VER = "http://pciapp.cloudapp.net/datacraft/apilive/index.php?ver";*/
+
+
 
     /*********************************************************************
      * apk download link from Azure
@@ -38,10 +26,23 @@ public class AppConfig {
     /***********************************************************************
      * Localhost
      ***********************************************************************/
-    //  public static final String API_LINK = "http://192.168.49.1/api/local/";
-    public static final String API_LINK = "http://192.168.157.1/dlite/api/";
-    public static final String API_LINK_ENU = "http://192.168.157.1/dlite/api/index.php?enu";
-    public static final String API_LINK_VER = "http://192.168.157.1/dlite/api/index.php?ver";
+
+//    public static final String API_LINK = "http://192.168.157.1/dlite/api/";
+//    public static final String API_LINK_ENU = "http://192.168.157.1/dlite/api/index.php?enu";
+//    public static final String API_LINK_VER = "http://192.168.157.1/dlite/api/index.php?ver";
+//    public static final String URL_PROFILE_IMG = "http://192.168.157.1/dlite/api/n/0001.png";
+
+
+    /***********************************************************************
+     * Live
+     ***********************************************************************/
+    public static final String API_LINK = "http://103.56.209.132:8080/dlite/api/";
+    public static final String API_LINK_ENU = "http://103.56.209.132:8080/dlite/api/index.php?enu";
+    public static final String API_LINK_VER = "http://103.56.209.132:8080/dlite/api/index.php?ver";
+    /**
+     * IMAGE
+     */
+    public static final String URL_PROFILE_IMG = " http://103.56.209.132:8080/dlite/api/n/0001.png";
     /**********************************************************************
      *    end
      ***********************************************************************/
@@ -62,10 +63,10 @@ public class AppConfig {
      */
     public static final String DOWNLOADED_APK_NAME = "Gpath.apk";
 
-    /**
-     * IMAGE
-     */
-    public static final String URL_PROFILE_IMG = "http://pciapp.cloudapp.net/datacraft/api/n/0001.jpg";
+
+
+
+
 
 
 }

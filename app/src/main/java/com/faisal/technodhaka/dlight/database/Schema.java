@@ -186,8 +186,7 @@ public class Schema {
                 + STAFF_CODE + " VARCHAR(6), "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(5), "
                 + ADM_DONOR_CODE_COL + " VARCHAR(2), "
-                + ADM_AWARD_CODE_COL + " VARCHAR(2), "/*
-                + LAYR_LIST_CODE_COL + " VARCHAR(20), "*/
+                + ADM_AWARD_CODE_COL + " VARCHAR(2), "
                 + LAY_R_LIST_CODE_COL + " VARCHAR(5), "
 
                 + BTN_NEW_COL + " VARCHAR(5), "
@@ -329,7 +328,6 @@ public class Schema {
                 + " , " + MONTH_LABEL_COL + " VARCHAR(50) "
                 + " , " + START_DATE_COL + " VARCHAR(20) "
                 + " , " + END_DATE_COL + " VARCHAR(20) "
-                // // TODO: 5/5/2017  remove the usa fomate
                 + " , " + USA_START_DATE_COL + " VARCHAR(20) "
                 + " , " + USA_END_DATE_COL + " VARCHAR(20) "
                 + " , " + STATUS + " VARCHAR(20) "
@@ -348,11 +346,11 @@ public class Schema {
                 + SQLiteHandler.ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(5), "
                 + GROUP_CODE_COL + " VARCHAR(3), "
-                + SQLiteHandler.SUB_GROUP_CODE_COL + " VARCHAR(3), "
-                + SQLiteHandler.LOCATION_CODE_COL + " VARCHAR(5), "
-                + SQLiteHandler.LOCATION_NAME_COL + " VARCHAR(100), "
-                + SQLiteHandler.LATITUDE_COL + " VARCHAR(20), "
-                + SQLiteHandler.LONGITUDE_COL + " VARCHAR(20) , "
+                + SUB_GROUP_CODE_COL + " VARCHAR(3), "
+                + LOCATION_CODE_COL + " VARCHAR(5), "
+                + LOCATION_NAME_COL + " VARCHAR(100), "
+                + LATITUDE_COL + " VARCHAR(20), "
+                + LONGITUDE_COL + " VARCHAR(20) , "
                 + ENTRY_BY + " VARCHAR(20) , "
                 + ENTRY_DATE + " VARCHAR(20) ) ";
     }
@@ -377,7 +375,7 @@ public class Schema {
     /**
      * added by Faisal Mohammad
      * create GPS_GROUP_TABLE table
-     * <p/>
+     * <p>
      * remarks-
      */
     public static String sqlCreateGpsGroupTable() {
@@ -501,13 +499,13 @@ public class Schema {
                 + ADM_AWARD_CODE_COL + " VARCHAR(5), "
                 + ADM_PROG_CODE_COL + " VARCHAR(5), "
                 + ADM_SRV_CODE_COL + " VARCHAR(5), "
-                + SQLiteHandler.VOUCHER_ITEM_CATEGORY_CODE_COL + " VARCHAR(5), "
-                + SQLiteHandler.ITEM_CODE_COL + " VARCHAR(5), "
-                + SQLiteHandler.MEAS_R_CODE_COL + " VARCHAR(5), "
-                + SQLiteHandler.VOUCHER_ITEM_SPEC_COL + " VARCHAR(15), "
-                + SQLiteHandler.UNITE_COST_COL + " VARCHAR(25), "
-                + SQLiteHandler.ACTIVE_STATUS_COL + " VARCHAR(5), "
-                + SQLiteHandler.CURRENCY_COL + " VARCHAR(5), "
+                + VOUCHER_ITEM_CATEGORY_CODE_COL + " VARCHAR(5), "
+                + ITEM_CODE_COL + " VARCHAR(5), "
+                + MEAS_R_CODE_COL + " VARCHAR(5), "
+                + VOUCHER_ITEM_SPEC_COL + " VARCHAR(15), "
+                + UNITE_COST_COL + " VARCHAR(25), "
+                + ACTIVE_STATUS_COL + " VARCHAR(5), "
+                + CURRENCY_COL + " VARCHAR(5), "
                 + SYNC_COL + " VARCHAR(5) DEFAULT '0' "
                 + " )";
 
@@ -642,19 +640,19 @@ public class Schema {
                 + " , " + LAY_R1_CODE_COL + " VARCHAR(4) DEFAULT '-' "
                 + " , " + GRP_LAY_R2_LIST_CODE_COL + " VARCHAR(4) DEFAULT '-' "
                 + " , " + GRP_LAY_R3_LIST_CODE_COL + " VARCHAR(4) DEFAULT '-' "
-                + " , " + SQLiteHandler.ORG_CODE_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.STAFF_CODE_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.LAND_SIZE_UNDER_IRRIGATION_COL + " VARCHAR(20) "
-                + " , " + SQLiteHandler.IRRIGATION_SYSTEM_USED_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.FUND_SUPPORT_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.ACTIVE_STATUS_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.REP_NAME_COL + " VARCHAR(100) "
-                + " , " + SQLiteHandler.REP_PHONE_NUMBER_COL + " VARCHAR(100) "
-                + " , " + SQLiteHandler.FORMATION_DATE_COL + " VARCHAR(100) "
-                + " , " + SQLiteHandler.TYPE_OF_GROUP + " VARCHAR(4) "
-                + " , " + SQLiteHandler.STATUS + " VARCHAR(100) "
-                + " , " + SQLiteHandler.PROJECT_NO_COL + " VARCHAR(100) "
-                + " , " + SQLiteHandler.PROJECT_TITLE + " VARCHAR(200) "
+                + " , " + ORG_CODE_COL + " VARCHAR(4) "
+                + " , " + STAFF_CODE_COL + " VARCHAR(4) "
+                + " , " + LAND_SIZE_UNDER_IRRIGATION_COL + " VARCHAR(20) "
+                + " , " + IRRIGATION_SYSTEM_USED_COL + " VARCHAR(4) "
+                + " , " + FUND_SUPPORT_COL + " VARCHAR(4) "
+                + " , " + ACTIVE_STATUS_COL + " VARCHAR(4) "
+                + " , " + REP_NAME_COL + " VARCHAR(100) "
+                + " , " + REP_PHONE_NUMBER_COL + " VARCHAR(100) "
+                + " , " + FORMATION_DATE_COL + " VARCHAR(100) "
+                + " , " + TYPE_OF_GROUP + " VARCHAR(4) "
+                + " , " + STATUS + " VARCHAR(100) "
+                + " , " + PROJECT_NO_COL + " VARCHAR(100) "
+                + " , " + PROJECT_TITLE + " VARCHAR(200) "
                 + " , " + ENTRY_BY + " VARCHAR(4) "
                 + " , " + ENTRY_DATE + " VARCHAR(50) "
 
@@ -805,34 +803,6 @@ public class Schema {
                 + " )";
     }
 
-    public static String sqlCreateRegNmemProgGrp_Table() {
-
-
-        return CREATE_TABLE_IF_NOT_EXISTS + REG_N_MEM_PROG_GRP_TABLE + " ("
-
-
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + LAY_R1_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R2_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R3_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R4_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + ADM_DONOR_CODE_COL + " VARCHAR(2) "
-                + " , " + ADM_AWARD_CODE_COL + " VARCHAR(2) "
-                + " , " + HHID_COL + " VARCHAR(6) "
-                + " , " + MEM_ID_COL + " VARCHAR(2) "
-                + " , " + PROG_CODE_COL + " VARCHAR(3) "
-                + " , " + SRV_CODE_COL + " VARCHAR(2) "
-                + " , " + GROUP_CODE_COL + " VARCHAR(5) "
-                + " , " + GROUP_NAME_COL + " VARCHAR(100) "
-                + " , " + ACTIVE_COL + " VARCHAR(5) "
-                + " , " + ENTRY_BY + " VARCHAR(4) "
-                + " , " + ENTRY_DATE + " VARCHAR(20) "
-                + " , " + REG_N_MEM_PROG_GRP_TABLE_GRP_LAY_R1_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + REG_N_MEM_PROG_GRP_TABLE_GRP_LAY_R2_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + REG_N_MEM_PROG_GRP_TABLE_GRP_LAY_R3_LIST_CODE_COL + " VARCHAR(2) "
-
-                + " )";
-    }
 
 
     public static String sqlCreateCommunityGroupCategoryes_Table() {
@@ -959,11 +929,10 @@ public class Schema {
                 "   " + DT_CATEGORY_COL + "   TEXT,   " +
                 "   " + DT_GEO_LIST_LEVEL_COL + "   TEXT,   " +
                 "   " + DT_OP_MODE_COL + "   TEXT,   " +
-                "   " + DT_SHORT_NAME_COL + "   TEXT" +
-                // ",   " + "   " +  ENTRY_BY + "    TEXT,   " +
-                //"  " +  ENTRY_DATE + "    TEXT" +
-                //  ",   " +
-                // "  " + PRIMARY_KEY + "(" +  DT_BASIC_COL + ")   " +
+                "   " + DT_SHORT_NAME_COL + "   TEXT" + " ,   " +
+                "   " + ENTRY_BY + "    TEXT,   " +
+                "   " + ENTRY_DATE + "    TEXT" +
+                " ,   " + "  " + PRIMARY_KEY + "(" + DT_BASIC_COL + ")   " +
                 ")";
     }
 
@@ -1053,8 +1022,8 @@ public class Schema {
                 " ,   " + "     " + DATA_TYPE_COL + "       TEXT" +
                 " ,   " + "     " + U_FILE_COL + "       BLOB   " +
                 " ,   " + "     " + COMPLETENESS_COL + "       VARCHAR(1)   " +
-                //  "  , " + PRIMARY_KEY + "(" +  DT_BASIC_COL + "," +  ADM_COUNTRY_CODE_COL + ", " +  ADM_DONOR_CODE_COL + " ," +  ADM_AWARD_CODE_COL + " ," +  ADM_PROG_CODE_COL
-                //+ "," +  DT_ENU_ID_COL + "," +  DTQ_CODE_COL + "," +  DTA_CODE_COL + " ," +  DT_R_SEQ_COL + ")   " +
+                "  , " + PRIMARY_KEY + "(" + DT_BASIC_COL + "," + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + " ," + ADM_AWARD_CODE_COL + " ," + ADM_PROG_CODE_COL
+                + "," + DT_ENU_ID_COL + "," + DTQ_CODE_COL + "," + DTA_CODE_COL + " ," + DT_R_SEQ_COL + ")   " +
                 ")";
     }
 
@@ -1203,48 +1172,7 @@ public class Schema {
     }
 
 
-  /*  public static String createTableRegN_FFA() {
-        return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.REG_N_FFA_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " VARCHAR(4) "
-                + " , " + LAY_R2_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R3_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R4_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + HHID_COL + " VARCHAR(5) "
-                + " , " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " VARCHAR(2) "
-                + " , " + ORPHAN_CHILDREN_COL + " VARCHAR(1) "
-                + " , " + CHILD_HEADED_COL + " VARCHAR(1) "
-                + " , " + ELDERLY_HEADED_COL + " VARCHAR(1) "
-                + " , " + CHRONICALLY_ILL_COL + " VARCHAR(1) "
-                + " , " + FEMALE_HEADED_COL + " VARCHAR(1) "
-                + " , " + CROP_FAILURE_COL + " VARCHAR(1) "
-                + "  , " + CHILDREN_REC_SUPP_FEED_N_COL + " VARCHAR(1) "
-                + "  , " + WILLINGNESS_COL + " VARCHAR(1) "
-                + " , " + ENTRY_BY + " VARCHAR(4) "
-                + " , " + ENTRY_DATE + " VARCHAR(20) "
-                + " ) ";
-    }*/
 
-   /* public static String createTableRegN_WE() {
-        return CREATE_TABLE_IF_NOT_EXISTS + REG_N_WE_TABLE
-                + " ( "
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + MEM_CARD_PRINT_LAY_R1_LIST_CODE_COL + " VARCHAR(4) "
-                + " , " + LAY_R2_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R3_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + LAY_R4_LIST_CODE_COL + " VARCHAR(2) "
-                + " , " + HHID_COL + " VARCHAR(5) "
-                + " , " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " VARCHAR(2) "
-                + " , " + REG_DATE_COL + " VARCHAR(20) "
-                + " , " + WEALTH_RANKING_COL + " VARCHAR(1) "
-                + " , " + MEMBER_EXT_GROUP_COL + " VARCHAR(1) "
-                + " , " + ENTRY_BY + " VARCHAR(4) "
-                + " , " + ENTRY_DATE + " VARCHAR(20) "
-                + " ) ";
-
-
-    }*/
 
     public static String createTableDTASkipTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + DTA_SKIP_TABLE
@@ -1305,48 +1233,10 @@ public class Schema {
     }
 
 
-    public static String sqlCreateAdmMachineRegistry_Table() {
-
-        return CREATE_TABLE_IF_NOT_EXISTS + ADM_MACHINE_REGISTRY_TABLE + " ("
 
 
-                + ADM_COUNTRY_CODE_COL + " VARCHAR(4) "
-                + " , " + DEVICE_TYPE_ID_COL + " VARCHAR(4) "
-                + " , " + M_CODE_COL + " VARCHAR(50) "
-                + " , " + M_LABLE_COL + " VARCHAR(50) "
-                + " , " + M_ID_COL + " VARCHAR(50) "
-                + " , " + DEVICE_ROLE_ID_COL + " VARCHAR(50) "
-                + " , " + OFF_MODE_COL + " VARCHAR(50) "
-                + " , " + ON_MODE_COL + " VARCHAR(50) "
-                + " , " + STATUS + " VARCHAR(50) "
-                + " , " + OPERATION_MODE_COL + " VARCHAR(50) "
-                + " , " + ENTRY_BY + " VARCHAR(4) "
-                + " , " + ENTRY_DATE + " VARCHAR(50) "
-
-                + " , " + PRIMARY_KEY + " (" + M_CODE_COL + " , " + DEVICE_ROLE_ID_COL + " ) "
-                + " )";
 
 
-    }
-
-
-    public static String sqlCreateAdmMachinePublisher_Table() {
-
-        return CREATE_TABLE_IF_NOT_EXISTS + ADM_MACHINE_PUBLISHER_TABLE + " ("
-
-
-                + PUBLISHER_ID_COL + " VARCHAR(50) "
-                + " , " + PUBLISHER_NAME_COL + " VARCHAR(50) "
-                + " , " + M_CODE_COL + " VARCHAR(50) "
-                + " , " + SUBSCRIBER_M_CODE_COL + " VARCHAR(50) "
-                + " , " + ENTRY_BY + " VARCHAR(50) "
-                + " , " + ENTRY_DATE + " VARCHAR(50) "
-
-                + " , " + PRIMARY_KEY + " (" + PUBLISHER_ID_COL + " ) "
-                + " )";
-
-
-    }
 
 
 }

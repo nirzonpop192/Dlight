@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
->
+    >
 
     <include
         android:id="@+id/header"
@@ -19,14 +19,14 @@
         <TextView
             android:id="@+id/tv_ass_page2Title"
             style="@style/page_title_style"
-            android:text="dynamic_table" />
+            android:text="@string/my_survey" />
 
     </RelativeLayout>
 
 
     <!-- search id field -->
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/rl_searchPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:hint="search_table"
             android:padding="5dp" />
 
-        <!-- search member id Button -->
+        &lt;!&ndash; search member id Button &ndash;&gt;
         <Button
             android:id="@+id/btn_DTSearch"
             android:layout_width="30dp"
@@ -58,13 +58,13 @@
             android:background="@drawable/search_20_20"
 
             android:padding="5dp" />
-    </RelativeLayout>
-        <!--Simple border-->
+    </RelativeLayout>-->
+    <!--Simple border-->
     <LinearLayout
         android:id="@+id/ll_border"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/rl_searchPanel"
+        android:layout_below="@+id/page_title"
         android:background="@color/colorBorder"
         android:orientation="horizontal"></LinearLayout>
 
@@ -73,8 +73,22 @@
         android:id="@+id/lvDynamicTableIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/footer"
+        android:layout_above="@+id/hScrollView"
         android:layout_below="@+id/ll_border" />
+
+    <HorizontalScrollView
+        android:id="@+id/hScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/footer"
+       >
+
+        <LinearLayout
+            android:id="@+id/btnLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"></LinearLayout>
+    </HorizontalScrollView>
 
     <include
         android:id="@id/footer"

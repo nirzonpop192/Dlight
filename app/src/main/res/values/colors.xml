@@ -57,4 +57,6 @@
     <color name="toast_stroke_color">#3d3d3d</color>
     <color name="toast_gradient_start_col">#616460</color>
     <color name="toast_gradient_end_col">#616460</color>
+
+    <color name="td_bg_color">#C4D8E2</color>
 </resources>

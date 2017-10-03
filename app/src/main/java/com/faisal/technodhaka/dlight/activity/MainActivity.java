@@ -39,9 +39,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.faisal.technodhaka.dlight.R;
+import com.faisal.technodhaka.dlight.activity.about.AboutUsActivity;
 import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.AppController;
 import com.faisal.technodhaka.dlight.data_model.DynamicDataIndexDataModel;
+import com.faisal.technodhaka.dlight.database.SQLiteQuery;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.fragments.ChartFragment;
 import com.faisal.technodhaka.dlight.fragments.HomeFragment;
@@ -209,7 +211,8 @@ public class MainActivity extends BaseActivity {
         }
         loadCountry();
 
-        List<DynamicDataIndexDataModel> dataList = db.getDynamicTableIndexList("0002", "", session.getStaffId());
+        List<DynamicDataIndexDataModel> dataList = db.getDynamicTableIndexList("0002", "",
+                session.getStaffId(), SQLiteQuery.NO_LIMIT);
         ArrayList<BarEntry> entries = new ArrayList<>();
 
 
