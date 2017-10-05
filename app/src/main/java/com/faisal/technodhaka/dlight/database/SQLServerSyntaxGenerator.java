@@ -5810,7 +5810,11 @@ public class SQLServerSyntaxGenerator {
     }
 
 
-    public String deleteFromDTResponseTable() {
+    public String deleteFromDTResponseTable(boolean incomplete) {
+
+        String incompleteCondition="";
+        if (incomplete)
+            incompleteCondition=" AND ( Completeness is null OR Completeness = '' OR Completeness='N' )";
         return
                 " DELETE FROM [dbo].[DTResponseTable] " +
                         "   WHERE DTBasic =  " + getDTBasic()
@@ -5822,7 +5826,7 @@ public class SQLServerSyntaxGenerator {
                         + " AND DTRSeq =  " + getDTRSeq()
                         + " AND OpMode =  " + getOpMode()
                         + " AND OpMonthCode = " + getOpMonthCode()
-                        + " AND ( Completeness is null OR Completeness = '' OR Completeness='N' )";
+                        +incompleteCondition ;
 
 
     }

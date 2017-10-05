@@ -932,6 +932,7 @@ public class Schema {
                 "   " + DT_SHORT_NAME_COL + "   TEXT" + " ,   " +
                 "   " + ENTRY_BY + "    TEXT,   " +
                 "   " + ENTRY_DATE + "    TEXT" +
+                " ,  " + FREEZE_POINT_COL + "    TEXT" +
                 " ,   " + "  " + PRIMARY_KEY + "(" + DT_BASIC_COL + ")   " +
                 ")";
     }

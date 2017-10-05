@@ -19,10 +19,10 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-<!--    <string name="nav_photos">Photos</string>
-    <string name="nav_movies">Movies</string>-->
-   <!-- <string name="nav_notifications">Notifications</string>-->
-  <!--  <string name="nav_settings">Settings</string>-->
+    <!--    <string name="nav_photos">Photos</string>
+        <string name="nav_movies">Movies</string>-->
+    <!-- <string name="nav_notifications">Notifications</string>-->
+    <!--  <string name="nav_settings">Settings</string>-->
     <string name="nav_about_us">About Us</string>
     <string name="nav_dynamic">Dynamic Data</string>
     <string name="nav_chart">Chart</string>
@@ -30,10 +30,10 @@
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
-    <!--    <item>Photos</item>
-        <item>Movies</item>
-        <item>Notifications</item>
-        <item>Settings</item>-->
+        <!--    <item>Photos</item>
+            <item>Movies</item>
+            <item>Notifications</item>
+            <item>Settings</item>-->
         <item>Chart</item>
     </string-array>
 
@@ -48,4 +48,22 @@
     <string name="fullname">fullName</string>
     <string name="country">country</string>
     <string name="my_survey">My Survey</string>
+
+    <string name="softDevDetails">Custom ERP, CRM, Financial, Business Process Automation Software Development.
+                        In TechnoDhaka we use the best, most advanced architecture for versatility and future growth;
+                        object-oriented best practices; simplicity and extensive knowledge in SQL Database Programming for robust softwares.</string>
+
+    <string name="webDevDetails">Web Portals, E-Commerce Applications, Data Management Systems.
+                        We use the most advanced tools and all cutting-edge web application technologies to
+                        create state-of-the-art applications that can be implemented on many server platforms and web technologies.</string>
+
+    <string name="mobDevDetails">High Quality &amp; Custom Android, IOS &amp; Windows Phone Applications.
+                        Expert in conceptualizing and proficiency in multifarious platforms, our highly tech-savvy developers thrive to your requisites and strive hard to serve the best results with glitch free apps and user-engaging products.</string>
+
+    <string name="digitalMKTDetails">Search Engine Optimization, Search Engine Marketing, Social Media Marketing, Facebook Marketing.
+                        We will help your organization drive more traffic and reach potential customers by tying cutting edge online marketing options. Boost your online presence with effective paid and social media campaigns while you are building organic traffic and improving high rankings in SERP.</string>
+
+    <string name="securityDetails">From stand-alone products to fully integrated IP solutions, we have the right offering to cover your security needs regardless of the scope of work. We offer most comprehensive line of products, services, and technologies designed to protect people, property, and information.</string>
+    <string name="strategyDetails">Integrating Sub Systems safely or Develop Quality Custom Modules for a System by Technical Experts.
+We help organizations to create bold and agile digital strategy and translate it into new operating models, capabilities, and IT architecture bridging different functions, such as analytics, IT, and business strategy.</string>
 </resources>

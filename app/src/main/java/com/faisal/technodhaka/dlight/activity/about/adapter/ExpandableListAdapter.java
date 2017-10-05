@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.faisal.technodhaka.dlight.R;
+import com.faisal.technodhaka.dlight.activity.about.datamodel.DataHeaderHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +20,12 @@ import java.util.List;
  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
-    private List<String> _listDataHeader; // header titles
+    private List<DataHeaderHelper> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<DataHeaderHelper, List<String>> _listDataChild;
 
-    public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<String>> listChildData) {
+    public ExpandableListAdapter(Context context, List<DataHeaderHelper> listDataHeader,
+                                 HashMap<DataHeaderHelper, List<String>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -70,6 +72,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return this._listDataHeader.get(groupPosition);
     }
 
+    public DataHeaderHelper getGroupHeader(int pos) {
+        DataHeaderHelper object = (DataHeaderHelper) getGroup(pos);
+
+        return object;
+    }
+
     @Override
     public int getGroupCount() {
         return this._listDataHeader.size();
@@ -83,7 +91,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        DataHeaderHelper headerObject = getGroupHeader(groupPosition);
+        String headerTitle = headerObject.getHeader();
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -92,9 +101,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
+
+        ImageView ivListHeaderIcon = (ImageView) convertView
+                .findViewById(R.id.ivListHeader);
+
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
-
+        ivListHeaderIcon.setImageResource(headerObject.getImageID());
         return convertView;
     }
 

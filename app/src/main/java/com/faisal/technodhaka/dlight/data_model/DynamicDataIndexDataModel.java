@@ -27,6 +27,7 @@ public  class DynamicDataIndexDataModel implements Parcelable {
     private String dtShortName;
     private String entryBy;
     private String entryDate;
+    private String freezePointFlag;
 
     public DynamicDataIndexDataModel() {
     }
@@ -63,6 +64,7 @@ public  class DynamicDataIndexDataModel implements Parcelable {
         dtShortName = in.readString();
         entryBy = in.readString();
         entryDate = in.readString();
+        freezePointFlag = in.readString();
 
     }
 
@@ -84,6 +86,7 @@ public  class DynamicDataIndexDataModel implements Parcelable {
         dest.writeString(dtShortName);
         dest.writeString(entryBy);
         dest.writeString(entryDate);
+        dest.writeString(freezePointFlag);
     }
 
     public String getProgramActivityCode() {
@@ -201,6 +204,14 @@ public  class DynamicDataIndexDataModel implements Parcelable {
 
     public void setPrgActivityTitle(String prgActivityTitle) {
         this.prgActivityTitle = prgActivityTitle;
+    }
+
+    public String getFreezePointFlag() {
+        return freezePointFlag;
+    }
+
+    public void setFreezePointFlag(String freezePointFlag) {
+        this.freezePointFlag = freezePointFlag;
     }
 
     public String getEntryBy() {

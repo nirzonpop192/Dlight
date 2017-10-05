@@ -72,69 +72,28 @@ public class Parser extends Parse {
     public static final String ELDERLY_YN = "ElderlyYN";
     public static final String LAND_SIZE = "LandSize";
     public static final String REASON_CODE = "ReasonCode";
-    public static final String REQUEST_DATE = "RequestDate";
-    public static final String PRINT_DATE = "PrintDate";
-    public static final String PRINT_BY = "PrintBy";
-    public static final String DELIVERY_DATE = "DeliveryDate";
-    public static final String DELIVERED_BY = "DeliveredBy";
-    public static final String DEL_STATUS = "DelStatus";
-    private static final String P_BSC_MEM_NAME_1_FIRST = "P_BSCMemName1_First";
-    private static final String P_BSC_MEM_NAME_1_MIDDLE = "P_BSCMemName1_Middle";
-    private static final String P_BSC_MEM_NAME_1_LAST = "P_BSCMemName1_Last";
-    private static final String P_BSC_MEM_1_TITLE_POSITION = "P_BSCMem1_TitlePosition";
-    private static final String PROXY_TYPE_ID = "Proxy_Type_ID";
-    private static final String PROXY_ID_NO = "Proxy_ID_NO";
-    private static final String P_BSC_MEM_NAME_2_FIRST = "P_BSCMemName2_First";
-    private static final String P_BSC_MEM_NAME_2_MIDDLE = "P_BSCMemName2_Middle";
-    private static final String P_BSC_MEM_NAME_2_LAST = "P_BSCMemName2_Last";
-    private static final String P_BSC_MEM_2_TITLE_POSITION = "P_BSCMem2_TitlePosition";
-    private static final String V_BSC_MEM_NAME_1_FIRST = "V_BSCMemName1_First";
-    private static final String V_BSC_MEM_NAME_1_MIDDLE = "V_BSCMemName1_Middle";
-    private static final String V_BSC_MEM_NAME_1_LAST = "V_BSCMemName1_Last";
-    private static final String V_BSC_MEM_1_TITLE_POSITION = "V_BSCMem1_TitlePosition";
-    private static final String V_BSC_MEM_NAME_2_FIRST = "V_BSCMemName2_First";
-    private static final String V_BSC_MEM_NAME_2_MIDDLE = "V_BSCMemName2_Middle";
-    private static final String V_BSC_MEM_NAME_2_LAST = "V_BSCMemName2_Last";
-    private static final String V_BSC_MEM_2_TITLE_POSITION = "V_BSCMem2_TitlePosition";
-    private static final String PROXY_DESIGNATION = "Proxy_Designation";
-    private static final String PROXY_NAME_FIRST = "Proxy_Name_First";
-    private static final String PROXY_NAME_MIDDLE = "Proxy_Name_Middle";
-    private static final String PROXY_NAME_LAST = "Proxy_Name_Last";
-    private static final String PROXY_BIRTH_YEAR = "Proxy_BirthYear";
-    private static final String PROXY_PHOTO = "Proxy_Photo";
-    private static final String CHILD_DOB = "ChildDOB";
-    private static final String ELDERLY = "Elderly";
-    private static final String BIRTH_YEAR = "BirthYear";
-    private static final String PHOTO = "Photo";
-    private static final String TYPE_ID = "Type_ID";
+
     public static final String ADM_COUNTRY_NAME = "AdmCountryName";
     public static final String START_DATE = "StartDate";
     public static final String END_DATE = "EndDate";
     public static final String GRP_CODE = "GrpCode";
-    public static final String MEM_TYPE_FLAG = "MemTypeFlag";
+
     public static final String GRP_NAME = "GrpName";
     public static final String DESCRIPTION = "Description";
     public static final String SUB_GRP_CODE = "SubGrpCode";
     public static final String SUB_GRP_NAME = "SubGrpName";
 
 
-    // json array key name
-    public static final String SERVICE_TABLE_JSON_A = "service_table";
-    public static final String REGN_LM_JSON_A = "regn_lm";
-    public static final String REGN_PW_JSON_A = "regn_pw";
-
-    public static final String REG_N_AGR_JSON_A = "reg_n_agr";
 
 
-    public static final String REG_MEM_CARD_REQUEST_JSON_A = "reg_mem_card_request";
+
     public static final String STAFF_FDP_ACCESS_JSON_A = "staff_fdp_access";
     public static final String FDP_MASTER_JSON_A = "fdp_master";
-    public static final String DISTRIBUTION_TABLE_JSON_A = "distribution_table";
+
     public static final String LUP_SRV_OPTION_LIST = "lup_srv_option_list";
     public static final String CARD_PRINT_REASON_JSON_A = "card_print_reason";
     public static final String REPORT_TEMPLATE_JSON_A = "report_template";
-    public static final String MEMBERS_JSON_A = "members";
-    public static final String REGISTRATION_JSON_A = "registration";
+
     public static final String VILLAGE_JSON_A = "village";
     public static final String UNIT_JSON_A = "unit";
     public static final String UPAZILLA_JSON_A = "upazilla";
@@ -153,7 +112,7 @@ public class Parser extends Parse {
     public static final String COUNTRIES_JSON_A = "countries";
 
     public static final String USR_ID = "UsrID";
-    public static final String REGN_CU_2_JSON_A = "regn_cu2";
+
     public static final String STAFF_ACCESS_INFO_JSON_A = "staff_access_info";
     public static final String RELATION_JSON_A = "relation";
     public static final String USER_JSON_A = "user";
@@ -369,7 +328,8 @@ public class Parser extends Parse {
 
         int size = jsonArrayData.length();
         String DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll, DTAutoScrollText,
-                DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName,EntryDate,EntryBy;
+                DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName,EntryDate,EntryBy
+                ,FreezePoint;
 
 
         for (int i = 0; i < size; i++) {
@@ -390,12 +350,13 @@ public class Parser extends Parse {
                 DTShortName = jsonObject.getString("DTShortName");
                 EntryBy = jsonObject.getString("EntryBy");
                 EntryDate = jsonObject.getString("EntryDate");
+                FreezePoint = jsonObject.getString("FreezePoint");
 
                 sqlH.addIntoDTBasic(DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll,
                         DTAutoScrollText, DTActive, DTCategory, DTGeoListLevel, DTOPMode,
-                        DTShortName,EntryBy,EntryDate);
+                        DTShortName,EntryBy,EntryDate,FreezePoint);
 
-//                Log.d(TAG, " DTBasic Table");
+
 
             } catch (Exception e) {
                 Log.e(TAG, "Exception : " + e);

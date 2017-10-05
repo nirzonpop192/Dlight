@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity {
     //mContext
     private final Context mContext = LoginActivity.this;
     //exit button
-    private Button btnExit;
+    private Button btnExit ,btnClean;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
     //    private Button btnClean;
@@ -162,9 +162,6 @@ public class LoginActivity extends BaseActivity {
         createDeviceIDFile();
 
 
-        String macAddress = UtilClass.getDeviceId(mContext);                                      // get mac address
-
-//        tvDeviceId.setText(macAddress);
 
 
     }
@@ -239,7 +236,7 @@ public class LoginActivity extends BaseActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnExit = (Button) findViewById(R.id.btnExit);
-//        btnClean = (Button) findViewById(R.id.btnClean);
+        btnClean = (Button) findViewById(R.id.btnClean);
 //        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);
 
     }
@@ -311,12 +308,12 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-        /*btnClean.setOnClickListener(new View.OnClickListener() {
+       /* btnClean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (db.selectUploadSyntextRowCount() > 0) {
-                    //Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+
                     showAlert("There are records not yet Synced. Clean attempt denied");
                 } else {
 
@@ -353,8 +350,8 @@ public class LoginActivity extends BaseActivity {
 
                 }
             }
-        });*/
-
+        });
+*/
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
