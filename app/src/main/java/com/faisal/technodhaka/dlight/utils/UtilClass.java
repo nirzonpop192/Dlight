@@ -120,78 +120,7 @@ public class UtilClass {
     }
 
 
-    /**
-     * <p>this method convert  selected village data into json array</p>
-     *
-     * @param className         ClassName is String Variable. That track down the invoking Class.
-     *                          <p>If Calling Class is LogIn Than selected Village will be inserted into db</p>
-     * @param selectVillageList Selected (max)2 village Code(layR4List Code)
-     * @param sqlH              Database Helper
-     * @return The json Data of selected village code(LayR4Code)
-     */
-    public static JSONArray layR4CodeJSONConverter(String className, ArrayList<VillageItem> selectVillageList, SQLiteHandler sqlH) {
 
-        JSONArray selectedVillageJson = new JSONArray();
-
-        for (int j = 0; j < selectVillageList.size(); j++) {
-
-            JSONObject mData = new JSONObject();
-
-
-            try {
-                mData.put("selectedLayR4Code", selectVillageList.get(j).getLayRCode());
-                if (className.equals("LoginActivity")) {
-                    /** insert the into the data base */
-                    /**
-                     * if there is no address code pute in db
-                     */
-                    if (selectVillageList.get(j).getLayRCode().length() > 12) {
-
-                        String countryCode = selectVillageList.get(j).getLayRCode().substring(0, 4);
-                        String layR1Code = selectVillageList.get(j).getLayRCode().substring(4, 6);
-                        String layR2Code = selectVillageList.get(j).getLayRCode().substring(6, 8);
-                        String layR3Code = selectVillageList.get(j).getLayRCode().substring(8, 10);
-                        String layR4Code = selectVillageList.get(j).getLayRCode().substring(10, 12);
-                        String addressCode = selectVillageList.get(j).getLayRCode().substring(12);
-                        String layRCode = selectVillageList.get(j).getLayRCode();
-                        String layR4Name = selectVillageList.get(j).getLayR4ListName();
-
-
-                        sqlH.addSelectedVillage(countryCode, layR1Code, layR2Code, layR3Code, layR4Code, layRCode, layR4Name, addressCode);
-
-
-                    } else {
-
-
-                        String countryCode = selectVillageList.get(j).getLayRCode().substring(0, 4);
-                        String layR1Code = selectVillageList.get(j).getLayRCode().substring(4, 6);
-                        String layR2Code = selectVillageList.get(j).getLayRCode().substring(6, 8);
-                        String layR3Code = selectVillageList.get(j).getLayRCode().substring(8, 10);
-                        String layR4Code = selectVillageList.get(j).getLayRCode().substring(10);
-                        String layRCode = selectVillageList.get(j).getLayRCode();
-                        String layR4Name = selectVillageList.get(j).getLayR4ListName();
-
-
-                        String addressCode = "";
-
-                        sqlH.addSelectedVillage(countryCode, layR1Code, layR2Code, layR3Code, layR4Code, layRCode, layR4Name, addressCode);
-
-
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            selectedVillageJson.put(mData);
-        }
-
-
-        Log.d("RefatJson", selectedVillageJson.toString());
-        return selectedVillageJson;
-
-    }
 
 
     public static JSONArray jsonConverter(String string) {

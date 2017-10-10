@@ -2,6 +2,7 @@
     <string name="app_name">Dlight</string>
     <string name="user_name_hint">user name</string>
     <string name="password_hints">password</string>
+    <string name="pin_no_hints">pin number</string>
     <string name="login">Login</string>
     <string name="clean">Clean</string>
     <string name="unsyn_msg">Unsyc</string>

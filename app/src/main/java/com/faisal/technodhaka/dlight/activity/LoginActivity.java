@@ -37,17 +37,13 @@ import com.faisal.technodhaka.dlight.controller.AppController;
 import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
 
 
-import com.faisal.technodhaka.dlight.data_model.VillageItem;
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 import com.faisal.technodhaka.dlight.network.ConnectionDetector;
-import com.faisal.technodhaka.dlight.parse.Parser;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
 import com.faisal.technodhaka.dlight.views.notifications.AlertDialogManager;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -59,12 +55,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.faisal.technodhaka.dlight.utils.UtilClass.DISTRIBUTION_OPERATION_MODE_NAME;
-import static com.faisal.technodhaka.dlight.utils.UtilClass.OTHER_OPERATION_MODE_NAME;
-import static com.faisal.technodhaka.dlight.utils.UtilClass.REGISTRATION_OPERATION_MODE_NAME;
-import static com.faisal.technodhaka.dlight.utils.UtilClass.SERVICE_OPERATION_MODE_NAME;
-import static com.faisal.technodhaka.dlight.utils.UtilClass.TRANING_N_ACTIVITY_OPERATION_MODE_NAME;
 
 //import java.util.logging.Handler;
 
@@ -83,10 +73,10 @@ public class LoginActivity extends BaseActivity {
      */
 
     List<AdmCountryDataModel> countryNameList = new ArrayList<AdmCountryDataModel>();
-    Dialog mdialog;
-    ArrayList<VillageItem> aL_itemsSelected = new ArrayList<VillageItem>();
+    Dialog mDialog;
+
     ArrayList<AdmCountryDataModel> aCountryL_itemsSelected = new ArrayList<AdmCountryDataModel>();
-    ArrayList<VillageItem> selectedVillageList = new ArrayList<VillageItem>();
+
     ArrayList<AdmCountryDataModel> selectedCountryList = new ArrayList<AdmCountryDataModel>();
 
 
@@ -96,10 +86,10 @@ public class LoginActivity extends BaseActivity {
     // Login Button
     private Button btnLogin;
     // User hhName Input box
-    private EditText inputUsername;
+//    private EditText inputUsername;
     //password input box
-    private EditText inputPassword;
-    //progress mdialog wigedt
+//    private EditText inputPassword;
+    //progress mDialog wigedt
     private ProgressDialog barPDialog; //Bar Progress Dialog
     //progress handler
     private Handler barPDialogHandler;
@@ -111,9 +101,9 @@ public class LoginActivity extends BaseActivity {
     Boolean isInternetAvailable = false;
     //alert Dialog Manager
     AlertDialogManager alert;
-    //Application configuration
-    private AppConfig ac;
-    //progress mdialog
+
+    private AppConfig ac;                                                                             //Application configuration
+    //progress mDialog
     private ProgressDialog pDialog;
     // size  = 0, int type
 //    private int size = 0;
@@ -123,11 +113,7 @@ public class LoginActivity extends BaseActivity {
     private Button btnExit ,btnClean;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
-    //    private Button btnClean;
-    String strCountryMode = "";
 
-
-    private TextView tvDeviceId;
 
 
     @Override
@@ -148,92 +134,23 @@ public class LoginActivity extends BaseActivity {
         editor = settings.edit(); //2
 
 
-        pDialog = new ProgressDialog(this);                                                         // Progress mdialog
+        pDialog = new ProgressDialog(this);                                                         // Progress mDialog
         pDialog.setCancelable(false);
-
 
         db = new SQLiteHandler(getApplicationContext());                                             // SQLite database handler
 
-
         cd = new ConnectionDetector(getApplicationContext());                                       // connectivity manager
-
 
         setListener();
         createDeviceIDFile();
-
-
-
-
     }
 
 
-    private void hideProgressBar() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-
-    /**
-     * @param msg text massage
-     */
-    private void startProgressBar(String msg) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage(msg);
-        pDialog.setCancelable(true);
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pDialog.show();
-    }
-
-
-    private boolean importDataBase() {
-        boolean flag = false;
-
-        try {
-            String path = Environment.getExternalStorageDirectory().getPath() + "/" + SQLiteHandler.DATABASE_NAME;
-
-
-            File newDb = new File(path);
-            if (newDb.exists()) {
-                /***
-                 *  here isValidLocalLogin() only use for to create PCI.db file in in
-                 *  package database folder . other wise the import db operation fails
-                 */
-                db.isValidLocalLogin("", "");
-
-                flag = db.importDatabase(path, LoginActivity.this);
-                File file = new File(path);                                                         // delete
-                file.delete();
-
-                db.reCreateSurveyTable();
-            } else flag = false;
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String startDate = "";
-        try {
-            startDate = getDateTime(true);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        /**
-         *
-         * if database is imported than save a flag for not to sync with online
-         */
-        if (flag) {
-            editor.putBoolean(UtilClass.SYNC_MODE_KEY, false);
-            editor.putString(UtilClass.IMPORT_DATE_TIME_KEY, startDate);
-        } else
-            editor.putBoolean(UtilClass.SYNC_MODE_KEY, true);
-        editor.commit();
-        return flag;
-    }
 
 
     private void viewReference() {
-        inputUsername = (EditText) findViewById(R.id.user_name);
-        inputPassword = (EditText) findViewById(R.id.password);
+/*        inputUsername = (EditText) findViewById(R.id.user_name);
+        inputPassword = (EditText) findViewById(R.id.password);*/
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnExit = (Button) findViewById(R.id.btnExit);
         btnClean = (Button) findViewById(R.id.btnClean);
@@ -308,57 +225,14 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-       /* btnClean.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (db.selectUploadSyntextRowCount() > 0) {
-
-                    showAlert("There are records not yet Synced. Clean attempt denied");
-                } else {
-
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("Delete Database?");
-                    builder.setMessage("Sure to delete database?");
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            try {
-                                dialog.dismiss();
-                                editor.putBoolean(UtilClass.SYNC_MODE_KEY, true);
-                                editor.commit();
-                                db.deleteUsersWithSelected_LayR4_FDP_Srv_Country();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog exitDailog = builder.create();
-                    exitDailog.show();
-
-
-                }
-            }
-        });
-*/
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
 
-                String user_name = "";
-                String password = "";
+               /* String user_name = "";
+                String password = "";*/
 
 
                 user_name = inputUsername.getText().toString().trim();
@@ -465,101 +339,8 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public List<AdmCountryDataModel> insertCountryNameListToSArray() {
-        int i;
-        countryNameStringArray = new String[countryNameList.size()];
-
-        for (i = 0; i < countryNameList.size(); ++i) {
-
-            AdmCountryDataModel countryItem = countryNameList.get(i);
-            countryNameStringArray[i] = countryItem.getAdmCountryName();
-
-        }
 
 
-        return countryNameList;
-
-    }
-
-
-    private void getCountryAlert(final String user_name, final String password, final int operationMode) {
-        aCountryL_itemsSelected = (ArrayList<AdmCountryDataModel>) insertCountryNameListToSArray();
-        if (countryNameStringArray.length > 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select  A Country ");
-            builder.setSingleChoiceItems(countryNameStringArray, -1, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    strCountryMode = "";
-                    strCountryMode = countryNameStringArray[which];
-                }
-            });
-
-            builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    /**
-                     * Clean the table
-                     */
-                    selectedVillageList.clear();
-                    selectedCountryList.clear();
-
-                    if (!strCountryMode.equals("")) {
-
-                        for (int i = 0; i < countryNameStringArray.length; i++) {
-                            /**
-                             * store the selected country in selectedCountryList
-                             */
-                            if (countryNameStringArray[i].equals(strCountryMode)) {
-                                selectedCountryList.add(aCountryL_itemsSelected.get(i));
-                            }
-                        }
-                        switch (operationMode) {
-
-
-                            case UtilClass.OTHER_OPERATION_MODE:
-                                /**
-                                 * only need the json array for put parameter
-                                 */
-
-                                JSONArray jaary = new JSONArray();
-                                /**
-                                 * only for multiple Country Access user
-                                 * value will be insert
-                                 */
-                                db.insertSelectedCountry(selectedCountryList.get(0).getAdmCountryCode(), selectedCountryList.get(0).getAdmCountryName());
-
-                                jaary = UtilClass.jsonConverter(selectedCountryList.get(0).getAdmCountryCode());
-                                Log.d(TAG, "jeson to string :" + jaary.toString());
-                                /** for Other  MOde*/
-                                checkLogin(user_name, password, jaary, "4"); // checking online
-
-                                editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
-                                editor.commit();
-
-
-                                break;
-                        }
-                    } else {
-                        mdialog.dismiss();
-                        hideDialog();
-                    }
-
-                }
-            });
-
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    aL_itemsSelected.clear();
-                    selectedCountryList.clear();
-                    dialog.dismiss();
-                }
-            });
-            mdialog = builder.create();
-            mdialog.show();
-        }
-    }
 
 
     private void refreshTheActivity() {
@@ -571,7 +352,7 @@ public class LoginActivity extends BaseActivity {
     /**
      * function to verify login details in mysql db
      */
-    public void checkLogin(final String user_name, final String password, final JSONArray selectedVilJArry, final String operationMode) {
+    public void checkLogin(final String pinNumber) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -593,7 +374,7 @@ public class LoginActivity extends BaseActivity {
                 if (!error) {
 
 
-                    downLoadDynamicData(user_name, password, selectedVilJArry, operationMode);
+                    downLoadDynamicData(pinNumber);
 
 
                 } else {
@@ -625,10 +406,8 @@ public class LoginActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("key", "PhEUT5R251");
                 params.put("task", "is_valid_user");
-                params.put("user_name", user_name);
-                params.put("password", password);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
+                params.put("pin_number", pinNumber);
+
                 Log.d("TAG1", "params:" + params.toString());
                 return params;
             }
@@ -641,10 +420,10 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public void downLoadDynamicData(final String user_Name, final String pass_word, final JSONArray selectedVilJArry, final String operationMode) {
+    public void downLoadDynamicData(final String pin_number) {
         // Tag used to cancel the request
         String tag_string_req = "req_ass_prog";
-        Log.d(TAG, "operationMode: " + operationMode);
+
 
         StringRequest strReq = new StringRequest(Method.POST,
                 AppConfig.API_LINK, new Response.Listener<String>() {
@@ -664,7 +443,7 @@ public class LoginActivity extends BaseActivity {
                 if (!error) {
 
 
-                    downLoadEnuTable(user_Name, pass_word);                                        // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
+                    downLoadEnuTable(pin_number);                                                   // IF GET NO ERROR  THAN GOTO THE MAIN ACTIVITY
 
                 } else {
                     // Error in login. Invalid UserName or Password
@@ -680,7 +459,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
+                // hide the mDialog
                 hideDialog();
                 showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
 
@@ -694,10 +473,8 @@ public class LoginActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("key", "PhEUT5R251");
                 params.put("task", "is_down_load_dynamic_table");
-                params.put("user_name", user_Name);
-                params.put("password", pass_word);
-                params.put("lay_r_code_j", selectedVilJArry.toString());
-                params.put("operation_mode", operationMode);
+                params.put("pin_number", pin_number);
+
 
                 return params;
             }
@@ -729,9 +506,6 @@ public class LoginActivity extends BaseActivity {
                 hideDialog();
 
 
-                /**
-                 *  DOING STRING OPERATION TO AVOID ALLOCATE CACHE MEMORY
-                 */
 
                 String errorResult = response.substring(9, 14);
 
@@ -768,7 +542,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
-                // hide the mdialog
+                // hide the mDialog
                 hideDialog();
                 showAlert("Error: " + error + " Stack Tracr = " + error.getStackTrace() + " Detail = " + error.getMessage());
 

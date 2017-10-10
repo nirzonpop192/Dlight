@@ -27,7 +27,7 @@
 
             <EditText
 
-                android:id="@+id/user_name"
+                android:id="@+id/user_name1"
                 style="@style/text_single_line"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
 
             <EditText
 
-                android:id="@+id/password"
+                android:id="@+id/password1"
                 style="@style/text_single_line"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

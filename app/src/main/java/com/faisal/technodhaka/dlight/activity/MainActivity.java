@@ -58,7 +58,6 @@ import com.faisal.technodhaka.dlight.parse.Parser;
 import com.faisal.technodhaka.dlight.utils.CircleTransform;
 import com.faisal.technodhaka.dlight.utils.KEY;
 import com.faisal.technodhaka.dlight.utils.UtilClass;
-import com.faisal.technodhaka.dlight.version.VersionStateChangeReceiver;
 import com.faisal.technodhaka.dlight.views.helper.SpinnerHelper;
 import com.faisal.technodhaka.dlight.views.notifications.AlertDialogManager;
 import com.faisal.technodhaka.dlight.views.spinner.SpinnerLoader;
@@ -151,6 +150,9 @@ public class MainActivity extends BaseActivity {
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
+    // for bar chart
+    BarChart mChart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -172,9 +174,6 @@ public class MainActivity extends BaseActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-
-
-
 
 
         SharedPreferences settings;
@@ -211,7 +210,11 @@ public class MainActivity extends BaseActivity {
         }
         loadCountry();
 
-        List<DynamicDataIndexDataModel> dataList = db.getDynamicTableIndexList("0002", "",
+        chartSetup();
+    }                                                                                               // end of onCreate
+
+    private void chartSetup() {
+        List<DynamicDataIndexDataModel> dataList = db.getDynamicTableIndexList(/*session.getCountryCode()*/"0002", "",
                 session.getStaffId(), SQLiteQuery.NO_LIMIT);
         ArrayList<BarEntry> entries = new ArrayList<>();
 
@@ -220,7 +223,7 @@ public class MainActivity extends BaseActivity {
         ArrayList<String> labels = new ArrayList<String>();
         for (DynamicDataIndexDataModel model : dataList) {
 
-            labels.add(model.getDtShortName());
+            labels.add(model.getDtShortName());                                                     // get short name of survey
 
             entries.add(new BarEntry(i, db.getSurveyTotalNumber(model.getDtBasicCode())));
             i++;
@@ -230,29 +233,17 @@ public class MainActivity extends BaseActivity {
         BarDataSet dataSet = new BarDataSet(entries, "# of Calls");
 
 
-        BarChart mChart = (BarChart) findViewById(R.id.chart);
         BarData data = new BarData(dataSet);
-// add labels
+        // add labels
         mChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(false);
         mChart.getDescription().setEnabled(false);
-
-
         mChart.setData(data);
-
-
-/**
- * apk automatic update process
- */
-//        callBroadCastReceiverToCheck();
-
-
-    }                                                                                               // end of onCreate
+    }
 
     private void intil() {
         viewReference();
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -281,12 +272,7 @@ public class MainActivity extends BaseActivity {
         main_activity = this;
         mContext = this;
         spCountry = (Spinner) findViewById(R.id.spDCountry);// add the spinner
-
-
-
         db = new SQLiteHandler(getApplicationContext());                                            // SqLite database handler
-
-
         cd = new ConnectionDetector(getApplicationContext());                                        // connection manager
 
     }
@@ -591,12 +577,6 @@ public class MainActivity extends BaseActivity {
     }*/
 
 
-    private void callBroadCastReceiverToCheck() {
-        Intent registerBroadcast = new Intent(this, VersionStateChangeReceiver.class);
-        sendBroadcast(registerBroadcast);
-    }
-
-
     private void buttonSetListener() {
 
 
@@ -617,25 +597,12 @@ public class MainActivity extends BaseActivity {
     private void viewReference() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         txtName = (TextView) findViewById(R.id.user_name);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        //
-/*        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
-        tvSyncRequired = (TextView) findViewById(R.id.tv_sync_required);*/
-
         btnSyncRec = (Button) findViewById(R.id.btnSyncRecord);
-
-/*        tvLastSync = (TextView) findViewById(R.id.tv_last_sync);
-
-//        btnDynamicData = (Button) findViewById(R.id.btnDynamicData);
-        tvOperationMode = (TextView) findViewById(R.id.tv_operation_mode);
-
-        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);*/
-
+        mChart = (BarChart) findViewById(R.id.chart);
 
     }
 
@@ -850,11 +817,21 @@ public class MainActivity extends BaseActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             hideDialog();
-            loadCountry();
+    /*        loadCountry();
 
             // set the user name
             txtName.setText(getUserName());
+
+            chartSetup();*/
+            restartActivity();
         }
+
+        private void restartActivity(){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+
 
         @Override
         protected Void doInBackground(Void... params) {

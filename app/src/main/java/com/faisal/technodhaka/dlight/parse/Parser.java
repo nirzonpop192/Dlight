@@ -1136,39 +1136,6 @@ public class Parser extends Parse {
         return arrayList;
     }
 
-    public static List<VillageItem> villageParser(JSONArray jsonArrayData) {
-
-        int size = jsonArrayData.length();
-
-        List<VillageItem> villageLists = new ArrayList<>();
-
-
-        String GeoLayRName, AdmCountryCode, LayRCode, LayR4ListName;
-        // ArrayList<AdmCountryDataModel> arrayList = new ArrayList<>();
-
-        for (int i = 0; i < size; i++) {
-            try {
-                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
-
-                GeoLayRName = jsonObject.getString("GeoLayRName");
-                AdmCountryCode = jsonObject.getString("AdmCountryCode");
-                LayRCode = jsonObject.getString("LayRCode");
-                LayR4ListName = jsonObject.getString("LayR4ListName");
-
-
-                VillageItem villageItem = new VillageItem(AdmCountryCode, GeoLayRName, LayR4ListName, LayRCode);
-
-                villageLists.add(villageItem);
-
-
-            } catch (Exception e) {
-                Log.e(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-
-        }
-        return villageLists;
-    }
 
     public static void gpsGroupParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 

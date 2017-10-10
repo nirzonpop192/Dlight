@@ -489,9 +489,6 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
 
         } else if (mQusIndex == totalQuestion) {
 
-            DTQTableDataModel nextQus = skipToQuestionCheck(mQusIndex);                             //  add skip rules
-
-            if (nextQus != null) {
 
                 // update the Completeness columns with Y
                 if ((totalQuestion - 1) == sqlH.getDTResponseCount(dyIndex.getDtBasicCode(),
@@ -499,23 +496,15 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
                         dyIndex.getProgramCode(), getStaffID(), mDTRSeq, dyIndex.getOpMonthCode()))
                     sqlH.updateCompleteStatusDTResponseTable(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), String.valueOf(mDTRSeq), dyIndex.getOpMonthCode());
 
-                if (nextQus.getqText() != null && !nextQus.getqText().equals("Thank You!") && !nextQus.getqText().equals("Thank you!"))
-                    displayQuestion(nextQus);
-                else {
-                    getNextQuestion();
-                }
-            }
 
 
-            // don't delete below code version 12's bug generated because of this piece of sheet
-            // one set complete
-            //      compilationFunctionNMessage();
-
-        } else if (mQusIndex > totalQuestion) {             // if all  questions set is complete
 
             // one set complete
             compilationFunctionNMessage();
             continueDialog();
+
+
+
         }
     }
 
@@ -638,7 +627,10 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
                         /**
                          * @see DTResponseRecordingActivity#deleteFromResponseTable(String, String, String, String, String, String, String, String, int, SQLiteHandler)
                          */
-                        deleteFromResponseTable(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), dyIndex.getOpMode(), dyIndex.getOpMonthCode(), getStaffID(), mDTRSeq, sqlH);
+                        deleteFromResponseTable(dyIndex.getDtBasicCode(), dyIndex.getcCode(),
+                                dyIndex.getDonorCode(), dyIndex.getAwardCode(),
+                                dyIndex.getProgramCode(), dyIndex.getOpMode(),
+                                dyIndex.getOpMonthCode(), getStaffID(), mDTRSeq, sqlH);
 
                         initialWithFirstQues();
 
@@ -668,13 +660,13 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         alertDialog.show();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+   /* @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void addIconHomeButton() {
         btnHome.setText("");
         Drawable imageHome = getResources().getDrawable(R.drawable.home_b);
         btnHome.setCompoundDrawablesRelativeWithIntrinsicBounds(imageHome, null, null, null);
         setPaddingButton(mContext, imageHome, btnHome);
-    }
+    }*/
 
 
     /**
@@ -705,7 +697,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        addIconHomeButton();
+//        addIconHomeButton();
         addNextOrPreviousButton(btnNextQues);
         addNextOrPreviousButton(btnPreviousQus);
     }
