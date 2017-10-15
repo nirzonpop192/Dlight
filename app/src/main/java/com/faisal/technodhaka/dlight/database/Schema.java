@@ -312,7 +312,7 @@ public class Schema {
                 + " , " + DEFAULT_CASH_DAYS_COL + " VARCHAR(4)"
                 + " , " + DEFAULT_VOUCHAR_DAYS_COL + " VARCHAR(4)"
                 + " , " + SERVICE_SPECIFIC_FLAG_COL + " VARCHAR(4)"
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + ADM_PROG_CODE_COL + ", " + ADM_SRV_CODE_COL + " )"
+               // + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + ADM_PROG_CODE_COL + ", " + ADM_SRV_CODE_COL + " )"
                 + " )";
     }
 
@@ -933,6 +933,7 @@ public class Schema {
                 "   " + ENTRY_BY + "    TEXT,   " +
                 "   " + ENTRY_DATE + "    TEXT" +
                 " ,  " + FREEZE_POINT_COL + "    TEXT" +
+                " ,  " + PIN_NUMBER_COL + "    TEXT" +
                 " ,   " + "  " + PRIMARY_KEY + "(" + DT_BASIC_COL + ")   " +
                 ")";
     }

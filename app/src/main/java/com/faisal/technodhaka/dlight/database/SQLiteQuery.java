@@ -787,22 +787,22 @@ public class SQLiteQuery {
         if (number != NO_LIMIT)
             condition = " LIMIT 5 OFFSET " + number;
 
-        return "SELECT dtB." + DT_TITLE_COL + "  " +
+        return "SELECT dtB." + DT_TITLE_COL + "  AS dtTitle" +
                 " , dtCPgr." + DT_BASIC_COL + " AS dtBasicCode  " +
                 " , donor." + DONOR_NAME_COL + " || '-' || award." + AWARD_SHORT_NAME_COL + " AS awardName  " +
                 " , dtCPgr." + ADM_DONOR_CODE_COL + " || '' || dtCPgr." + ADM_AWARD_CODE_COL + " AS awardCode  " +
-                " , prg." + PROGRAM_SHORT_NAME_COL + "  " +
-                " , dtCPgr." + ADM_PROG_CODE_COL + "  " +
-                " , dtCPgr." + PROG_ACTIVITY_TITLE_COL +
-                " , dtCPgr." + ADM_COUNTRY_CODE_COL +
-                " , dtB." + DT_OP_MODE_COL +
+                " , prg." + PROGRAM_SHORT_NAME_COL + "  AS prgShortName" +
+                " , dtCPgr." + ADM_PROG_CODE_COL + " AS progCode " +
+                " , dtCPgr." + PROG_ACTIVITY_TITLE_COL +" AS prgActive "+
+                " , dtCPgr." + ADM_COUNTRY_CODE_COL + " AS cCode "+
+                " , dtB." + DT_OP_MODE_COL +" AS dtOpMode "+
 
-                " , dtCPgr." + ADM_DONOR_CODE_COL +
-                " , dtCPgr." + PROG_ACTIVITY_CODE_COL +
-                " , dtB." + DT_SHORT_NAME_COL +
-                " , dtB." + ENTRY_BY +
-                " , dtB." + ENTRY_DATE+
-                " , dtB." + FREEZE_POINT_COL
+                " , dtCPgr." + ADM_DONOR_CODE_COL +" AS donoCode "+
+                " , dtCPgr." + PROG_ACTIVITY_CODE_COL + " AS prgActiveCode "+
+                " , dtB." + DT_SHORT_NAME_COL +" AS dtShortName "+
+                " , dtB." + ENTRY_BY +" AS entry "+
+                " , dtB." + ENTRY_DATE+ " AS entryDate "+
+                " , dtB." + FREEZE_POINT_COL+" AS freezPoint "
                 + "  FROM " +
                 DT_COUNTRY_PROGRAM_TABLE + " AS dtCPgr  " +
                 " LEFT JOIN " + DT_BASIC_TABLE + "  AS dtB  " +
@@ -824,7 +824,7 @@ public class SQLiteQuery {
                 " dtEnu." + DT_BASIC_COL + " = dtCPgr." + DT_BASIC_COL +
                 " WHERE dtCPgr." + ADM_COUNTRY_CODE_COL + " = '" + cCode + "' "
                 + " AND dtEnu." + DT_STF_CODE_COL + " = '" + staffId + "' "
-                + " AND dtB." + DT_TITLE_COL + " LIKE '%" + dtTitleSearch + "%' "
+              //  + " AND dtB." + DT_TITLE_COL + " LIKE '%" + dtTitleSearch + "%' "
                 + condition;
 
     }

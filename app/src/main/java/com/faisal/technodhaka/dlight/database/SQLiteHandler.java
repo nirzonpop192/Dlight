@@ -406,6 +406,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public static final String ENTRY_BY = "EntryBy";
     public static final String ENTRY_DATE = "EntryDate";
     public static final String FREEZE_POINT_COL = "FreezePoint";
+    public static final String PIN_NUMBER_COL = "PinNumber";
     public static final String RELATION_CODE = "HHRelationCode";
     public static final String RELATION_NAME = "RelationName";
 
@@ -2505,24 +2506,24 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 DynamicDataIndexDataModel data = new DynamicDataIndexDataModel();
-                data.setDtTittle(cursor.getString(0));
-                data.setDtBasicCode(cursor.getString(1));
-                data.setAwardName(cursor.getString(2));
-                data.setAwardCode(cursor.getString(3));
-                data.setProgramName(cursor.getString(4));
-                data.setProgramCode(cursor.getString(5));
+                data.setDtTittle(cursor.getString(cursor.getColumnIndex("dtTitle")));
+                data.setDtBasicCode(cursor.getString(cursor.getColumnIndex("dtBasicCode")));
+                data.setAwardName(cursor.getString(cursor.getColumnIndex("awardName")));
+                data.setAwardCode(cursor.getString(cursor.getColumnIndex("awardCode")));
+                data.setProgramName(cursor.getString(cursor.getColumnIndex("prgShortName")));
+                data.setProgramCode(cursor.getString(cursor.getColumnIndex("progCode")));
 
-                data.setPrgActivityTitle(cursor.getString(6));
-                data.setcCode(cursor.getString(7));
-                data.setOpMode(cursor.getString(8));
-                data.setDonorCode(cursor.getString(9));
-                data.setProgramActivityCode(cursor.getString(10));
-                data.setDtShortName(cursor.getString(11));
-                data.setEntryBy(cursor.getString(12));
-                data.setFreezePointFlag(cursor.getString(14));
+                data.setPrgActivityTitle(cursor.getString(cursor.getColumnIndex("prgActive")));
+                data.setcCode(cursor.getString(cursor.getColumnIndex("cCode")));
+                data.setOpMode(cursor.getString(cursor.getColumnIndex("dtOpMode")));
+                data.setDonorCode(cursor.getString(cursor.getColumnIndex("donoCode")));
+                data.setProgramActivityCode(cursor.getString(cursor.getColumnIndex("prgActiveCode")));
+                data.setDtShortName(cursor.getString(cursor.getColumnIndex("dtShortName")));
+                data.setEntryBy(cursor.getString(cursor.getColumnIndex("entry")));
+                data.setFreezePointFlag(cursor.getString(cursor.getColumnIndex("freezPoint")));
                 String tem = "";
                 try {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S", Locale.ENGLISH).parse(cursor.getString(13));
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S", Locale.ENGLISH).parse(cursor.getString(cursor.getColumnIndex("entryDate")));
                     tem = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(date);
                 } catch (ParseException e) {
 
@@ -3650,7 +3651,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                                String dtDescription, String dtAutoScroll, String dtAutoScrollText,
                                String dtActive, String dtCategory, String dtGeoListLevel,
                                String dtOpMode, String dtShortName, String entryBy, String entryDate,
-                               String freezPoint) {
+                               String freezPoint,String pinNumber) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -3668,6 +3669,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(ENTRY_BY, entryBy);
         values.put(ENTRY_DATE, entryDate);
         values.put(FREEZE_POINT_COL, freezPoint);
+        values.put(PIN_NUMBER_COL, pinNumber);
 
         db.insert(DT_BASIC_TABLE, null, values);
         db.close();

@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -87,6 +88,8 @@ public class LoginActivity extends BaseActivity {
     private Button btnLogin;
     // User hhName Input box
 //    private EditText inputUsername;
+
+    private EditText edtPinNumaber;
     //password input box
 //    private EditText inputPassword;
     //progress mDialog wigedt
@@ -110,10 +113,9 @@ public class LoginActivity extends BaseActivity {
     //mContext
     private final Context mContext = LoginActivity.this;
     //exit button
-    private Button btnExit ,btnClean;
+    private Button btnExit, btnClean;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
-
 
 
     @Override
@@ -146,15 +148,13 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-
-
     private void viewReference() {
-/*        inputUsername = (EditText) findViewById(R.id.user_name);
-        inputPassword = (EditText) findViewById(R.id.password);*/
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnExit = (Button) findViewById(R.id.btnExit);
         btnClean = (Button) findViewById(R.id.btnClean);
-//        tvDeviceId = (TextView) findViewById(R.id.tv_deviceId);
+        edtPinNumaber = (EditText) findViewById(R.id.edtPinNumber);
+
 
     }
 
@@ -231,16 +231,15 @@ public class LoginActivity extends BaseActivity {
 
             public void onClick(View view) {
 
-               /* String user_name = "";
-                String password = "";*/
 
+                String pinNumber;
 
-                user_name = inputUsername.getText().toString().trim();
-                password = inputPassword.getText().toString().trim();
+                pinNumber = edtPinNumaber.getText().toString().trim();
+
                 // Check for empty data in the form
-                if (user_name.trim().length() > 0 && password.trim().length() > 0) {
+                if (pinNumber.trim().length() > 0) {
 
-                    if (db.isValidLocalLogin(user_name, password)) {
+                    if (false/*db.isValidLocalLogin(pinNumber, password)*/) {
 
                         gotoHomePage();
 
@@ -261,7 +260,7 @@ public class LoginActivity extends BaseActivity {
                                      * if the the user is country admin or admin
                                      * than the app will be unlocked . but will remain for previous user
                                      */
-                                    if (db.isValidAdminLocalLogin(user_name, password)) {
+                                    if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
                                         gotoHomePage();
                                     } else {
                                         showAlert(getResources().getString(R.string.unsyn_msg));
@@ -275,7 +274,7 @@ public class LoginActivity extends BaseActivity {
                                     pDialog.show();
 
                                     JSONArray jaary = new JSONArray();
-                                    checkLogin(user_name, password, jaary, "4"); // checking online
+                                    checkLogin(pinNumber); // checking online
 
                                     editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
                                     editor.commit();
@@ -286,7 +285,7 @@ public class LoginActivity extends BaseActivity {
                                 showAlert("Check your internet connectivity!!");
                         } else {
 
-                            if (db.isValidAdminLocalLogin(user_name, password)) {
+                            if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
                                 gotoHomePage();
                             } else {
                                 HashMap<String, String> user = db.getUserDetails();
@@ -308,8 +307,6 @@ public class LoginActivity extends BaseActivity {
 
         });
     }
-
-
 
 
     private void gotoHomePage() {
@@ -337,10 +334,6 @@ public class LoginActivity extends BaseActivity {
     public void onBackPressed() {
 //        super.onBackPressed();
     }
-
-
-
-
 
 
     private void refreshTheActivity() {
@@ -486,12 +479,12 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public void downLoadEnuTable(final String user_Name, final String pass_word) {
+    public void downLoadEnuTable(final String pin_number) {
         // Tag used to cancel the request
         String tag_string_req = "enu";
 
         StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.API_LINK_ENU, new Response.Listener<String>() {
+                AppConfig.API_LINK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -506,7 +499,6 @@ public class LoginActivity extends BaseActivity {
                 hideDialog();
 
 
-
                 String errorResult = response.substring(9, 14);
 
 
@@ -519,8 +511,8 @@ public class LoginActivity extends BaseActivity {
 
                     setLogin(true);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    setUserID(user_Name);
-                    setUserPassword(pass_word);
+                    setUserID("admin");
+                    setUserPassword("admin");
                     editor.putBoolean(IS_APP_FIRST_RUN, true);
                     editor.commit();
                     finish();
@@ -548,7 +540,23 @@ public class LoginActivity extends BaseActivity {
 
 
             }
-        });
+        }){
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("key", "PhEUT5R251");
+                params.put("task", "is_down_load_enu_table");
+                params.put("pin_number", pin_number);
+
+
+                return params;
+            }
+
+
+        };
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);

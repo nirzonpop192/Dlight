@@ -329,7 +329,7 @@ public class Parser extends Parse {
         int size = jsonArrayData.length();
         String DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll, DTAutoScrollText,
                 DTActive, DTCategory, DTGeoListLevel, DTOPMode, DTShortName,EntryDate,EntryBy
-                ,FreezePoint;
+                ,FreezePoint,PinNumber;
 
 
         for (int i = 0; i < size; i++) {
@@ -351,10 +351,11 @@ public class Parser extends Parse {
                 EntryBy = jsonObject.getString("EntryBy");
                 EntryDate = jsonObject.getString("EntryDate");
                 FreezePoint = jsonObject.getString("FreezePoint");
+                PinNumber = jsonObject.getString("PinNumber");
 
                 sqlH.addIntoDTBasic(DTBasic, DTTitle, DTSubTitle, DTDescription, DTAutoScroll,
                         DTAutoScrollText, DTActive, DTCategory, DTGeoListLevel, DTOPMode,
-                        DTShortName,EntryBy,EntryDate,FreezePoint);
+                        DTShortName,EntryBy,EntryDate,FreezePoint,PinNumber);
 
 
 

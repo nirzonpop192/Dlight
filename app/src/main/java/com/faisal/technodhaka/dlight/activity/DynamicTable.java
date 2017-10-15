@@ -141,7 +141,7 @@ public class DynamicTable extends BaseActivity {
 
         int start = number * NUM_ITEMS_PAGE;
         List<DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName,
-                session.getStaffId(), start);
+                "0001", start);
 
 
         if (dataList.size() != 0) {
