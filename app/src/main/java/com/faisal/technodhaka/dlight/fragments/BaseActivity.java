@@ -362,7 +362,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     //dynamically file will create Read from it
-    protected String readDataFromFile(String mfile_name) {
+    protected  String readDataFromFile(String mfile_name) {
         String retrieveString = "";
 
         try {

@@ -264,24 +264,4 @@ public class SpinnerLoader {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }                                                                                                   // end of the class

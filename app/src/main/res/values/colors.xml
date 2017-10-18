@@ -10,6 +10,7 @@
 
     <!-- POP ADDED-->
     <color name="blue_text">#e8222cd7</color>
+    <color name="blue_td_dark_bg">#075A87</color>
     <!-- POP ADDED-->
 
     <color name="bg_register">#2e3237</color>

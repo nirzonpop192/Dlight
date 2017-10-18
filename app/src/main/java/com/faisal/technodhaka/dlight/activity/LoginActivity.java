@@ -35,7 +35,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.AppController;
-import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
+
 
 
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
@@ -73,12 +73,10 @@ public class LoginActivity extends BaseActivity {
      * function to verify login details & select 2 village
      */
 
-    List<AdmCountryDataModel> countryNameList = new ArrayList<AdmCountryDataModel>();
+
     Dialog mDialog;
 
-    ArrayList<AdmCountryDataModel> aCountryL_itemsSelected = new ArrayList<AdmCountryDataModel>();
 
-    ArrayList<AdmCountryDataModel> selectedCountryList = new ArrayList<AdmCountryDataModel>();
 
 
     String[] countryNameStringArray;

@@ -68,7 +68,7 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
 
             holder.tv_dtQus = (TextView) row.findViewById(R.id.dt_qus_row_tv_dtQus);
             holder.tv_dtQusNo = (TextView) row.findViewById(R.id.dt_qus_row_tv_dtNo);
-//            holder.ibtn_go = (ImageButton) row.findViewById(R.id.dt_q_row_ibtn_go);
+
 
 
             row.setTag(holder);
@@ -80,13 +80,7 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
         holder.tv_dtQusNo.setText(data.getqSeq());
 
 
-/*        holder.ibtn_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-            }
-        });*/
 
 /**
  *  Change the color of background & text color Dynamically in list view
@@ -111,6 +105,6 @@ public class DynamicTableQusDataModelAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView tv_dtQus;
         TextView tv_dtQusNo;
-//        ImageButton ibtn_go;
+
     }
 }

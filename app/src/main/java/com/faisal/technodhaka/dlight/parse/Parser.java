@@ -1,17 +1,16 @@
 package com.faisal.technodhaka.dlight.parse;
 
-import android.util.Base64;
+
 import android.util.Log;
 
-import com.faisal.technodhaka.dlight.data_model.AdmCountryDataModel;
-import com.faisal.technodhaka.dlight.data_model.VillageItem;
+
+
 import com.faisal.technodhaka.dlight.database.SQLiteHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by Faisal on 7/16/2016.
@@ -1058,24 +1057,7 @@ public class Parser extends Parse {
     }
 
 
-    /**
-     * Parse and insert into the db
-     *
-     * @param jsonArrayData country json array
-     * @param sqlH          database
-     */
-    public static void AdmCountryParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {
 
-        ArrayList<AdmCountryDataModel> arrayList = AdmCountryParser(jsonArrayData);
-
-
-        for (int i = 0; i < arrayList.size(); i++) {
-            sqlH.addCountry(arrayList.get(i).getAdmCountryCode(), arrayList.get(i).getAdmCountryName());
-
-
-        }
-
-    }
 
     public static String NumberOfCounteryAssignedUserParser(JSONArray jsonArrayData) {
 
@@ -1098,44 +1080,7 @@ public class Parser extends Parse {
         return CountryNo;
     }
 
-    /**
-     * This method only used in LoginActivity
-     *
-     * @param jsonArrayData json data
-     * @return AdmCountryDataModel array list
-     */
 
-    public static ArrayList<AdmCountryDataModel> AdmCountryParser(JSONArray jsonArrayData) {
-
-        int size = jsonArrayData.length();
-
-
-        String AdmCountryCode;
-        String AdmCountryName;
-        ArrayList<AdmCountryDataModel> arrayList = new ArrayList<>();
-
-        for (int i = 0; i < size; i++) {
-            try {
-                JSONObject jsonObject = jsonArrayData.getJSONObject(i);
-
-                AdmCountryCode = jsonObject.getString(ADM_COUNTRY_CODE);
-                AdmCountryName = jsonObject.getString(ADM_COUNTRY_NAME);
-
-                AdmCountryDataModel dataModel = new AdmCountryDataModel();
-                dataModel.setAdmCountryCode(AdmCountryCode);
-                dataModel.setAdmCountryName(AdmCountryName);
-
-                arrayList.add(dataModel);
-
-
-            } catch (Exception e) {
-                Log.e(TAG, "Exception : " + e);
-                e.printStackTrace();
-            }
-
-        }
-        return arrayList;
-    }
 
 
     public static void gpsGroupParser(JSONArray jsonArrayData, SQLiteHandler sqlH) {

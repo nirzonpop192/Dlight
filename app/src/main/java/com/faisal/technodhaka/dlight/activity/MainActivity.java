@@ -867,7 +867,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private class Inject_All_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
+    public class Inject_All_DataIntoSQLite extends AsyncTask<Void, Integer, Void> {
 
 
         @Override

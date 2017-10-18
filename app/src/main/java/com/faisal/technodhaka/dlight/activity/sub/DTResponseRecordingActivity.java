@@ -1097,7 +1097,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
                 break;
 
             case RADIO_BUTTON:
-                //// TODO: 7/3/2017  salar ki korsilam  seta ekhane likhte hobe  
+
 
                 if (mRadioGroup.getCheckedRadioButtonId() == -1
                         && mDTQTable.getAllowNullFlag() != null                                     // safety block
