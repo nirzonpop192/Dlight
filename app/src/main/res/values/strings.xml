@@ -8,7 +8,8 @@
     <string name="unsyn_msg">Unsyc</string>
 
     <string-array name="cameraOption_2">
-        <item>Capture</item>
+        <item>Take Photo</item>
+        <item>Choose from Library</item>
         <item>Cancel</item>
     </string-array>
     <string name="notification_description">New version Apk Download</string>
@@ -45,6 +46,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
     <string name="fullname">fullName</string>
     <string name="country">country</string>

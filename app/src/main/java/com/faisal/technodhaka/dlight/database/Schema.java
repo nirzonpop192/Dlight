@@ -538,14 +538,14 @@ public class Schema {
 
                 + ENTRY_BY + " VARCHAR(5), "
                 + ENTRY_DATE + " VARCHAR(20) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL
+               /* + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL
                 + " , " + ADM_AWARD_CODE_COL + " "
                 + " , " + LAY_R1_LIST_CODE_COL + " , " + LAY_R2_LIST_CODE_COL + " "
                 + " , " + LAY_R3_LIST_CODE_COL + " , " + LAY_R4_LIST_CODE_COL + " "
                 + " , " + HHID_COL + " , " + REG_N_ASSIGN_PROG_SRV_HH_MEM_ID + " "
                 + " , " + PROG_CODE_COL + " , " + SRV_CODE_COL + " "
                 + " , " + DIST_FLAG_COL + " , " + OPERATION_CODE_COL + " "
-                + ", " + OP_MONTH_CODE_COL + " , " + VOUCHER_ITEM_SPEC_COL + " )"
+                + ", " + OP_MONTH_CODE_COL + " , " + VOUCHER_ITEM_SPEC_COL + " )"*/
                 + " )";
 
 
@@ -759,9 +759,9 @@ public class Schema {
                 + " , " + ADM_DONOR_CODE_COL + " VARCHAR(4) "
                 + " , " + ADM_AWARD_CODE_COL + " VARCHAR(4) "
                 + " , " + ADM_PROG_CODE_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.CROP_CODE_COL + " VARCHAR(4) "
-                + " , " + SQLiteHandler.CROP_NAME_COL + " VARCHAR(100) "
-                + " , " + SQLiteHandler.CROP_CAT_COL + " VARCHAR(10) "
+                + " , " + CROP_CODE_COL + " VARCHAR(4) "
+                + " , " + CROP_NAME_COL + " VARCHAR(100) "
+                + " , " + CROP_CAT_COL + " VARCHAR(10) "
 
                 + " )";
 
@@ -876,7 +876,7 @@ public class Schema {
                 + " , " + OTH_Y_N_COL + " VARCHAR (1) "
                 + " , " + IMP_Y_N_COL + " VARCHAR (1) "
 
-                + "  ,  " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + "," + ADM_DONOR_CODE_COL + "," + ADM_AWARD_CODE_COL + "," + ORG_N_CODE_COL + ")   "
+               // + "  ,  " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + "," + ADM_DONOR_CODE_COL + "," + ADM_AWARD_CODE_COL + "," + ORG_N_CODE_COL + ")   "
 
                 + " ) ";
     }
@@ -934,7 +934,7 @@ public class Schema {
                 "   " + ENTRY_DATE + "    TEXT" +
                 " ,  " + FREEZE_POINT_COL + "    TEXT" +
                 " ,  " + PIN_NUMBER_COL + "    TEXT" +
-                " ,   " + "  " + PRIMARY_KEY + "(" + DT_BASIC_COL + ")   " +
+               // " ,   " + "  " + PRIMARY_KEY + "(" + DT_BASIC_COL + ")   " +
                 ")";
     }
 
@@ -975,8 +975,8 @@ public class Schema {
                 "      " + GEO_LEVEL_NAME_COL + "      TEXT,   " +
                 "      " + LIST_UDF_NAME_COL + "      TEXT,   " +
                 "     " + ENTRY_BY + "      TEXT,   " +
-                "     " + ENTRY_DATE + "      TEXT,   " +
-                "   " + PRIMARY_KEY + "( " + GEO_LEVEL_COL + ")   " +
+                "     " + ENTRY_DATE + "      TEXT" +
+              //  " ,   "               //  "   " + PRIMARY_KEY + "( " + GEO_LEVEL_COL + ")   " +
                 ")";
     }
 
@@ -1024,8 +1024,8 @@ public class Schema {
                 " ,   " + "     " + DATA_TYPE_COL + "       TEXT" +
                 " ,   " + "     " + U_FILE_COL + "       BLOB   " +
                 " ,   " + "     " + COMPLETENESS_COL + "       VARCHAR(1)   " +
-                "  , " + PRIMARY_KEY + "(" + DT_BASIC_COL + "," + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + " ," + ADM_AWARD_CODE_COL + " ," + ADM_PROG_CODE_COL
-                + "," + DT_ENU_ID_COL + "," + DTQ_CODE_COL + "," + DTA_CODE_COL + " ," + DT_R_SEQ_COL + ")   " +
+               // "  , " + PRIMARY_KEY + "(" + DT_BASIC_COL + "," + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + " ," + ADM_AWARD_CODE_COL + " ," + ADM_PROG_CODE_COL
+                //+ "," + DT_ENU_ID_COL + "," + DTQ_CODE_COL + "," + DTA_CODE_COL + " ," + DT_R_SEQ_COL + ")   " +
                 ")";
     }
 
@@ -1055,8 +1055,8 @@ public class Schema {
                 "     , " + COMPLETENESS_COL + "       TEXT   " +
                 "     , " + ID_COL + "       INTEGER   " +
 
-                "  , " + PRIMARY_KEY + "(" + DT_BASIC_COL + "," + COUNTRY_CODE_COL + ", " + DONOR_CODE_COL + " ," + AWARD_CODE_COL + " ," + PROGRAM_CODE_COL
-                + "," + DT_ENU_ID_COL + "," + DTQ_CODE_COL + "," + DTA_CODE_COL + " ," + DT_R_SEQ_COL + ")   " +
+              //  "  , " + PRIMARY_KEY + "(" + DT_BASIC_COL + "," + COUNTRY_CODE_COL + ", " + DONOR_CODE_COL + " ," + AWARD_CODE_COL + " ," + PROGRAM_CODE_COL
+              //  + "," + DT_ENU_ID_COL + "," + DTQ_CODE_COL + "," + DTA_CODE_COL + " ," + DT_R_SEQ_COL + ")   " +
                 ")";
     }
 
@@ -1084,7 +1084,7 @@ public class Schema {
                 "      " + ADMIN_ONLY_COL + "      TEXT,   " +
                 "      " + ENTRY_BY + "      TEXT,   " +
                 "      " + ENTRY_DATE + "      TEXT" +
-                " ,   " + "   " + PRIMARY_KEY + "(" + TABLE_NAME_COL + "," + FIELD_NAME_COL + ")   " +
+              //  " ,   " + "   " + PRIMARY_KEY + "(" + TABLE_NAME_COL + "," + FIELD_NAME_COL + ")   " +
                 ")";
     }
 
@@ -1103,7 +1103,7 @@ public class Schema {
                 "      " + USE_GIS_COL + "      TEXT" +
                 "      " + TD_SP_NAME_COL + "      TEXT" +
                 "      " + T_CONTENTS_COL + "      TEXT" +
-                ",   " + "   " + PRIMARY_KEY + "(" + TABLE_NAME_COL + ")   " +
+                //",   " + "   " + PRIMARY_KEY + "(" + TABLE_NAME_COL + ")   " +
                 ")";
     }
 
@@ -1113,7 +1113,7 @@ public class Schema {
                 "      " + TABLE_NAME_COL + "      TEXT NOT NULL,   " +
                 "      " + LIST_CODE_COL + "      TEXT NOT NULL,   " +
                 "      " + LIST_NAME_COL + "      TEXT" +
-                " , " + "   " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + "," + TABLE_NAME_COL + "," + LIST_CODE_COL + ")   " +
+               // " , " + "   " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + "," + TABLE_NAME_COL + "," + LIST_CODE_COL + ")   " +
                 ")";
     }
 
@@ -1133,7 +1133,7 @@ public class Schema {
                 + " , " + PROGRAM_SHORT_NAME_COL + " VARCHAR(5) "
                 + " , " + IS_SELECTED_FLAG_COL + " VARCHAR(1) DEFAULT '0' "
 
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + ADM_PROG_CODE_COL + " )"
+             //   + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + ADM_PROG_CODE_COL + " )"
                 + " )";
     }
 
@@ -1152,7 +1152,7 @@ public class Schema {
                 + " , " + USA_END_DATE_COL + " VARCHAR(20) "
                 + " , " + STATUS + " VARCHAR(20) "
                 + " , " + IS_SELECTED_FLAG_COL + " VARCHAR(1) DEFAULT '0' "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + OPERATION_CODE_COL + ", " + OP_MONTH_CODE_COL + " ) "
+              //  + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + OPERATION_CODE_COL + ", " + OP_MONTH_CODE_COL + " ) "
                 + " ) ";
     }
 
@@ -1184,7 +1184,7 @@ public class Schema {
                 + " , " + SKIP_CODE_COL + " VARCHAR(10) "
                 + " , " + DTA_CODE_COMB_N_COL + " TEXT "
                 + " , " + DTSKIP_DTQ_CODE_COL + " VARCHAR(10) "
-                + " , " + PRIMARY_KEY + " (" + DT_BASIC_COL + ", " + DTQ_CODE_COL + ", " + SKIP_CODE_COL + " ) "
+               // + " , " + PRIMARY_KEY + " (" + DT_BASIC_COL + ", " + DTQ_CODE_COL + ", " + SKIP_CODE_COL + " ) "
                 + " ) ";
 
     }
@@ -1197,7 +1197,7 @@ public class Schema {
                 + " , " + TA_GROUP_COL + " VARCHAR(3) "
                 + " , " + PART_CAT_CODE_COL + " VARCHAR(3) "
                 + " , " + PART_CAT_TITLE_COL + " VARCHAR(3) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + " , " + TA_GROUP_COL + " , " + PART_CAT_CODE_COL + " ) "
+              //  + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + " , " + TA_GROUP_COL + " , " + PART_CAT_CODE_COL + " ) "
                 + " ) ";
     }
 

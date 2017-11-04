@@ -66,8 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private SQLiteHandler sqlH;
     // save the value is the app data download
     public static final String APP_PREFERENCES = "APP_Prefs";
-    // key of saved data
-    public static final String IS_APP_FIRST_RUN = "IsAppFirstRun";
+
 
 
 
@@ -119,7 +118,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void setUserName(String name) {
+    protected  void setPinNumber(String pinNumber){
+        session.setPinNumber(pinNumber);
+    }
+
+    protected  String getPinNumber(){
+        return session.getPinNumber();
+    }
+    protected void setIsAppFisrtRun(boolean isAppFirstRun){
+        session.setIsAppFirstRun(isAppFirstRun);
+    }
+    protected boolean isAppFirstRun(){
+        return session.isAppFirstRun();
+    }
+  protected void setUserName(String name) {
         session.setUserName(name);
     }
 

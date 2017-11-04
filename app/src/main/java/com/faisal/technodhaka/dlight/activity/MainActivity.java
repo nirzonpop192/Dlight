@@ -101,20 +101,18 @@ public class MainActivity extends BaseActivity {
 
     private TextView txtName;
 
-    private Button btnLogout;
+    // private Button btnLogout;
 
     private Button btnSyncRec;
     //private SQLiteHandler sqlH;
     private Spinner spCountry;
     private String idCountry;
     private String strCountry;
-    private static final String Y = "YES";
-    private static final String N = "NO";
 
 
     private ProgressDialog progressDialog;
 
-    //    private TextView tvLastSync, tvSyncRequired, tvOperationMode, tvDeviceId;
+
     private Context mContext;
 
     private int progressIncremental;
@@ -161,10 +159,10 @@ public class MainActivity extends BaseActivity {
         intil();
 
         if (db.selectUploadSyntextRowCount() > 0) {
-//            tvSyncRequired.setText(Y);
+
             btnSyncRec.setBackgroundColor(getResources().getColor(R.color.green));
         } else {
-//            tvSyncRequired.setText(N);
+
             btnSyncRec.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
 
@@ -176,10 +174,10 @@ public class MainActivity extends BaseActivity {
         }
 
 
-        SharedPreferences settings;
+        // SharedPreferences settings;
 
-        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        boolean isFirstRun = settings.getBoolean(IS_APP_FIRST_RUN, false);
+//        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+//        boolean isFirstRun = settings.getBoolean(IS_APP_FIRST_RUN, false);
 
 
         txtName.setText(getUserName());
@@ -187,26 +185,27 @@ public class MainActivity extends BaseActivity {
 
 
         // Logout button click event
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+     /*   btnLogout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 logoutUser();
             }
-        });
+        });*/
 
 
         buttonSetListener();
         /** when the MainActivity run for first time  The JSon Data inject to the
          * SQLite database from text file
          */
-        if (isFirstRun) {
+        if (isAppFirstRun()) {
             SharedPreferences.Editor editor;
-            settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-            editor = settings.edit();
+//            settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+//            editor = settings.edit();
             new Inject_All_DataIntoSQLite().execute();
-            editor.putBoolean(IS_APP_FIRST_RUN, false);
-            editor.apply();
+            setIsAppFisrtRun(false);
+//            editor.putBoolean(IS_APP_FIRST_RUN, false);
+//            editor.apply();
         }
         loadCountry();
 
@@ -460,6 +459,9 @@ public class MainActivity extends BaseActivity {
                         iChartActivity.putExtra(KEY.COUNTRY_ID, idCountry);
                         startActivity(iChartActivity);
                         return true;
+                    case R.id.nav_logout:
+                        logoutUser();
+                        return true;
                     default:
                         navItemIndex = 0;
                 }
@@ -598,7 +600,7 @@ public class MainActivity extends BaseActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtName = (TextView) findViewById(R.id.user_name);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
+//        btnLogout = (Button) findViewById(R.id.btnLogout);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         btnSyncRec = (Button) findViewById(R.id.btnSyncRecord);
@@ -826,7 +828,7 @@ public class MainActivity extends BaseActivity {
             restartActivity();
         }
 
-        private void restartActivity(){
+        private void restartActivity() {
             Intent intent = getIntent();
             finish();
             startActivity(intent);

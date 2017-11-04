@@ -11,7 +11,6 @@ package com.faisal.technodhaka.dlight.activity;
  */
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,10 +23,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,7 +33,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.faisal.technodhaka.dlight.R;
 import com.faisal.technodhaka.dlight.controller.AppConfig;
 import com.faisal.technodhaka.dlight.controller.AppController;
-
 
 
 import com.faisal.technodhaka.dlight.fragments.BaseActivity;
@@ -49,13 +46,10 @@ import org.json.JSONArray;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 //import java.util.logging.Handler;
 
@@ -69,32 +63,17 @@ public class LoginActivity extends BaseActivity {
     public static final String ENU_TABLE = "enu_table";
 
 
-    /**
-     * function to verify login details & select 2 village
-     */
-
-
-    Dialog mDialog;
-
-
-
-
-    String[] countryNameStringArray;
-
+    int imageA[] = {R.drawable.cap_01, R.drawable.cap_02, R.drawable.cap_03, R.drawable.cap_04,
+            R.drawable.cap_05, R.drawable.cap_06, R.drawable.cap_07, R.drawable.cap_08, R.drawable.cap_09, R.drawable.cap_10};// new int[10];
+    int imgNumber[] = {856, 780, 985, 451, 811, 312, 337, 318, 145, 327};
 
     // Login Button
     private Button btnLogin;
-    // User hhName Input box
-//    private EditText inputUsername;
 
-    private EditText edtPinNumaber;
-    //password input box
-//    private EditText inputPassword;
-    //progress mDialog wigedt
-    private ProgressDialog barPDialog; //Bar Progress Dialog
-    //progress handler
-    private Handler barPDialogHandler;
-    //sqlLite Database handler
+
+    private EditText edtPinNumaber, edtImgNumber;
+
+
     private SQLiteHandler db;
     // connection Detector
     ConnectionDetector cd;
@@ -111,10 +90,15 @@ public class LoginActivity extends BaseActivity {
     //mContext
     private final Context mContext = LoginActivity.this;
     //exit button
-    private Button btnExit, btnClean;
+    private Button/* btnExit,*/ btnClean;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
+    private Handler barPDialogHandler;
+    private ImageView iViewCapture;
 
+    // create random object
+    private Random randomObject = new Random();
+    int randomNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +107,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout._1_activity_login);
         barPDialogHandler = new Handler();
 
-
+//        imageA[0] = R.drawable.cap_01;
         viewReference();
         /**
          * Initialize Button and Input Boxes
@@ -143,15 +127,24 @@ public class LoginActivity extends BaseActivity {
 
         setListener();
         createDeviceIDFile();
+        iAmNotRobotProcess();
+
+    }
+
+    private void iAmNotRobotProcess() {
+        randomNumber = randomObject.nextInt(9);
+        iViewCapture.setImageResource(imageA[randomNumber]);
     }
 
 
     private void viewReference() {
 
+        iViewCapture = (ImageView) findViewById(R.id.iv_imageCapture);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnExit = (Button) findViewById(R.id.btnExit);
+//        btnExit = (Button) findViewById(R.id.btnExit);
         btnClean = (Button) findViewById(R.id.btnClean);
         edtPinNumaber = (EditText) findViewById(R.id.edtPinNumber);
+        edtImgNumber = (EditText) findViewById(R.id.edtImg);
 
 
     }
@@ -190,24 +183,34 @@ public class LoginActivity extends BaseActivity {
 
     private void setListener() {
 
-        btnExit.setOnClickListener(new View.OnClickListener() {
+
+        btnClean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+           /*     if (db.selectUploadSyntextRowCount() > 0) {
+                    //Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                    showAlert("There are records not yet Synced. Clean attempt denied");
+                } else {*/
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Exit Application?");
-                builder.setMessage("Click yes to exit!");
+                builder.setTitle("Delete Database?");
+                builder.setMessage("Sure to delete database?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(0);
-                        finish();
+                        try {
+                            dialog.dismiss();
+                            editor.putBoolean(UtilClass.SYNC_MODE_KEY, true);
+                            editor.commit();
+                            db.deleteUsersWithSelected_LayR4_FDP_Srv_Country();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 });
@@ -222,6 +225,7 @@ public class LoginActivity extends BaseActivity {
 
 
             }
+//            }
         });
 
         // Login button Click Event
@@ -242,45 +246,54 @@ public class LoginActivity extends BaseActivity {
                         gotoHomePage();
 
                     } else {
+                        /**
+                         * online & off line process
+                         */
                         boolean syncMode = settings.getBoolean(UtilClass.SYNC_MODE_KEY, true);
                         if (syncMode) {
-                            /**
-                             * This block determine is Internet available
-                             */
-                            isInternetAvailable = cd.isConnectingToInternet();
-                            if (isInternetAvailable) {
-                                /***
-                                 * This if  block determine is there any un-synchronized  data exits in local device
+
+                            if (imgNumber[randomNumber] == Integer.parseInt(edtImgNumber.getText().toString())) {
+                                /**
+                                 * This block determine is Internet available
                                  */
-                                if (db.selectUploadSyntextRowCount() > 0) {
-                                    /**
-                                     * This block check the user is country admin or not
-                                     * if the the user is country admin or admin
-                                     * than the app will be unlocked . but will remain for previous user
+                                isInternetAvailable = cd.isConnectingToInternet();
+                                if (isInternetAvailable) {
+                                    /***
+                                     * This if  block determine is there any un-synchronized  data exits in local device
                                      */
-                                    if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
-                                        gotoHomePage();
+                                    if (db.selectUploadSyntextRowCount() > 0) {
+                                        /**
+                                         * This block check the user is country admin or not
+                                         * if the the user is country admin or admin
+                                         * than the app will be unlocked . but will remain for previous user
+                                         */
+                                        if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
+                                            gotoHomePage();
+                                        } else {
+                                            showAlert(getResources().getString(R.string.unsyn_msg));
+                                        }
+
                                     } else {
-                                        showAlert(getResources().getString(R.string.unsyn_msg));
+
+                                        pDialog = new ProgressDialog(mContext);
+                                        pDialog.setCancelable(false);
+                                        pDialog.setMessage("Downloading  data .");
+                                        pDialog.show();
+
+                                        JSONArray jaary = new JSONArray();
+                                        checkLogin(pinNumber); // checking online
+
+                                        editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
+                                        editor.commit();
                                     }
 
-                                } else {
 
-                                    pDialog = new ProgressDialog(mContext);
-                                    pDialog.setCancelable(false);
-                                    pDialog.setMessage("Downloading  data .");
-                                    pDialog.show();
+                                } else
+                                    showAlert("Check your internet connectivity!!");
+                            } else {
+                                showAlert("Ding Ding !");
+                            }
 
-                                    JSONArray jaary = new JSONArray();
-                                    checkLogin(pinNumber); // checking online
-
-                                    editor.putInt(UtilClass.OPERATION_MODE, UtilClass.OTHER_OPERATION_MODE);
-                                    editor.commit();
-                                }
-
-
-                            } else
-                                showAlert("Check your internet connectivity!!");
                         } else {
 
                             if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
@@ -330,13 +343,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-    }
 
-
-    private void refreshTheActivity() {
-        finish();
-        startActivity(getIntent());
     }
 
 
@@ -509,10 +516,9 @@ public class LoginActivity extends BaseActivity {
 
                     setLogin(true);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    setUserID("admin");
-                    setUserPassword("admin");
-                    editor.putBoolean(IS_APP_FIRST_RUN, true);
-                    editor.commit();
+                    setPinNumber(pin_number);
+                    setIsAppFisrtRun(true);
+
                     finish();
                     startActivity(intent);
                     // login success
@@ -538,11 +544,11 @@ public class LoginActivity extends BaseActivity {
 
 
             }
-        }){
+        }) {
 
 
-                @Override
-                protected Map<String, String> getParams() {
+            @Override
+            protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("key", "PhEUT5R251");

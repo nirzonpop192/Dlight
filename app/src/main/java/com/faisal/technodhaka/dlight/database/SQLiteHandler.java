@@ -1238,13 +1238,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         deleteUsers(db);
 
 
-        db.delete(SELECTED_VILLAGE_TABLE, null, null);
+ /*       db.delete(SELECTED_VILLAGE_TABLE, null, null);
 
         db.delete(SELECTED_FDP_TABLE, null, null);
 
         db.delete(SELECTED_SERVICE_CENTER_TABLE, null, null);
 
-        db.delete(SELECTED_COUNTRY_TABLE, null, null);
+        db.delete(SELECTED_COUNTRY_TABLE, null, null);*/
 
         db.close();
 
@@ -1284,7 +1284,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             db.delete(GEO_LAY_R4_LIST_TABLE, null, null);
 
             db.delete(LUP_REG_NHH_RELATION_TABLE, null, null);
-            db.delete(SERVICE_TABLE, null, null);
+
             db.delete(ADM_COUNTRY_AWARD_TABLE, null, null);
             db.delete(ADM_DONOR_TABLE, null, null);
             db.delete(ADM_PROGRAM_MASTER_TABLE, null, null);
@@ -2522,12 +2522,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 data.setEntryBy(cursor.getString(cursor.getColumnIndex("entry")));
                 data.setFreezePointFlag(cursor.getString(cursor.getColumnIndex("freezPoint")));
                 String tem = "";
-                try {
+                tem= cursor.getString(cursor.getColumnIndex("entryDate"));
+ /*               try {
+
+
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S", Locale.ENGLISH).parse(cursor.getString(cursor.getColumnIndex("entryDate")));
                     tem = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(date);
                 } catch (ParseException e) {
 
-                }
+                }*/
                 data.setEntryDate(tem);
 
 

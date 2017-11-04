@@ -9,14 +9,29 @@
     </style>
 
 
-
-
-
     <style name="button_action_normal">
         <item name="android:layout_marginTop">@dimen/spacing_normal</item>
         <item name="android:background">@color/gray_light</item>
         <item name="android:textColor">@color/green</item>
         <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="button_action_login">
+        <item name="android:layout_marginTop">@dimen/spacing_normal</item>
+        <item name="android:layout_height">@dimen/login_button_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginEnd">@dimen/login_button_margin_right</item>
+        <item name="android:layout_marginRight">@dimen/login_button_margin_right</item>
+        <item name="android:layout_marginLeft">@dimen/login_button_margin_left</item>
+        <item name="android:layout_marginStart">@dimen/login_button_margin_left</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:layout_weight">.5</item>
+        <item name="android:background">@drawable/rounded_border_solid_blue</item>
+
+        <item name="android:padding">5dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+
     </style>
 
     <style name="button_action_special">
@@ -116,7 +131,6 @@
     </style>
 
 
-
     <style name="radio_btn" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -193,9 +207,6 @@
         <item name="android:layout_weight">.8</item>
 
     </style>
-
-
-
 
 
     <style name="lb_reg_age_l_edt" parent="@android:style/Widget.EditText">
@@ -419,7 +430,6 @@
 
     </style>
     <!-- Radio button color -->
-
 
 
     <style name="Home_icon_button">
