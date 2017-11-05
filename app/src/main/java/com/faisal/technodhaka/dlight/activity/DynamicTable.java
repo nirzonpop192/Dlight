@@ -121,11 +121,11 @@ public class DynamicTable extends BaseActivity {
 //        title.setText("Page "+(index+1)+" of "+noOfBtns);
         for (int i = 0; i < noOfBtns; i++) {
             if (i == index) {
-                btns[index].setBackgroundDrawable(getResources().getDrawable(R.color.green));
+                btns[index].setBackgroundDrawable(getResources().getDrawable(R.color.blue_mini_dark));
                 btns[i].setTextColor(getResources().getColor(android.R.color.white));
             } else {
-                btns[i].setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                btns[i].setTextColor(getResources().getColor(android.R.color.black));
+                btns[i].setBackgroundColor(getResources().getColor(R.color.blue_mini_light));
+                btns[i].setTextColor(getResources().getColor(android.R.color.white));
             }
         }
 
@@ -141,7 +141,7 @@ public class DynamicTable extends BaseActivity {
 
         int start = number * NUM_ITEMS_PAGE;
         List<DynamicDataIndexDataModel> dataList = sqlH.getDynamicTableIndexList(cCode, dtName,
-                "0001", start);
+                session.getStaffId(), start);
 
 
         if (dataList.size() != 0) {

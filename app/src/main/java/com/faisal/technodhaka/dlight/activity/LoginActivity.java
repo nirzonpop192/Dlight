@@ -241,7 +241,7 @@ public class LoginActivity extends BaseActivity {
                 // Check for empty data in the form
                 if (pinNumber.trim().length() > 0) {
 
-                    if (false/*db.isValidLocalLogin(pinNumber, password)*/) {
+                    if (db.isValidLocalLogin(pinNumber)) {
 
                         gotoHomePage();
 
@@ -262,12 +262,8 @@ public class LoginActivity extends BaseActivity {
                                      * This if  block determine is there any un-synchronized  data exits in local device
                                      */
                                     if (db.selectUploadSyntextRowCount() > 0) {
-                                        /**
-                                         * This block check the user is country admin or not
-                                         * if the the user is country admin or admin
-                                         * than the app will be unlocked . but will remain for previous user
-                                         */
-                                        if (false/*db.isValidAdminLocalLogin(user_name, password)*/) {
+
+                                        if (db.isValidLocalLogin(pinNumber)) {
                                             gotoHomePage();
                                         } else {
                                             showAlert(getResources().getString(R.string.unsyn_msg));

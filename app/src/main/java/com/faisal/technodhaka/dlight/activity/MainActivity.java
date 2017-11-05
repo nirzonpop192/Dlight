@@ -158,13 +158,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         intil();
 
-        if (db.selectUploadSyntextRowCount() > 0) {
+      /*  if (db.selectUploadSyntextRowCount() > 0) {
 
             btnSyncRec.setBackgroundColor(getResources().getColor(R.color.green));
         } else {
 
             btnSyncRec.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        }
+        }*/
 
 
         if (savedInstanceState == null) {
@@ -637,14 +637,14 @@ public class MainActivity extends BaseActivity {
                 String SyncDate = date.format(now);
                 db.insertIntoLastSyncTraceStatus(getUserID(), getUserName(), SyncDate);
 
-//                tvSyncRequired.setText(N);
-                if (db.getLastSyncStatus().equals("")) {
-//                    tvLastSync.setText("N/A");
+
+          /*      if (db.getLastSyncStatus().equals("")) {
+
                     btnSyncRec.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 } else {
-//                    tvLastSync.setText(db.getLastSyncStatus());
+
                     btnSyncRec.setBackgroundColor(getResources().getColor(R.color.green));
-                }
+                }*/
 
             } else {
 

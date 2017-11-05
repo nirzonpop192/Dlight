@@ -11,6 +11,8 @@
         layout="@layout/header" />
 
     <RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:id="@+id/page_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -19,7 +21,7 @@
 
         <TextView
             android:id="@+id/tv_pageTitle"
-            style="@style/page_title_style"
+            style="@style/page_title_blue_style"
 
             android:text="string/dt_response_title" />
 
@@ -29,6 +31,7 @@
     <!--vIEW CONTROLLER LAYOUT -->
 
     <LinearLayout
+
         android:id="@+id/ll_details"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -40,6 +43,8 @@
 
         <!-- Award list spinner-->
         <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -142,7 +147,7 @@
     <LinearLayout
         android:id="@+id/ll_border"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="5dp"
         android:layout_below="@+id/ll_details"
         android:background="@color/colorBorder"
         android:orientation="horizontal"></LinearLayout>

@@ -1262,6 +1262,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         try {
             // Delete All Rows
+            db.delete(UPLOAD_SYNTAX_TABLE, null, null);
             db.delete(DT_A_TABLE, null, null);
             db.delete(DT_BASIC_TABLE, null, null);
             db.delete(DT_CATEGORY_TABLE, null, null);
@@ -3303,6 +3304,36 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db1 = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + LOGIN_TABLE
                 + " WHERE " + USER_LOGIN_NAME + " = " + "'" + user + "' AND " + USER_LOGIN_PW + " = " + "'" + pass + "'";
+        try {
+
+            final Cursor cursor = db1.rawQuery(selectQuery, null);
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.close();
+                    return true;
+                } else {
+                    cursor.close();
+                    return false;
+                }
+
+            }
+
+        } catch (Exception e) {
+//            Log.d(TAG, "isValidLocalLogin() Method: " + e.getMessage());
+
+        } finally {
+            // close database connection
+
+            db1.close();
+        }
+        return false;
+    }
+
+    // Check Local Login
+    public boolean isValidLocalLogin(final String pinNumber) {
+        SQLiteDatabase db1 = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + DT_BASIC_TABLE
+                + " WHERE " + PIN_NUMBER_COL + " = " + "'" + pinNumber + "' ";
         try {
 
             final Cursor cursor = db1.rawQuery(selectQuery, null);

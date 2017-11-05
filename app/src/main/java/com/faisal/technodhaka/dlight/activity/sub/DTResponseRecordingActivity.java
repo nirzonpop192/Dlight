@@ -438,7 +438,7 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         if (mQusIndex >= 0) {                                                                       // to check does index exceed the minimum  value
 
             DTQTableDataModel nextQus = loadPreviousQuestion(dyIndex.getDtBasicCode()
-                    ,Integer.parseInt(mQusSequencArry[mQusIndex]) );
+                    , Integer.parseInt(mQusSequencArry[mQusIndex]));
 
             displayQuestion(nextQus);
 
@@ -490,19 +490,16 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         } else if (mQusIndex == totalQuestion) {
 
 
-                // update the Completeness columns with Y
-                if ((totalQuestion - 1) == sqlH.getDTResponseCount(dyIndex.getDtBasicCode(),
-                        dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(),
-                        dyIndex.getProgramCode(), getStaffID(), mDTRSeq, dyIndex.getOpMonthCode()))
-                    sqlH.updateCompleteStatusDTResponseTable(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), String.valueOf(mDTRSeq), dyIndex.getOpMonthCode());
-
-
+            // update the Completeness columns with Y
+            if ((totalQuestion - 1) == sqlH.getDTResponseCount(dyIndex.getDtBasicCode(),
+                    dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(),
+                    dyIndex.getProgramCode(), getStaffID(), mDTRSeq, dyIndex.getOpMonthCode()))
+                sqlH.updateCompleteStatusDTResponseTable(dyIndex.getDtBasicCode(), dyIndex.getcCode(), dyIndex.getDonorCode(), dyIndex.getAwardCode(), dyIndex.getProgramCode(), getStaffID(), String.valueOf(mDTRSeq), dyIndex.getOpMonthCode());
 
 
             // one set complete
             compilationFunctionNMessage();
             continueDialog();
-
 
 
         }
@@ -942,263 +939,267 @@ public class DTResponseRecordingActivity extends BaseActivity implements Compoun
         if (mDTQTable == null)
             return;
 
+        if (responseControl == null) {
+            displayError("The Response Mode was not configure for previous Question !");
+            getNextQuestion();
+        } else {
+            switch (responseControl) {
+                case TEXT_BOX:
+                    if (!resLupText.equals(GPS_LATD) && !resLupText.equals(GPS_LONG) && !resLupText.equals(GPS_COORDINATE)) {         // if response mode is not Latitude
 
-        switch (responseControl) {
-            case TEXT_BOX:
-                if (!resLupText.equals(GPS_LATD) && !resLupText.equals(GPS_LONG) && !resLupText.equals(GPS_COORDINATE)) {         // if response mode is not Latitude
+                        String edtInput = dt_edt.getText().toString();
 
-                    String edtInput = dt_edt.getText().toString();
-
-                    if (edtInput.equals("Text") || edtInput.equals("Number")
-                            || edtInput.length() == 0
-                            && mDTQTable.getAllowNullFlag() != null
-                            && mDTQTable.getAllowNullFlag().equals("N")) {
-                        errorIndicator();
-                        displayError("Insert  Text");
-                    } else {
-
-
-                        //  if DTA type is number then it gonna check the max & min Value
-                        if (mDTATables.get(0).getDataType().equals("Number")
-                                && mDTQTable.getAllowNullFlag() != null                             // check safety block  before compare  the
-                                && mDTQTable.getAllowNullFlag().equals("N")) {                      // check  is the response is allow null  
-
-                            // comparing the highest input value an  lowest value
-                            String max = mDTATables.get(0).getMaxValue();
-                            String min = mDTATables.get(0).getMinValue();
-
-                            if (((max == null || max.length() == 0) || (min == null || min.length() == 0)) || (Double.parseDouble(edtInput) <= Parse.StringToDoubleNullCheck(max)) && (Double.parseDouble(edtInput) >= Parse.StringToDoubleNullCheck(min))) {
-                                normalIndicator();
-                                saveData(edtInput, "", mDTATables.get(0), calling4TerminalPoint);
+                        if (edtInput.equals("Text") || edtInput.equals("Number")
+                                || edtInput.length() == 0
+                                && mDTQTable.getAllowNullFlag() != null
+                                && mDTQTable.getAllowNullFlag().equals("N")) {
+                            errorIndicator();
+                            displayError("Insert  Text");
+                        } else {
 
 
-                                getNextQuestion();                                                  // load next Question
-                            } else {
-                                errorIndicator();
-                                displayError("Out of range input! ");
-                            }
-                        } else {                                                                    // else the input method would  be the text
-                            normalIndicator();
-
+                            //  if DTA type is number then it gonna check the max & min Value
                             if (mDTATables.get(0).getDataType().equals("Number")
                                     && mDTQTable.getAllowNullFlag() != null                             // check safety block  before compare  the
-                                    && mDTQTable.getAllowNullFlag().equals("Y")) {
-                                break;
-                            } else {
-                                saveData(edtInput, "", mDTATables.get(0), calling4TerminalPoint);
+                                    && mDTQTable.getAllowNullFlag().equals("N")) {                      // check  is the response is allow null
+
+                                // comparing the highest input value an  lowest value
+                                String max = mDTATables.get(0).getMaxValue();
+                                String min = mDTATables.get(0).getMinValue();
+
+                                if (((max == null || max.length() == 0) || (min == null || min.length() == 0)) || (Double.parseDouble(edtInput) <= Parse.StringToDoubleNullCheck(max)) && (Double.parseDouble(edtInput) >= Parse.StringToDoubleNullCheck(min))) {
+                                    normalIndicator();
+                                    saveData(edtInput, "", mDTATables.get(0), calling4TerminalPoint);
+
+
+                                    getNextQuestion();                                                  // load next Question
+                                } else {
+                                    errorIndicator();
+                                    displayError("Out of range input! ");
+                                }
+                            } else {                                                                    // else the input method would  be the text
+                                normalIndicator();
+
+                                if (mDTATables.get(0).getDataType().equals("Number")
+                                        && mDTQTable.getAllowNullFlag() != null                             // check safety block  before compare  the
+                                        && mDTQTable.getAllowNullFlag().equals("Y")) {
+                                    break;
+                                } else {
+                                    saveData(edtInput, "", mDTATables.get(0), calling4TerminalPoint);
+                                }
+
+
+                                getNextQuestion();                                                      // load next Question
                             }
 
 
-                            getNextQuestion();                                                      // load next Question
                         }
-
-
-                    }
-
-                } else {
-                    normalIndicator();
-
-                    /**                          {@link #mDTATables} wil be single                         */
-                    saveData(_dt_tv_DatePickerNLatLong.getText().toString(), "", mDTATables.get(0), calling4TerminalPoint);
-                    getNextQuestion();
-                }
-
-
-                break;
-            case Date_OR_Time:
-                //// TODO: 7/2/2017  check if allow null mehedi
-
-                String dateTime = _dt_tv_DatePickerNLatLong.getText().toString();
-                if (dateTime.equals("Click for Date") || dateTime.equals("Select Date")) {
-                    errorIndicator();
-                    displayError("Set Date First");
-
-                } else {
-                    normalIndicator();
-
-                    /**                         * mDTATables.get(0) wil be single                         */
-                    saveData(_dt_tv_DatePickerNLatLong.getText().toString(), "", mDTATables.get(0), calling4TerminalPoint);
-                    getNextQuestion();
-                }
-                break;
-            case COMBO_BOX:
-
-
-                if (idSpinner != null) {                                                            // here it get null point reference if spinner get no values
-                    if (idSpinner.equals("00") && mDTQTable.getAllowNullFlag() != null             // if spinner is not selected and answer is not allow null
-                            && mDTQTable.getAllowNullFlag().equals("N")) {                         // compare the value
-
-                        errorIndicator();
-                        displayError("Select Item");
 
                     } else {
                         normalIndicator();
 
-
-                        if (idSpinner.equals("00")                                                  // spinner is not selected
-                                && mDTQTable.getAllowNullFlag() != null                             // safety block
-                                && mDTQTable.getAllowNullFlag().equals("Y"))                        // respond allow null
-                            saveData("", "", mDTATables.get(0), calling4TerminalPoint);
-                        else
-                            saveData(idSpinner, "", mDTATables.get(0), calling4TerminalPoint);
-
-
-                        getNextQuestion();                                                          // load  next question
+                        /**                          {@link #mDTATables} wil be single                         */
+                        saveData(_dt_tv_DatePickerNLatLong.getText().toString(), "", mDTATables.get(0), calling4TerminalPoint);
+                        getNextQuestion();
                     }
-                }
-                break;
-            case CHECK_BOX:
 
-                if (countChecked <= 0                                                               // check is any check box is checked ??
-                        && mDTQTable.getAllowNullFlag() != null                                     // safety block
-                        && mDTQTable.getAllowNullFlag().equals("N")) {                             // is response is not null allow
-                    errorIndicator();
-                    displayError("Select a option.");
 
-                } else {
+                    break;
+                case Date_OR_Time:
+                    //// TODO: 7/2/2017  check if allow null mehedi
 
-                    normalIndicator();
+                    String dateTime = _dt_tv_DatePickerNLatLong.getText().toString();
+                    if (dateTime.equals("Click for Date") || dateTime.equals("Select Date")) {
+                        errorIndicator();
+                        displayError("Set Date First");
+
+                    } else {
+                        normalIndicator();
+
+                        /**                         * mDTATables.get(0) wil be single                         */
+                        saveData(_dt_tv_DatePickerNLatLong.getText().toString(), "", mDTATables.get(0), calling4TerminalPoint);
+                        getNextQuestion();
+                    }
+                    break;
+                case COMBO_BOX:
+
+
+                    if (idSpinner != null) {                                                            // here it get null point reference if spinner get no values
+                        if (idSpinner.equals("00") && mDTQTable.getAllowNullFlag() != null             // if spinner is not selected and answer is not allow null
+                                && mDTQTable.getAllowNullFlag().equals("N")) {                         // compare the value
+
+                            errorIndicator();
+                            displayError("Select Item");
+
+                        } else {
+                            normalIndicator();
+
+
+                            if (idSpinner.equals("00")                                                  // spinner is not selected
+                                    && mDTQTable.getAllowNullFlag() != null                             // safety block
+                                    && mDTQTable.getAllowNullFlag().equals("Y"))                        // respond allow null
+                                saveData("", "", mDTATables.get(0), calling4TerminalPoint);
+                            else
+                                saveData(idSpinner, "", mDTATables.get(0), calling4TerminalPoint);
+
+
+                            getNextQuestion();                                                          // load  next question
+                        }
+                    }
+                    break;
+                case CHECK_BOX:
 
                     if (countChecked <= 0                                                               // check is any check box is checked ??
                             && mDTQTable.getAllowNullFlag() != null                                     // safety block
-                            && mDTQTable.getAllowNullFlag().equals("Y")) {                              // if response is allow null
-                        break;
+                            && mDTQTable.getAllowNullFlag().equals("N")) {                             // is response is not null allow
+                        errorIndicator();
+                        displayError("Select a option.");
+
                     } else {
-                        /**
-                         *check the combination in ascending order
-                         * and create the combination separated by commas
-                         */
-                        String dtaCombinationCode = "";
-                        i = 0;
-                        for (CheckBox cb : mCheckBox_List) {
 
-                            if (cb.isChecked()) {
-                                dtaCombinationCode = dtaCombinationCode + mDTATables.get(i).getDt_AValue() + ",";
-                                saveData("", "", mDTATables.get(i), calling4TerminalPoint);
+                        normalIndicator();
 
-                            }                                                                           // end of if condition
+                        if (countChecked <= 0                                                               // check is any check box is checked ??
+                                && mDTQTable.getAllowNullFlag() != null                                     // safety block
+                                && mDTQTable.getAllowNullFlag().equals("Y")) {                              // if response is allow null
+                            break;
+                        } else {
+                            /**
+                             *check the combination in ascending order
+                             * and create the combination separated by commas
+                             */
+                            String dtaCombinationCode = "";
+                            i = 0;
+                            for (CheckBox cb : mCheckBox_List) {
 
-                            i++;
-                        }                                                                               // end of for each loop
+                                if (cb.isChecked()) {
+                                    dtaCombinationCode = dtaCombinationCode + mDTATables.get(i).getDt_AValue() + ",";
+                                    saveData("", "", mDTATables.get(i), calling4TerminalPoint);
 
+                                }                                                                           // end of if condition
 
-                        dtaCombinationCode = dtaCombinationCode.substring(0, dtaCombinationCode.length() - 1);  //remove the last character from a string
-
-                        // skip rules for test
-                        skipRules(responseControl, i, dtaCombinationCode);
-
-                    }
-
-
-                    getNextQuestion();                                                              // load  next question
-                }                                                                                   // end of else
+                                i++;
+                            }                                                                               // end of for each loop
 
 
-                break;
+                            dtaCombinationCode = dtaCombinationCode.substring(0, dtaCombinationCode.length() - 1);  //remove the last character from a string
 
-            case RADIO_BUTTON:
+                            // skip rules for test
+                            skipRules(responseControl, i, dtaCombinationCode);
+
+                        }
 
 
-                if (mRadioGroup.getCheckedRadioButtonId() == -1
-                        && mDTQTable.getAllowNullFlag() != null                                     // safety block
-                        && mDTQTable.getAllowNullFlag().equals("N")) {                              // response is is not null allow
-                    errorIndicator();
-                    displayError("Select a option.");
-                } else {
+                        getNextQuestion();                                                              // load  next question
+                    }                                                                                   // end of else
+
+
+                    break;
+
+                case RADIO_BUTTON:
 
 
                     if (mRadioGroup.getCheckedRadioButtonId() == -1
                             && mDTQTable.getAllowNullFlag() != null                                     // safety block
-                            && mDTQTable.getAllowNullFlag().equals("Y")) {                          // null is allow
-                        break;
+                            && mDTQTable.getAllowNullFlag().equals("N")) {                              // response is is not null allow
+                        errorIndicator();
+                        displayError("Select a option.");
                     } else {
-                        i = 0;
-                        for (RadioButton rb : mRadioButton_List) {
 
-                            if (rb.isChecked()) {                                                   // if block e ek bar i dhukbe
 
-                                skipRules(responseControl, i, "");                                      // skip rules
+                        if (mRadioGroup.getCheckedRadioButtonId() == -1
+                                && mDTQTable.getAllowNullFlag() != null                                     // safety block
+                                && mDTQTable.getAllowNullFlag().equals("Y")) {                          // null is allow
+                            break;
+                        } else {
+                            i = 0;
+                            for (RadioButton rb : mRadioButton_List) {
 
-                                saveData("", "", mDTATables.get(i), calling4TerminalPoint);
-                                break;                                                              // loop theke ber hoya jabe
+                                if (rb.isChecked()) {                                                   // if block e ek bar i dhukbe
+
+                                    skipRules(responseControl, i, "");                                      // skip rules
+
+                                    saveData("", "", mDTATables.get(i), calling4TerminalPoint);
+                                    break;                                                              // loop theke ber hoya jabe
+                                }
+                                i++;
                             }
-                            i++;
-                        }
-                    }
-
-                    getNextQuestion();
-                }
-
-
-                break;
-
-
-            case RADIO_BUTTON_N_TEXTBOX:
-
-                boolean error = false;
-
-                i = 0;
-                for (RadioButton rb : mRadioButtonForRadioAndEdit_List) {
-                    if (rb.isChecked()) {
-
-                        if (mEditTextForRadioAndEdit_List.get(i).getText().length() == 0) {
-                            errorIndicator();
-                            displayError("Insert value for Selected Option");
-                            error = true;
-                            break;
-
-                        } else {
-                            normalIndicator();
-
-                            saveData(mEditTextForRadioAndEdit_List.get(i).getText().toString(), "", mDTATables.get(i), calling4TerminalPoint);
-                        }
-                    }
-                    i++;                                                                            //increment
-                }
-
-                if (!error)
-                    getNextQuestion();
-                break;
-
-            case CHECKBOX_N_TEXTBOX:
-
-
-                normalIndicator();
-                int k = 0;
-                for (CheckBox cb : mCheckBoxForCheckBoxAndEdit_List) {
-                    if (cb.isChecked()) {
-                        Toast.makeText(mContext, "Radio Button no:" + (k + 1) + " is checked"
-                                + " the value of the : " + mEditTextForCheckBoxAndEdit_List.get(k).getText(), Toast.LENGTH_SHORT).show();
-                        if (mEditTextForCheckBoxAndEdit_List.get(k).getText().length() == 0) {
-                            errorIndicator();
-                            displayError("Insert value for Selected Option");
-                            break;
-                        } else {
-                            normalIndicator();
-                            saveData(mEditTextForCheckBoxAndEdit_List.get(k).getText().toString(), "", mDTATables.get(k), calling4TerminalPoint);
                         }
 
-
+                        getNextQuestion();
                     }
-                    k++;
-                }
-                getNextQuestion();
-                break;
-            case PHOTO:
 
-                if (getImageString() == null) {
-                    errorIndicator();
-                    displayError("Insert  Image");
-                } else {
-                    saveData("", getImageString(), mDTATables.get(i), calling4TerminalPoint);
+
+                    break;
+
+
+                case RADIO_BUTTON_N_TEXTBOX:
+
+                    boolean error = false;
+
+                    i = 0;
+                    for (RadioButton rb : mRadioButtonForRadioAndEdit_List) {
+                        if (rb.isChecked()) {
+
+                            if (mEditTextForRadioAndEdit_List.get(i).getText().length() == 0) {
+                                errorIndicator();
+                                displayError("Insert value for Selected Option");
+                                error = true;
+                                break;
+
+                            } else {
+                                normalIndicator();
+
+                                saveData(mEditTextForRadioAndEdit_List.get(i).getText().toString(), "", mDTATables.get(i), calling4TerminalPoint);
+                            }
+                        }
+                        i++;                                                                            //increment
+                    }
+
+                    if (!error)
+                        getNextQuestion();
+                    break;
+
+                case CHECKBOX_N_TEXTBOX:
+
+
                     normalIndicator();
+                    int k = 0;
+                    for (CheckBox cb : mCheckBoxForCheckBoxAndEdit_List) {
+                        if (cb.isChecked()) {
+                            Toast.makeText(mContext, "Radio Button no:" + (k + 1) + " is checked"
+                                    + " the value of the : " + mEditTextForCheckBoxAndEdit_List.get(k).getText(), Toast.LENGTH_SHORT).show();
+                            if (mEditTextForCheckBoxAndEdit_List.get(k).getText().length() == 0) {
+                                errorIndicator();
+                                displayError("Insert value for Selected Option");
+                                break;
+                            } else {
+                                normalIndicator();
+                                saveData(mEditTextForCheckBoxAndEdit_List.get(k).getText().toString(), "", mDTATables.get(k), calling4TerminalPoint);
+                            }
+
+
+                        }
+                        k++;
+                    }
                     getNextQuestion();
+                    break;
+                case PHOTO:
 
-                }
-                break;
+                    if (getImageString() == null) {
+                        errorIndicator();
+                        displayError("Insert  Image");
+                    } else {
+                        saveData("", getImageString(), mDTATables.get(i), calling4TerminalPoint);
+                        normalIndicator();
+                        getNextQuestion();
+
+                    }
+                    break;
 
 
-        }// end of switch
+            }// end of switch
+        }// end of else
 
 
     }

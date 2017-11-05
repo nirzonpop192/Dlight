@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#627C9F</color>
+    <!--<color name="colorPrimary">#627C9F</color>-->
+    <color name="colorPrimary">#616460</color>
     <color name="colorPrimaryDark">#009688</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -9,8 +10,7 @@
     <color name="default_bgcl">#EEEEEE</color>
 
     <!-- POP ADDED-->
-    <color name="blue_text">#e8222cd7</color>
-    <color name="blue_td_dark_bg">#075A87</color>
+
     <!-- POP ADDED-->
 
     <color name="bg_register">#2e3237</color>
@@ -46,9 +46,8 @@
 
     <!-- basic colors -->
     <color name="green">#26ae90</color>
-    <color name="blue">#FF007DAE</color>
-    <color name="blue_light">#4c00b6ff</color>
-    <color name="blue_dark_native">#000550</color>
+
+
     <color name="blue_dark">#627C9F</color>
     <color name="orange">#FF9D2F</color>
     <color name="red">#ea4c88</color>
@@ -60,4 +59,13 @@
     <color name="toast_gradient_end_col">#616460</color>
 
     <color name="td_bg_color">#C4D8E2</color>
+
+        <!--Blue shade-->
+    <color name="blue_mini_light">#01A4EF</color>
+    <color name="blue_mini_dark">#0276AC</color>
+    <color name="blue">#FF007DAE</color>
+    <color name="blue_light">#4c00b6ff</color>
+    <color name="blue_text">#e8222cd7</color>
+    <color name="blue_td_dark_bg">#075A87</color>
+    <color name="blue_dark_native">#000550</color>
 </resources>

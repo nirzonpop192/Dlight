@@ -331,7 +331,7 @@ public class Schema {
                 + " , " + USA_START_DATE_COL + " VARCHAR(20) "
                 + " , " + USA_END_DATE_COL + " VARCHAR(20) "
                 + " , " + STATUS + " VARCHAR(20) "
-                + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + OPERATION_CODE_COL + ", " + OP_MONTH_CODE_COL + " ) "
+              //  + " , " + PRIMARY_KEY + " (" + ADM_COUNTRY_CODE_COL + ", " + ADM_DONOR_CODE_COL + ", " + ADM_AWARD_CODE_COL + ", " + OPERATION_CODE_COL + ", " + OP_MONTH_CODE_COL + " ) "
                 + " ) ";
     }
 
@@ -343,7 +343,7 @@ public class Schema {
      */
     public static String sqlCreateGpsLocationTable() {
         return CREATE_TABLE_IF_NOT_EXISTS + SQLiteHandler.GPS_LOCATION_TABLE + "("
-                + SQLiteHandler.ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
+                + ID_COL + " INTEGER " + PRIMARY_KEY + " AUTOINCREMENT, "
                 + ADM_COUNTRY_CODE_COL + " VARCHAR(5), "
                 + GROUP_CODE_COL + " VARCHAR(3), "
                 + SUB_GROUP_CODE_COL + " VARCHAR(3), "

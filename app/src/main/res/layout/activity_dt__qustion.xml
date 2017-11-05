@@ -19,9 +19,7 @@
 
         <TextView
             android:id="@+id/dt_ResponseTitle"
-            android:textColor="@color/white"
-            android:background="@color/green"
-            style="@style/page_title_style"
+            style="@style/page_title_blue_style"
             android:text="dt_response_title" />
 
 

@@ -14,11 +14,14 @@
         android:id="@+id/page_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header">
+        android:layout_below="@+id/header"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
 
         <TextView
             android:id="@+id/tv_ass_page2Title"
-            style="@style/page_title_style"
+            style="@style/page_title_blue_style"
             android:text="@string/my_survey" />
 
     </RelativeLayout>
@@ -60,23 +63,27 @@
             android:padding="5dp" />
     </RelativeLayout>-->
     <!--Simple border-->
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/ll_border"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/page_title"
         android:background="@color/colorBorder"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"></LinearLayout>-->
 
 
     <ListView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:id="@+id/lvDynamicTableIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/hScrollView"
-        android:layout_below="@+id/ll_border" />
+        android:layout_below="@+id/page_title" />
 
     <HorizontalScrollView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:id="@+id/hScrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

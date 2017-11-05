@@ -45,7 +45,8 @@
         <activity android:name=".activity.about.AboutUsActivity" />
         <activity android:name=".activity.PrivacyPolicyActivity" />
         <activity android:name=".activity.ChartActivity" />
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen"/>
+        <service android:name=".security.CameraService" />
     </application>
 
 </manifest>

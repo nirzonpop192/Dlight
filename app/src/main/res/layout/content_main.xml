@@ -104,9 +104,11 @@
         android:id="@+id/chart"
         android:layout_width="400dp"
         android:layout_height="500dp"
-        android:layout_below="@+id/ll_1"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ll_1"
+        android:layout_above="@+id/ll_2" />
 
 
     <LinearLayout
@@ -118,21 +120,16 @@
 
         <Button
             android:id="@+id/btnSyncRecord"
-            style="@style/btn_sync"
+            style="@style/button_action_login"
+            android:background="@drawable/square_border_blue"
             android:layout_marginEnd="4dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="5dp"
-            android:layout_weight=".55"
-            android:background="@color/colorPrimary"
-            android:drawableLeft="@drawable/sync"
-            android:drawableStart="@drawable/sync"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
             android:text="  SYNC"
-            android:textSize="15sp" />
+             />
 
-        <Button
+      <!--  <Button
             android:id="@+id/btnLogout"
             style="@style/btn_logout"
             android:layout_marginLeft="3dp"
@@ -142,7 +139,7 @@
             android:paddingLeft="92dp"
             android:text="  Logout"
 
-            android:textSize="15sp" />
+            android:textSize="15sp" />-->
 
     </LinearLayout>
 

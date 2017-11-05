@@ -476,6 +476,11 @@
         <item name="android:textSize">@dimen/abc_text_size_large_material</item>
 
     </style>
+    <style name="page_title_blue_style" parent="page_title_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/square_border_mini_blue</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dlight</string>
+    <string name="app_name">Elite</string>
     <string name="user_name_hint">user name</string>
     <string name="password_hints">password</string>
     <string name="pin_no_hints">pin number</string>

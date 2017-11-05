@@ -7,12 +7,12 @@
     android:layout_alignParentTop="true"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
-    android:background="@color/colorPrimary">
-<!-- don't delete  the code
+    android:background="@color/white">
+<!-- don't delete  the code-->
     <ImageView android:id="@+id/logo"
-        android:src="@drawable/icon_dlite"
+        android:src="@drawable/logo_48"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"/>-->
+        android:layout_marginLeft="10dip"/>
 
 </RelativeLayout>
